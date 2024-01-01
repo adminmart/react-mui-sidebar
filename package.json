@@ -1,0 +1,44 @@
+{
+  "name": "react-mui-sidebar",
+  "version": "1.0.0",
+  "description": "Materialize react sidebar",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adminmart/react-mui-sidebar.git"
+  },
+  "keywords": [
+    "react-mui-sidebar",
+    "sidebar",
+    "react"
+  ],
+  "author": "DESKTOP-ARGT2N0\\admin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adminmart/react-mui-sidebar/issues"
+  },
+  "homepage": "https://github.com/adminmart/react-mui-sidebar#readme",
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.6.6",
+    "@storybook/addon-interactions": "^7.6.6",
+    "@storybook/addon-links": "^7.6.6",
+    "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/blocks": "^7.6.6",
+    "@storybook/react": "^7.6.6",
+    "@storybook/react-webpack5": "^7.6.6",
+    "@storybook/test": "^7.6.6",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.6.6"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
