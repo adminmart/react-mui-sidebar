@@ -4,6 +4,7 @@
   "description": "Materialize react sidebar",
   "main": "dist/index.js",
   "scripts": {
+    "build-lib": "rollup -c -w",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -24,6 +25,12 @@
   },
   "homepage": "https://github.com/adminmart/react-mui-sidebar#readme",
   "devDependencies": {
+    "@mui/icons-material": "^5.15.2",
+    "@mui/material": "^5.15.2",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
     "@storybook/addon-essentials": "^7.6.6",
     "@storybook/addon-interactions": "^7.6.6",
     "@storybook/addon-links": "^7.6.6",
@@ -33,12 +40,15 @@
     "@storybook/react-webpack5": "^7.6.6",
     "@storybook/test": "^7.6.6",
     "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^7.6.6"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.11.0"
   }
 }
