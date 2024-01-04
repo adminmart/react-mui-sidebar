@@ -1,7 +1,7 @@
 {
   "name": "react-mui-sidebar",
-  "version": "1.0.2",
-  "description": "Materialize react sidebar",
+  "version": "1.0.4",
+  "description": "react mui sidebar",
   "main": "dist/index.js",
   "scripts": {
     "build-lib": "rollup -c -w",

@@ -8,7 +8,7 @@ import Collapse from '@mui/material/Collapse';
 
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { Box,styled,useTheme } from '@mui/material';
+import { Box,styled,useTheme,Typography } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 export const Submenu = React.forwardRef(({
@@ -41,16 +41,20 @@ export const Submenu = React.forwardRef(({
 
   return (
   <Box>
-    <ListItemStyled 
+      <ListItemStyled 
+        onClick={handleClick} 
+      >
+
+          <ListItemIcon style={{minWidth:'30px'}} sx={open?{color:"#fff"}:{color:subTextColor}}>
+            {icon?icon:<FiberManualRecordIcon/>}
+          </ListItemIcon>
+          <ListItemText primary={title} sx={open?{color:"#fff"}:{color:subTextColor}}/>
+         
+       
+         {open ? <ExpandLess  sx={open?{color:'#fff'}:{color:subTextColor}}/> : <ExpandMore sx={open?{color:'#fff'}:{color:subTextColor}}/>}
     
-    onClick={handleClick} 
-    >
-       <ListItemIcon sx={open?{color:"#fff"}:{color:subTextColor}}>
-        {icon?icon:<FiberManualRecordIcon/>}
-       </ListItemIcon>
-       <ListItemText primary={title} sx={open?{color:"#fff"}:{color:subTextColor}}/>
-      {open ? <ExpandLess  sx={open?{color:'#fff'}:{color:subTextColor}}/> : <ExpandMore sx={open?{color:'#fff'}:{color:subTextColor}}/>}
     </ListItemStyled>
+
     <Collapse in={open} timeout="auto" unmountOnExit>   
       <List component="div" disablePadding>
           <Box sx={{ pl: 2 }}>

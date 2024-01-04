@@ -1,16 +1,4 @@
 import * as React from 'react';
-// import ListSubheader from '@mui/material/ListSubheader';
-// import List from '@mui/material/List';
- 
-// import ListItemText from '@mui/material/ListItemText';
-// import Collapse from '@mui/material/Collapse';
-// import InboxIcon from '@mui/icons-material/MoveToInbox';
-// import DraftsIcon from '@mui/icons-material/Drafts';
-// import SendIcon from '@mui/icons-material/Send';
-// import ExpandLess from '@mui/icons-material/ExpandLess';
-// import ExpandMore from '@mui/icons-material/ExpandMore';
-// import StarBorder from '@mui/icons-material/StarBorder';
-// import { Badge, Box, Link } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 import {
@@ -39,7 +27,7 @@ export const MenuItem = React.forwardRef(({
     },ref)=>
     
     {
-      const theme = useTheme();
+
       const ListItemStyled = styled(ListItemButton)(() => ({
         whiteSpace: 'nowrap',
         marginBottom: '2px',
@@ -60,8 +48,7 @@ export const MenuItem = React.forwardRef(({
           sx={{
             minWidth: '30px',
             p: '3px 0',
-            color:textcolor,
-            
+            color:textcolor
           }}
         >
           {icon?icon:<FiberManualRecordIcon sx={{color:textcolor}}/>}

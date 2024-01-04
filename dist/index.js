@@ -16061,6 +16061,9 @@ const Submenu = /*#__PURE__*/React__namespace.forwardRef(({
   return /*#__PURE__*/React__namespace.createElement(Box$1, null, /*#__PURE__*/React__namespace.createElement(ListItemStyled, {
     onClick: handleClick
   }, /*#__PURE__*/React__namespace.createElement(ListItemIcon$1, {
+    style: {
+      minWidth: '30px'
+    },
     sx: open ? {
       color: "#fff"
     } : {
@@ -16110,7 +16113,6 @@ const MenuItem = /*#__PURE__*/React__namespace.forwardRef(({
   disabled = false,
   textFontSize = "16px"
 }, ref) => {
-  useTheme();
   const ListItemStyled = styled(ListItemButton$1)(() => ({
     whiteSpace: 'nowrap',
     marginBottom: '2px',
