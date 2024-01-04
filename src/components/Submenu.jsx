@@ -5,84 +5,60 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import SendIcon from '@mui/icons-material/Send';
+
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import StarBorder from '@mui/icons-material/StarBorder';
-import { Box } from '@mui/material';
+import { Box,styled,useTheme } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 export const Submenu = React.forwardRef(({
     children,
     title="",
     icon,
+    subTextColor='#8D939D',
+    subBackgroundColor="#eee"
     },ref)=>
     
     {
-
       const [open, setOpen] = React.useState(false);
-
       const handleClick = () => {
         setOpen(!open);
       };
-      
+
+ const ListItemStyled = styled(ListItemButton)(() => ({
+  whiteSpace: 'nowrap',
+  marginBottom: '2px',
+  padding: '8px 20px',
+  borderRadius: `10px`,
+  backgroundColor:open?subBackgroundColor:'#fff',
+  color:open?subTextColor:'#fff',
+   '&:hover': {
+    backgroundColor: '#eee',
+    color: '#fff',
+  }
+}));
+
+
   return (
-  <Box>   
-    <ListItemButton onClick={handleClick}>
-       <ListItemIcon>
+  <Box>
+    <ListItemStyled 
+    
+    onClick={handleClick} 
+    >
+       <ListItemIcon sx={open?{color:"#fff"}:{color:subTextColor}}>
         {icon?icon:<FiberManualRecordIcon/>}
        </ListItemIcon>
-       <ListItemText primary={title} />
-      {open ? <ExpandLess /> : <ExpandMore />}
-    </ListItemButton>
-    <Collapse in={open} timeout="auto" unmountOnExit>
-    
-    <List component="div" disablePadding>
-        <Box sx={{ pl: 4 }}>
-          {children}
-        </Box>
-        
-      {/* <ListItemButton sx={{ pl: 4 }}>
-        <ListItemIcon>
-          <StarBorder />
-        </ListItemIcon>
-        <ListItemText primary="Starred" />
-      </ListItemButton> */}
-    </List>
-  </Collapse>
+       <ListItemText primary={title} sx={open?{color:"#fff"}:{color:subTextColor}}/>
+      {open ? <ExpandLess  sx={open?{color:'#fff'}:{color:subTextColor}}/> : <ExpandMore sx={open?{color:'#fff'}:{color:subTextColor}}/>}
+    </ListItemStyled>
+    <Collapse in={open} timeout="auto" unmountOnExit>   
+      <List component="div" disablePadding>
+          <Box sx={{ pl: 2 }}>
+            {children}
+          </Box>
+      </List>
+    </Collapse>
 </Box>
-
-      // <ListItemButton ref={ref}>
-      //   <ListItemIcon>
-      //        <DraftsIcon/>
-      //   </ListItemIcon>
-      //    <ListItemText primary={children} />
-      // </ListItemButton>
-    //   <ListItemButton>
-    //     <ListItemIcon>
-    //       <DraftsIcon/>
-    //     </ListItemIcon>
-    //     <ListItemText primary="Drafts" />
-    //   </ListItemButton>
-    //   <ListItemButton onClick={handleClick}>
-    //     <ListItemIcon>
-    //       <InboxIcon />
-    //     </ListItemIcon>
-    //     <ListItemText primary="Inbox" />
-    //     {open ? <ExpandLess /> : <ExpandMore />}
-    //   </ListItemButton>
-    //   <Collapse in={open} timeout="auto" unmountOnExit>
-    //     <List component="div" disablePadding>
-    //       <ListItemButton sx={{ pl: 4 }}>
-    //         <ListItemIcon>
-    //           <StarBorder />
-    //         </ListItemIcon>
-    //         <ListItemText primary="Starred" />
-    //       </ListItemButton>
-    //     </List>
-    //   </Collapse>
   );
 
     });

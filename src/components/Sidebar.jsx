@@ -1,60 +1,103 @@
 import * as React from 'react';
-import { useMediaQuery, Box, Drawer, useTheme } from '@mui/material';
+import { Box, Drawer, useTheme } from '@mui/material';
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
+
 
 export const Sidebar = React.forwardRef(({
     children,
     width = '255px',
-    subHeading='',
-    backgroundColor = 'background.paper' 
+    backgroundColor = '#fff',
+    logo="https://adminmart.com/wp-content/uploads/2023/01/logo1.svg"
     },ref)=>
     
     {
+
         
   return (
-    // <List
-    //   sx={{ width: '100%', maxWidth: width, bgcolor: backgroundColor }}
-    //   component="nav"
-    //   aria-labelledby="nested-list-subheader"
-    //   subheader={
-    //     <ListSubheader component="div" id="nested-list-subheader">
-    //       {subHeading}
-    //     </ListSubheader>
-    //   }
-    // >
-    // <div width="350px">
-    //     {children}
-    // </div>
-
-    // <Drawer
-    //   anchor="left"
-    //   variant="temporary"
-    //   PaperProps={{
-    //     sx: {
-    //       width:width,
-    //       // backgroundColor:
-    //       //   customizer.activeMode === 'dark'
-    //       //     ? customizer.darkBackground900
-    //       //     : customizer.activeSidebarBg,
-    //       // color: customizer.activeSidebarBg === '#ffffff' ? '' : 'white',
-    //       border: '0 !important',
-    //       boxShadow: (theme) => theme.shadows[8],
-    //     },
-    //   }}
-    // >
-      <Box sx={{ px: 3 }} width={width}>
-
-         {children}
-
-      </Box>
 
 
 
-      
-    // </Drawer>
+    <Box
+      sx={{
+        width: width,
+        flexShrink: 0,
+        backgroundColor:{backgroundColor}
+      }}
+      px={3}
+    
+    >
+
+        <Drawer
+          anchor="left"
+          open 
+          variant="permanent"
+          PaperProps={{
+            sx: {
+              
+              width: width,
+              boxSizing: 'border-box',
+            },
+          }}
+        >
+
+
+             <SimpleBar style={{ maxHeight:'calc(100% - 90px)' }}>
+             <Box
+                component="img"
+               
+                sx={{
+                  height: 70,
+                  width: 174,
+                  paddingLeft:'24px',
+                  display:'flex',
+                  alignItems:'center'
+                }}
+                alt="The house from the offer."
+                src={logo}
+              />
+              <Box px={3}>
+                 {children}
+              </Box>
+              
+              </SimpleBar>
+        
+        
+        </Drawer>
+
+    </Box>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
+      // <Box 
       
-
+      // width={width}
+      // border={4}
+      // borderLeft={0}
+      // borderRight={2}
+      // borderTop={0}
+      // borderBottom={0}
+      // borderColor="#eee"
+      // height={'100%'}
+      // >
+      //    <SimpleBar style={{ maxHeight:'calc(100% - 190px)' }}>{children}</SimpleBar>
+      // </Box>
     
   );
 
