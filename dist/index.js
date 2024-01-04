@@ -24,138 +24,6 @@ function _interopNamespaceDefault(e) {
 var React__namespace = /*#__PURE__*/_interopNamespaceDefault(React);
 var ReactDOM__namespace = /*#__PURE__*/_interopNamespaceDefault(ReactDOM);
 
-const common = {
-  black: '#000',
-  white: '#fff'
-};
-var common$1 = common;
-
-const red = {
-  50: '#ffebee',
-  100: '#ffcdd2',
-  200: '#ef9a9a',
-  300: '#e57373',
-  400: '#ef5350',
-  500: '#f44336',
-  600: '#e53935',
-  700: '#d32f2f',
-  800: '#c62828',
-  900: '#b71c1c',
-  A100: '#ff8a80',
-  A200: '#ff5252',
-  A400: '#ff1744',
-  A700: '#d50000'
-};
-var red$1 = red;
-
-const purple = {
-  50: '#f3e5f5',
-  100: '#e1bee7',
-  200: '#ce93d8',
-  300: '#ba68c8',
-  400: '#ab47bc',
-  500: '#9c27b0',
-  600: '#8e24aa',
-  700: '#7b1fa2',
-  800: '#6a1b9a',
-  900: '#4a148c',
-  A100: '#ea80fc',
-  A200: '#e040fb',
-  A400: '#d500f9',
-  A700: '#aa00ff'
-};
-var purple$1 = purple;
-
-const blue = {
-  50: '#e3f2fd',
-  100: '#bbdefb',
-  200: '#90caf9',
-  300: '#64b5f6',
-  400: '#42a5f5',
-  500: '#2196f3',
-  600: '#1e88e5',
-  700: '#1976d2',
-  800: '#1565c0',
-  900: '#0d47a1',
-  A100: '#82b1ff',
-  A200: '#448aff',
-  A400: '#2979ff',
-  A700: '#2962ff'
-};
-var blue$1 = blue;
-
-const lightBlue = {
-  50: '#e1f5fe',
-  100: '#b3e5fc',
-  200: '#81d4fa',
-  300: '#4fc3f7',
-  400: '#29b6f6',
-  500: '#03a9f4',
-  600: '#039be5',
-  700: '#0288d1',
-  800: '#0277bd',
-  900: '#01579b',
-  A100: '#80d8ff',
-  A200: '#40c4ff',
-  A400: '#00b0ff',
-  A700: '#0091ea'
-};
-var lightBlue$1 = lightBlue;
-
-const green = {
-  50: '#e8f5e9',
-  100: '#c8e6c9',
-  200: '#a5d6a7',
-  300: '#81c784',
-  400: '#66bb6a',
-  500: '#4caf50',
-  600: '#43a047',
-  700: '#388e3c',
-  800: '#2e7d32',
-  900: '#1b5e20',
-  A100: '#b9f6ca',
-  A200: '#69f0ae',
-  A400: '#00e676',
-  A700: '#00c853'
-};
-var green$1 = green;
-
-const orange = {
-  50: '#fff3e0',
-  100: '#ffe0b2',
-  200: '#ffcc80',
-  300: '#ffb74d',
-  400: '#ffa726',
-  500: '#ff9800',
-  600: '#fb8c00',
-  700: '#f57c00',
-  800: '#ef6c00',
-  900: '#e65100',
-  A100: '#ffd180',
-  A200: '#ffab40',
-  A400: '#ff9100',
-  A700: '#ff6d00'
-};
-var orange$1 = orange;
-
-const grey = {
-  50: '#fafafa',
-  100: '#f5f5f5',
-  200: '#eeeeee',
-  300: '#e0e0e0',
-  400: '#bdbdbd',
-  500: '#9e9e9e',
-  600: '#757575',
-  700: '#616161',
-  800: '#424242',
-  900: '#212121',
-  A100: '#f5f5f5',
-  A200: '#eeeeee',
-  A400: '#bdbdbd',
-  A700: '#616161'
-};
-var grey$1 = grey;
-
 /**
  * WARNING: Don't import this directly.
  * Use `MuiError` from `@mui-internal/babel-macros/MuiError.macro` instead.
@@ -176,8 +44,6 @@ function formatMuiErrorMessage(code) {
   /* eslint-enable prefer-template */
 }
 
-var THEME_ID = '$$material';
-
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -191,19 +57,6 @@ function _extends() {
     return target;
   };
   return _extends.apply(this, arguments);
-}
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-  return target;
 }
 
 function memoize$1(fn) {
@@ -4360,6 +4213,19 @@ const internal_processStyles = (tag, processor) => {
   }
 };
 
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+  return target;
+}
+
 function chainPropTypes(propType1, propType2) {
   if (process.env.NODE_ENV === 'production') {
     return () => null;
@@ -7170,6 +7036,8 @@ function lighten(color, coefficient) {
   return recomposeColor(color);
 }
 
+var THEME_ID = '$$material';
+
 function createMixins(breakpoints, mixins) {
   return _extends({
     toolbar: {
@@ -7185,6 +7053,138 @@ function createMixins(breakpoints, mixins) {
     }
   }, mixins);
 }
+
+const common = {
+  black: '#000',
+  white: '#fff'
+};
+var common$1 = common;
+
+const grey = {
+  50: '#fafafa',
+  100: '#f5f5f5',
+  200: '#eeeeee',
+  300: '#e0e0e0',
+  400: '#bdbdbd',
+  500: '#9e9e9e',
+  600: '#757575',
+  700: '#616161',
+  800: '#424242',
+  900: '#212121',
+  A100: '#f5f5f5',
+  A200: '#eeeeee',
+  A400: '#bdbdbd',
+  A700: '#616161'
+};
+var grey$1 = grey;
+
+const purple = {
+  50: '#f3e5f5',
+  100: '#e1bee7',
+  200: '#ce93d8',
+  300: '#ba68c8',
+  400: '#ab47bc',
+  500: '#9c27b0',
+  600: '#8e24aa',
+  700: '#7b1fa2',
+  800: '#6a1b9a',
+  900: '#4a148c',
+  A100: '#ea80fc',
+  A200: '#e040fb',
+  A400: '#d500f9',
+  A700: '#aa00ff'
+};
+var purple$1 = purple;
+
+const red = {
+  50: '#ffebee',
+  100: '#ffcdd2',
+  200: '#ef9a9a',
+  300: '#e57373',
+  400: '#ef5350',
+  500: '#f44336',
+  600: '#e53935',
+  700: '#d32f2f',
+  800: '#c62828',
+  900: '#b71c1c',
+  A100: '#ff8a80',
+  A200: '#ff5252',
+  A400: '#ff1744',
+  A700: '#d50000'
+};
+var red$1 = red;
+
+const orange = {
+  50: '#fff3e0',
+  100: '#ffe0b2',
+  200: '#ffcc80',
+  300: '#ffb74d',
+  400: '#ffa726',
+  500: '#ff9800',
+  600: '#fb8c00',
+  700: '#f57c00',
+  800: '#ef6c00',
+  900: '#e65100',
+  A100: '#ffd180',
+  A200: '#ffab40',
+  A400: '#ff9100',
+  A700: '#ff6d00'
+};
+var orange$1 = orange;
+
+const blue = {
+  50: '#e3f2fd',
+  100: '#bbdefb',
+  200: '#90caf9',
+  300: '#64b5f6',
+  400: '#42a5f5',
+  500: '#2196f3',
+  600: '#1e88e5',
+  700: '#1976d2',
+  800: '#1565c0',
+  900: '#0d47a1',
+  A100: '#82b1ff',
+  A200: '#448aff',
+  A400: '#2979ff',
+  A700: '#2962ff'
+};
+var blue$1 = blue;
+
+const lightBlue = {
+  50: '#e1f5fe',
+  100: '#b3e5fc',
+  200: '#81d4fa',
+  300: '#4fc3f7',
+  400: '#29b6f6',
+  500: '#03a9f4',
+  600: '#039be5',
+  700: '#0288d1',
+  800: '#0277bd',
+  900: '#01579b',
+  A100: '#80d8ff',
+  A200: '#40c4ff',
+  A400: '#00b0ff',
+  A700: '#0091ea'
+};
+var lightBlue$1 = lightBlue;
+
+const green = {
+  50: '#e8f5e9',
+  100: '#c8e6c9',
+  200: '#a5d6a7',
+  300: '#81c784',
+  400: '#66bb6a',
+  500: '#4caf50',
+  600: '#43a047',
+  700: '#388e3c',
+  800: '#2e7d32',
+  900: '#1b5e20',
+  A100: '#b9f6ca',
+  A200: '#69f0ae',
+  A400: '#00e676',
+  A700: '#00c853'
+};
+var green$1 = green;
 
 const _excluded$l = ["mode", "contrastThreshold", "tonalOffset"];
 const light = {
@@ -7786,234 +7786,1028 @@ const getOverlayAlpha = elevation => {
   return (alphaValue / 100).toFixed(2);
 };
 
-function getSvgIconUtilityClass(slot) {
-  return generateUtilityClass('MuiSvgIcon', slot);
-}
-generateUtilityClasses('MuiSvgIcon', ['root', 'colorPrimary', 'colorSecondary', 'colorAction', 'colorError', 'colorDisabled', 'fontSizeInherit', 'fontSizeSmall', 'fontSizeMedium', 'fontSizeLarge']);
+const boxClasses = generateUtilityClasses('MuiBox', ['root']);
+var boxClasses$1 = boxClasses;
 
-const _excluded$h = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"];
-const useUtilityClasses$d = ownerState => {
-  const {
-    color,
-    fontSize,
-    classes
-  } = ownerState;
-  const slots = {
-    root: ['root', color !== 'inherit' && `color${capitalize(color)}`, `fontSize${capitalize(fontSize)}`]
-  };
-  return composeClasses(slots, getSvgIconUtilityClass, classes);
-};
-const SvgIconRoot = styled('svg', {
-  name: 'MuiSvgIcon',
-  slot: 'Root',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, ownerState.color !== 'inherit' && styles[`color${capitalize(ownerState.color)}`], styles[`fontSize${capitalize(ownerState.fontSize)}`]];
-  }
-})(({
-  theme,
-  ownerState
-}) => {
-  var _theme$transitions, _theme$transitions$cr, _theme$transitions2, _theme$typography, _theme$typography$pxT, _theme$typography2, _theme$typography2$px, _theme$typography3, _theme$typography3$px, _palette$ownerState$c, _palette, _palette2, _palette3;
-  return {
-    userSelect: 'none',
-    width: '1em',
-    height: '1em',
-    display: 'inline-block',
-    // the <svg> will define the property that has `currentColor`
-    // e.g. heroicons uses fill="none" and stroke="currentColor"
-    fill: ownerState.hasSvgAsChild ? undefined : 'currentColor',
-    flexShrink: 0,
-    transition: (_theme$transitions = theme.transitions) == null || (_theme$transitions$cr = _theme$transitions.create) == null ? void 0 : _theme$transitions$cr.call(_theme$transitions, 'fill', {
-      duration: (_theme$transitions2 = theme.transitions) == null || (_theme$transitions2 = _theme$transitions2.duration) == null ? void 0 : _theme$transitions2.shorter
-    }),
-    fontSize: {
-      inherit: 'inherit',
-      small: ((_theme$typography = theme.typography) == null || (_theme$typography$pxT = _theme$typography.pxToRem) == null ? void 0 : _theme$typography$pxT.call(_theme$typography, 20)) || '1.25rem',
-      medium: ((_theme$typography2 = theme.typography) == null || (_theme$typography2$px = _theme$typography2.pxToRem) == null ? void 0 : _theme$typography2$px.call(_theme$typography2, 24)) || '1.5rem',
-      large: ((_theme$typography3 = theme.typography) == null || (_theme$typography3$px = _theme$typography3.pxToRem) == null ? void 0 : _theme$typography3$px.call(_theme$typography3, 35)) || '2.1875rem'
-    }[ownerState.fontSize],
-    // TODO v5 deprecate, v6 remove for sx
-    color: (_palette$ownerState$c = (_palette = (theme.vars || theme).palette) == null || (_palette = _palette[ownerState.color]) == null ? void 0 : _palette.main) != null ? _palette$ownerState$c : {
-      action: (_palette2 = (theme.vars || theme).palette) == null || (_palette2 = _palette2.action) == null ? void 0 : _palette2.active,
-      disabled: (_palette3 = (theme.vars || theme).palette) == null || (_palette3 = _palette3.action) == null ? void 0 : _palette3.disabled,
-      inherit: undefined
-    }[ownerState.color]
-  };
+const defaultTheme = createTheme();
+const Box = createBox({
+  themeId: THEME_ID,
+  defaultTheme,
+  defaultClassName: boxClasses$1.root,
+  generateClassName: ClassNameGenerator$1.generate
 });
-const SvgIcon = /*#__PURE__*/React__namespace.forwardRef(function SvgIcon(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiSvgIcon'
-  });
-  const {
-      children,
-      className,
-      color = 'inherit',
-      component = 'svg',
-      fontSize = 'medium',
-      htmlColor,
-      inheritViewBox = false,
-      titleAccess,
-      viewBox = '0 0 24 24'
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$h);
-  const hasSvgAsChild = /*#__PURE__*/React__namespace.isValidElement(children) && children.type === 'svg';
-  const ownerState = _extends({}, props, {
-    color,
-    component,
-    fontSize,
-    instanceFontSize: inProps.fontSize,
-    inheritViewBox,
-    viewBox,
-    hasSvgAsChild
-  });
-  const more = {};
-  if (!inheritViewBox) {
-    more.viewBox = viewBox;
-  }
-  const classes = useUtilityClasses$d(ownerState);
-  return /*#__PURE__*/require$$2.jsxs(SvgIconRoot, _extends({
-    as: component,
-    className: clsx(classes.root, className),
-    focusable: "false",
-    color: htmlColor,
-    "aria-hidden": titleAccess ? undefined : true,
-    role: titleAccess ? 'img' : undefined,
-    ref: ref
-  }, more, other, hasSvgAsChild && children.props, {
-    ownerState: ownerState,
-    children: [hasSvgAsChild ? children.props.children : children, titleAccess ? /*#__PURE__*/require$$2.jsx("title", {
-      children: titleAccess
-    }) : null]
-  }));
-});
-process.env.NODE_ENV !== "production" ? SvgIcon.propTypes /* remove-proptypes */ = {
+process.env.NODE_ENV !== "production" ? Box.propTypes /* remove-proptypes */ = {
   // ----------------------------- Warning --------------------------------
   // | These PropTypes are generated from the TypeScript type definitions |
   // |     To update them edit the d.ts file and run "yarn proptypes"     |
   // ----------------------------------------------------------------------
   /**
-   * Node passed into the SVG element.
-   */
-  children: PropTypes.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
    * @ignore
    */
-  className: PropTypes.string,
-  /**
-   * The color of the component.
-   * It supports both default and custom theme colors, which can be added as shown in the
-   * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
-   * You can use the `htmlColor` prop to apply a color attribute to the SVG element.
-   * @default 'inherit'
-   */
-  color: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['inherit', 'action', 'disabled', 'primary', 'secondary', 'error', 'info', 'success', 'warning']), PropTypes.string]),
+  children: PropTypes.node,
   /**
    * The component used for the root node.
    * Either a string to use a HTML element or a component.
    */
   component: PropTypes.elementType,
   /**
-   * The fontSize applied to the icon. Defaults to 24px, but can be configure to inherit font size.
-   * @default 'medium'
-   */
-  fontSize: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['inherit', 'large', 'medium', 'small']), PropTypes.string]),
-  /**
-   * Applies a color attribute to the SVG element.
-   */
-  htmlColor: PropTypes.string,
-  /**
-   * If `true`, the root node will inherit the custom `component`'s viewBox and the `viewBox`
-   * prop will be ignored.
-   * Useful when you want to reference a custom `component` and have `SvgIcon` pass that
-   * `component`'s viewBox to the root node.
-   * @default false
-   */
-  inheritViewBox: PropTypes.bool,
-  /**
-   * The shape-rendering attribute. The behavior of the different options is described on the
-   * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering).
-   * If you are having issues with blurry icons you should investigate this prop.
-   */
-  shapeRendering: PropTypes.string,
-  /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
-  /**
-   * Provides a human-readable title for the element that contains it.
-   * https://www.w3.org/TR/SVG-access/#Equivalent
-   */
-  titleAccess: PropTypes.string,
-  /**
-   * Allows you to redefine what the coordinates without units mean inside an SVG element.
-   * For example, if the SVG element is 500 (width) by 200 (height),
-   * and you pass viewBox="0 0 50 20",
-   * this means that the coordinates inside the SVG will go from the top left corner (0,0)
-   * to bottom right (50,20) and each unit will be worth 10px.
-   * @default '0 0 24 24'
-   */
-  viewBox: PropTypes.string
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
 } : void 0;
-SvgIcon.muiName = 'SvgIcon';
+var Box$1 = Box;
 
-function createSvgIcon$1(path, displayName) {
-  function Component(props, ref) {
-    return /*#__PURE__*/require$$2.jsx(SvgIcon, _extends({
-      "data-testid": `${displayName}Icon`,
-      ref: ref
-    }, props, {
-      children: path
-    }));
-  }
-  if (process.env.NODE_ENV !== 'production') {
-    // Need to set `displayName` on the inner component for React.memo.
-    // React prior to 16.14 ignores `displayName` on the wrapper.
-    Component.displayName = `${displayName}Icon`;
-  }
-  Component.muiName = SvgIcon.muiName;
-  return /*#__PURE__*/React__namespace.memo( /*#__PURE__*/React__namespace.forwardRef(Component));
+/**
+ * Determines if a given element is a DOM element name (i.e. not a React component).
+ */
+function isHostComponent(element) {
+  return typeof element === 'string';
 }
 
-// TODO: remove this export once ClassNameGenerator is stable
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const unstable_ClassNameGenerator = {
-  configure: generator => {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn(['MUI: `ClassNameGenerator` import from `@mui/material/utils` is outdated and might cause unexpected issues.', '', "You should use `import { unstable_ClassNameGenerator } from '@mui/material/className'` instead", '', 'The detail of the issue: https://github.com/mui/material-ui/issues/30011#issuecomment-1024993401', '', 'The updated documentation: https://mui.com/guides/classname-generator/'].join('\n'));
-    }
-    ClassNameGenerator$1.configure(generator);
-  }
-};
+/**
+ * Type of the ownerState based on the type of an element it applies to.
+ * This resolves to the provided OwnerState for React components and `undefined` for host components.
+ * Falls back to `OwnerState | undefined` when the exact type can't be determined in development time.
+ */
 
-var utils = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  capitalize: capitalize,
-  createChainedFunction: createChainedFunction,
-  createSvgIcon: createSvgIcon$1,
-  debounce: debounce$1,
-  deprecatedPropType: deprecatedPropType,
-  isMuiElement: isMuiElement,
-  ownerDocument: ownerDocument,
-  ownerWindow: ownerWindow,
-  requirePropFactory: requirePropFactory,
-  setRef: setRef,
-  unstable_ClassNameGenerator: unstable_ClassNameGenerator,
-  unstable_useEnhancedEffect: useEnhancedEffect,
-  unstable_useId: useId,
-  unsupportedProp: unsupportedProp,
-  useControlled: useControlled,
-  useEventCallback: useEventCallback,
-  useForkRef: useForkRef,
-  useIsFocusVisible: useIsFocusVisible
+/**
+ * Appends the ownerState object to the props, merging with the existing one if necessary.
+ *
+ * @param elementType Type of the element that owns the `existingProps`. If the element is a DOM node or undefined, `ownerState` is not applied.
+ * @param otherProps Props of the element.
+ * @param ownerState
+ */
+function appendOwnerState(elementType, otherProps, ownerState) {
+  if (elementType === undefined || isHostComponent(elementType)) {
+    return otherProps;
+  }
+  return _extends({}, otherProps, {
+    ownerState: _extends({}, otherProps.ownerState, ownerState)
+  });
+}
+
+/**
+ * Extracts event handlers from a given object.
+ * A prop is considered an event handler if it is a function and its name starts with `on`.
+ *
+ * @param object An object to extract event handlers from.
+ * @param excludeKeys An array of keys to exclude from the returned object.
+ */
+function extractEventHandlers(object, excludeKeys = []) {
+  if (object === undefined) {
+    return {};
+  }
+  const result = {};
+  Object.keys(object).filter(prop => prop.match(/^on[A-Z]/) && typeof object[prop] === 'function' && !excludeKeys.includes(prop)).forEach(prop => {
+    result[prop] = object[prop];
+  });
+  return result;
+}
+
+/**
+ * If `componentProps` is a function, calls it with the provided `ownerState`.
+ * Otherwise, just returns `componentProps`.
+ */
+function resolveComponentProps(componentProps, ownerState, slotState) {
+  if (typeof componentProps === 'function') {
+    return componentProps(ownerState, slotState);
+  }
+  return componentProps;
+}
+
+/**
+ * Removes event handlers from the given object.
+ * A field is considered an event handler if it is a function with a name beginning with `on`.
+ *
+ * @param object Object to remove event handlers from.
+ * @returns Object with event handlers removed.
+ */
+function omitEventHandlers(object) {
+  if (object === undefined) {
+    return {};
+  }
+  const result = {};
+  Object.keys(object).filter(prop => !(prop.match(/^on[A-Z]/) && typeof object[prop] === 'function')).forEach(prop => {
+    result[prop] = object[prop];
+  });
+  return result;
+}
+
+/**
+ * Merges the slot component internal props (usually coming from a hook)
+ * with the externally provided ones.
+ *
+ * The merge order is (the latter overrides the former):
+ * 1. The internal props (specified as a getter function to work with get*Props hook result)
+ * 2. Additional props (specified internally on a Base UI component)
+ * 3. External props specified on the owner component. These should only be used on a root slot.
+ * 4. External props specified in the `slotProps.*` prop.
+ * 5. The `className` prop - combined from all the above.
+ * @param parameters
+ * @returns
+ */
+function mergeSlotProps(parameters) {
+  const {
+    getSlotProps,
+    additionalProps,
+    externalSlotProps,
+    externalForwardedProps,
+    className
+  } = parameters;
+  if (!getSlotProps) {
+    // The simpler case - getSlotProps is not defined, so no internal event handlers are defined,
+    // so we can simply merge all the props without having to worry about extracting event handlers.
+    const joinedClasses = clsx(additionalProps == null ? void 0 : additionalProps.className, className, externalForwardedProps == null ? void 0 : externalForwardedProps.className, externalSlotProps == null ? void 0 : externalSlotProps.className);
+    const mergedStyle = _extends({}, additionalProps == null ? void 0 : additionalProps.style, externalForwardedProps == null ? void 0 : externalForwardedProps.style, externalSlotProps == null ? void 0 : externalSlotProps.style);
+    const props = _extends({}, additionalProps, externalForwardedProps, externalSlotProps);
+    if (joinedClasses.length > 0) {
+      props.className = joinedClasses;
+    }
+    if (Object.keys(mergedStyle).length > 0) {
+      props.style = mergedStyle;
+    }
+    return {
+      props,
+      internalRef: undefined
+    };
+  }
+
+  // In this case, getSlotProps is responsible for calling the external event handlers.
+  // We don't need to include them in the merged props because of this.
+
+  const eventHandlers = extractEventHandlers(_extends({}, externalForwardedProps, externalSlotProps));
+  const componentsPropsWithoutEventHandlers = omitEventHandlers(externalSlotProps);
+  const otherPropsWithoutEventHandlers = omitEventHandlers(externalForwardedProps);
+  const internalSlotProps = getSlotProps(eventHandlers);
+
+  // The order of classes is important here.
+  // Emotion (that we use in libraries consuming Base UI) depends on this order
+  // to properly override style. It requires the most important classes to be last
+  // (see https://github.com/mui/material-ui/pull/33205) for the related discussion.
+  const joinedClasses = clsx(internalSlotProps == null ? void 0 : internalSlotProps.className, additionalProps == null ? void 0 : additionalProps.className, className, externalForwardedProps == null ? void 0 : externalForwardedProps.className, externalSlotProps == null ? void 0 : externalSlotProps.className);
+  const mergedStyle = _extends({}, internalSlotProps == null ? void 0 : internalSlotProps.style, additionalProps == null ? void 0 : additionalProps.style, externalForwardedProps == null ? void 0 : externalForwardedProps.style, externalSlotProps == null ? void 0 : externalSlotProps.style);
+  const props = _extends({}, internalSlotProps, additionalProps, otherPropsWithoutEventHandlers, componentsPropsWithoutEventHandlers);
+  if (joinedClasses.length > 0) {
+    props.className = joinedClasses;
+  }
+  if (Object.keys(mergedStyle).length > 0) {
+    props.style = mergedStyle;
+  }
+  return {
+    props,
+    internalRef: internalSlotProps.ref
+  };
+}
+
+const _excluded$h = ["elementType", "externalSlotProps", "ownerState", "skipResolvingSlotProps"];
+/**
+ * @ignore - do not document.
+ * Builds the props to be passed into the slot of an unstyled component.
+ * It merges the internal props of the component with the ones supplied by the user, allowing to customize the behavior.
+ * If the slot component is not a host component, it also merges in the `ownerState`.
+ *
+ * @param parameters.getSlotProps - A function that returns the props to be passed to the slot component.
+ */
+function useSlotProps(parameters) {
+  var _parameters$additiona;
+  const {
+      elementType,
+      externalSlotProps,
+      ownerState,
+      skipResolvingSlotProps = false
+    } = parameters,
+    rest = _objectWithoutPropertiesLoose(parameters, _excluded$h);
+  const resolvedComponentsProps = skipResolvingSlotProps ? {} : resolveComponentProps(externalSlotProps, ownerState);
+  const {
+    props: mergedProps,
+    internalRef
+  } = mergeSlotProps(_extends({}, rest, {
+    externalSlotProps: resolvedComponentsProps
+  }));
+  const ref = useForkRef(internalRef, resolvedComponentsProps == null ? void 0 : resolvedComponentsProps.ref, (_parameters$additiona = parameters.additionalProps) == null ? void 0 : _parameters$additiona.ref);
+  const props = appendOwnerState(elementType, _extends({}, mergedProps, {
+    ref
+  }), ownerState);
+  return props;
+}
+
+// Is a vertical scrollbar displayed?
+function isOverflowing(container) {
+  const doc = ownerDocument(container);
+  if (doc.body === container) {
+    return ownerWindow(container).innerWidth > doc.documentElement.clientWidth;
+  }
+  return container.scrollHeight > container.clientHeight;
+}
+function ariaHidden(element, show) {
+  if (show) {
+    element.setAttribute('aria-hidden', 'true');
+  } else {
+    element.removeAttribute('aria-hidden');
+  }
+}
+function getPaddingRight(element) {
+  return parseInt(ownerWindow(element).getComputedStyle(element).paddingRight, 10) || 0;
+}
+function isAriaHiddenForbiddenOnElement(element) {
+  // The forbidden HTML tags are the ones from ARIA specification that
+  // can be children of body and can't have aria-hidden attribute.
+  // cf. https://www.w3.org/TR/html-aria/#docconformance
+  const forbiddenTagNames = ['TEMPLATE', 'SCRIPT', 'STYLE', 'LINK', 'MAP', 'META', 'NOSCRIPT', 'PICTURE', 'COL', 'COLGROUP', 'PARAM', 'SLOT', 'SOURCE', 'TRACK'];
+  const isForbiddenTagName = forbiddenTagNames.indexOf(element.tagName) !== -1;
+  const isInputHidden = element.tagName === 'INPUT' && element.getAttribute('type') === 'hidden';
+  return isForbiddenTagName || isInputHidden;
+}
+function ariaHiddenSiblings(container, mountElement, currentElement, elementsToExclude, show) {
+  const blacklist = [mountElement, currentElement, ...elementsToExclude];
+  [].forEach.call(container.children, element => {
+    const isNotExcludedElement = blacklist.indexOf(element) === -1;
+    const isNotForbiddenElement = !isAriaHiddenForbiddenOnElement(element);
+    if (isNotExcludedElement && isNotForbiddenElement) {
+      ariaHidden(element, show);
+    }
+  });
+}
+function findIndexOf(items, callback) {
+  let idx = -1;
+  items.some((item, index) => {
+    if (callback(item)) {
+      idx = index;
+      return true;
+    }
+    return false;
+  });
+  return idx;
+}
+function handleContainer(containerInfo, props) {
+  const restoreStyle = [];
+  const container = containerInfo.container;
+  if (!props.disableScrollLock) {
+    if (isOverflowing(container)) {
+      // Compute the size before applying overflow hidden to avoid any scroll jumps.
+      const scrollbarSize = getScrollbarSize(ownerDocument(container));
+      restoreStyle.push({
+        value: container.style.paddingRight,
+        property: 'padding-right',
+        el: container
+      });
+      // Use computed style, here to get the real padding to add our scrollbar width.
+      container.style.paddingRight = `${getPaddingRight(container) + scrollbarSize}px`;
+
+      // .mui-fixed is a global helper.
+      const fixedElements = ownerDocument(container).querySelectorAll('.mui-fixed');
+      [].forEach.call(fixedElements, element => {
+        restoreStyle.push({
+          value: element.style.paddingRight,
+          property: 'padding-right',
+          el: element
+        });
+        element.style.paddingRight = `${getPaddingRight(element) + scrollbarSize}px`;
+      });
+    }
+    let scrollContainer;
+    if (container.parentNode instanceof DocumentFragment) {
+      scrollContainer = ownerDocument(container).body;
+    } else {
+      // Support html overflow-y: auto for scroll stability between pages
+      // https://css-tricks.com/snippets/css/force-vertical-scrollbar/
+      const parent = container.parentElement;
+      const containerWindow = ownerWindow(container);
+      scrollContainer = (parent == null ? void 0 : parent.nodeName) === 'HTML' && containerWindow.getComputedStyle(parent).overflowY === 'scroll' ? parent : container;
+    }
+
+    // Block the scroll even if no scrollbar is visible to account for mobile keyboard
+    // screensize shrink.
+    restoreStyle.push({
+      value: scrollContainer.style.overflow,
+      property: 'overflow',
+      el: scrollContainer
+    }, {
+      value: scrollContainer.style.overflowX,
+      property: 'overflow-x',
+      el: scrollContainer
+    }, {
+      value: scrollContainer.style.overflowY,
+      property: 'overflow-y',
+      el: scrollContainer
+    });
+    scrollContainer.style.overflow = 'hidden';
+  }
+  const restore = () => {
+    restoreStyle.forEach(({
+      value,
+      el,
+      property
+    }) => {
+      if (value) {
+        el.style.setProperty(property, value);
+      } else {
+        el.style.removeProperty(property);
+      }
+    });
+  };
+  return restore;
+}
+function getHiddenSiblings(container) {
+  const hiddenSiblings = [];
+  [].forEach.call(container.children, element => {
+    if (element.getAttribute('aria-hidden') === 'true') {
+      hiddenSiblings.push(element);
+    }
+  });
+  return hiddenSiblings;
+}
+/**
+ * @ignore - do not document.
+ *
+ * Proper state management for containers and the modals in those containers.
+ * Simplified, but inspired by react-overlay's ModalManager class.
+ * Used by the Modal to ensure proper styling of containers.
+ */
+class ModalManager {
+  constructor() {
+    this.containers = void 0;
+    this.modals = void 0;
+    this.modals = [];
+    this.containers = [];
+  }
+  add(modal, container) {
+    let modalIndex = this.modals.indexOf(modal);
+    if (modalIndex !== -1) {
+      return modalIndex;
+    }
+    modalIndex = this.modals.length;
+    this.modals.push(modal);
+
+    // If the modal we are adding is already in the DOM.
+    if (modal.modalRef) {
+      ariaHidden(modal.modalRef, false);
+    }
+    const hiddenSiblings = getHiddenSiblings(container);
+    ariaHiddenSiblings(container, modal.mount, modal.modalRef, hiddenSiblings, true);
+    const containerIndex = findIndexOf(this.containers, item => item.container === container);
+    if (containerIndex !== -1) {
+      this.containers[containerIndex].modals.push(modal);
+      return modalIndex;
+    }
+    this.containers.push({
+      modals: [modal],
+      container,
+      restore: null,
+      hiddenSiblings
+    });
+    return modalIndex;
+  }
+  mount(modal, props) {
+    const containerIndex = findIndexOf(this.containers, item => item.modals.indexOf(modal) !== -1);
+    const containerInfo = this.containers[containerIndex];
+    if (!containerInfo.restore) {
+      containerInfo.restore = handleContainer(containerInfo, props);
+    }
+  }
+  remove(modal, ariaHiddenState = true) {
+    const modalIndex = this.modals.indexOf(modal);
+    if (modalIndex === -1) {
+      return modalIndex;
+    }
+    const containerIndex = findIndexOf(this.containers, item => item.modals.indexOf(modal) !== -1);
+    const containerInfo = this.containers[containerIndex];
+    containerInfo.modals.splice(containerInfo.modals.indexOf(modal), 1);
+    this.modals.splice(modalIndex, 1);
+
+    // If that was the last modal in a container, clean up the container.
+    if (containerInfo.modals.length === 0) {
+      // The modal might be closed before it had the chance to be mounted in the DOM.
+      if (containerInfo.restore) {
+        containerInfo.restore();
+      }
+      if (modal.modalRef) {
+        // In case the modal wasn't in the DOM yet.
+        ariaHidden(modal.modalRef, ariaHiddenState);
+      }
+      ariaHiddenSiblings(containerInfo.container, modal.mount, modal.modalRef, containerInfo.hiddenSiblings, false);
+      this.containers.splice(containerIndex, 1);
+    } else {
+      // Otherwise make sure the next top modal is visible to a screen reader.
+      const nextTop = containerInfo.modals[containerInfo.modals.length - 1];
+      // as soon as a modal is adding its modalRef is undefined. it can't set
+      // aria-hidden because the dom element doesn't exist either
+      // when modal was unmounted before modalRef gets null
+      if (nextTop.modalRef) {
+        ariaHidden(nextTop.modalRef, false);
+      }
+    }
+    return modalIndex;
+  }
+  isTopModal(modal) {
+    return this.modals.length > 0 && this.modals[this.modals.length - 1] === modal;
+  }
+}
+
+function getContainer$1(container) {
+  return typeof container === 'function' ? container() : container;
+}
+function getHasTransition(children) {
+  return children ? children.props.hasOwnProperty('in') : false;
+}
+
+// A modal manager used to track and manage the state of open Modals.
+// Modals don't open on the server so this won't conflict with concurrent requests.
+const defaultManager = new ModalManager();
+/**
+ *
+ * Demos:
+ *
+ * - [Modal](https://mui.com/base-ui/react-modal/#hook)
+ *
+ * API:
+ *
+ * - [useModal API](https://mui.com/base-ui/react-modal/hooks-api/#use-modal)
+ */
+function useModal(parameters) {
+  const {
+    container,
+    disableEscapeKeyDown = false,
+    disableScrollLock = false,
+    // @ts-ignore internal logic - Base UI supports the manager as a prop too
+    manager = defaultManager,
+    closeAfterTransition = false,
+    onTransitionEnter,
+    onTransitionExited,
+    children,
+    onClose,
+    open,
+    rootRef
+  } = parameters;
+
+  // @ts-ignore internal logic
+  const modal = React__namespace.useRef({});
+  const mountNodeRef = React__namespace.useRef(null);
+  const modalRef = React__namespace.useRef(null);
+  const handleRef = useForkRef(modalRef, rootRef);
+  const [exited, setExited] = React__namespace.useState(!open);
+  const hasTransition = getHasTransition(children);
+  let ariaHiddenProp = true;
+  if (parameters['aria-hidden'] === 'false' || parameters['aria-hidden'] === false) {
+    ariaHiddenProp = false;
+  }
+  const getDoc = () => ownerDocument(mountNodeRef.current);
+  const getModal = () => {
+    modal.current.modalRef = modalRef.current;
+    modal.current.mount = mountNodeRef.current;
+    return modal.current;
+  };
+  const handleMounted = () => {
+    manager.mount(getModal(), {
+      disableScrollLock
+    });
+
+    // Fix a bug on Chrome where the scroll isn't initially 0.
+    if (modalRef.current) {
+      modalRef.current.scrollTop = 0;
+    }
+  };
+  const handleOpen = useEventCallback(() => {
+    const resolvedContainer = getContainer$1(container) || getDoc().body;
+    manager.add(getModal(), resolvedContainer);
+
+    // The element was already mounted.
+    if (modalRef.current) {
+      handleMounted();
+    }
+  });
+  const isTopModal = React__namespace.useCallback(() => manager.isTopModal(getModal()), [manager]);
+  const handlePortalRef = useEventCallback(node => {
+    mountNodeRef.current = node;
+    if (!node) {
+      return;
+    }
+    if (open && isTopModal()) {
+      handleMounted();
+    } else if (modalRef.current) {
+      ariaHidden(modalRef.current, ariaHiddenProp);
+    }
+  });
+  const handleClose = React__namespace.useCallback(() => {
+    manager.remove(getModal(), ariaHiddenProp);
+  }, [ariaHiddenProp, manager]);
+  React__namespace.useEffect(() => {
+    return () => {
+      handleClose();
+    };
+  }, [handleClose]);
+  React__namespace.useEffect(() => {
+    if (open) {
+      handleOpen();
+    } else if (!hasTransition || !closeAfterTransition) {
+      handleClose();
+    }
+  }, [open, handleClose, hasTransition, closeAfterTransition, handleOpen]);
+  const createHandleKeyDown = otherHandlers => event => {
+    var _otherHandlers$onKeyD;
+    (_otherHandlers$onKeyD = otherHandlers.onKeyDown) == null || _otherHandlers$onKeyD.call(otherHandlers, event);
+
+    // The handler doesn't take event.defaultPrevented into account:
+    //
+    // event.preventDefault() is meant to stop default behaviors like
+    // clicking a checkbox to check it, hitting a button to submit a form,
+    // and hitting left arrow to move the cursor in a text input etc.
+    // Only special HTML elements have these default behaviors.
+    if (event.key !== 'Escape' || event.which === 229 ||
+    // Wait until IME is settled.
+    !isTopModal()) {
+      return;
+    }
+    if (!disableEscapeKeyDown) {
+      // Swallow the event, in case someone is listening for the escape key on the body.
+      event.stopPropagation();
+      if (onClose) {
+        onClose(event, 'escapeKeyDown');
+      }
+    }
+  };
+  const createHandleBackdropClick = otherHandlers => event => {
+    var _otherHandlers$onClic;
+    (_otherHandlers$onClic = otherHandlers.onClick) == null || _otherHandlers$onClic.call(otherHandlers, event);
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+    if (onClose) {
+      onClose(event, 'backdropClick');
+    }
+  };
+  const getRootProps = (otherHandlers = {}) => {
+    const propsEventHandlers = extractEventHandlers(parameters);
+
+    // The custom event handlers shouldn't be spread on the root element
+    delete propsEventHandlers.onTransitionEnter;
+    delete propsEventHandlers.onTransitionExited;
+    const externalEventHandlers = _extends({}, propsEventHandlers, otherHandlers);
+    return _extends({
+      role: 'presentation'
+    }, externalEventHandlers, {
+      onKeyDown: createHandleKeyDown(externalEventHandlers),
+      ref: handleRef
+    });
+  };
+  const getBackdropProps = (otherHandlers = {}) => {
+    const externalEventHandlers = otherHandlers;
+    return _extends({
+      'aria-hidden': true
+    }, externalEventHandlers, {
+      onClick: createHandleBackdropClick(externalEventHandlers),
+      open
+    });
+  };
+  const getTransitionProps = () => {
+    const handleEnter = () => {
+      setExited(false);
+      if (onTransitionEnter) {
+        onTransitionEnter();
+      }
+    };
+    const handleExited = () => {
+      setExited(true);
+      if (onTransitionExited) {
+        onTransitionExited();
+      }
+      if (closeAfterTransition) {
+        handleClose();
+      }
+    };
+    return {
+      onEnter: createChainedFunction(handleEnter, children == null ? void 0 : children.props.onEnter),
+      onExited: createChainedFunction(handleExited, children == null ? void 0 : children.props.onExited)
+    };
+  };
+  return {
+    getRootProps,
+    getBackdropProps,
+    getTransitionProps,
+    rootRef: handleRef,
+    portalRef: handlePortalRef,
+    isTopModal,
+    exited,
+    hasTransition
+  };
+}
+
+// Inspired by https://github.com/focus-trap/tabbable
+const candidatesSelector = ['input', 'select', 'textarea', 'a[href]', 'button', '[tabindex]', 'audio[controls]', 'video[controls]', '[contenteditable]:not([contenteditable="false"])'].join(',');
+function getTabIndex(node) {
+  const tabindexAttr = parseInt(node.getAttribute('tabindex') || '', 10);
+  if (!Number.isNaN(tabindexAttr)) {
+    return tabindexAttr;
+  }
+
+  // Browsers do not return `tabIndex` correctly for contentEditable nodes;
+  // https://bugs.chromium.org/p/chromium/issues/detail?id=661108&q=contenteditable%20tabindex&can=2
+  // so if they don't have a tabindex attribute specifically set, assume it's 0.
+  // in Chrome, <details/>, <audio controls/> and <video controls/> elements get a default
+  //  `tabIndex` of -1 when the 'tabindex' attribute isn't specified in the DOM,
+  //  yet they are still part of the regular tab order; in FF, they get a default
+  //  `tabIndex` of 0; since Chrome still puts those elements in the regular tab
+  //  order, consider their tab index to be 0.
+  if (node.contentEditable === 'true' || (node.nodeName === 'AUDIO' || node.nodeName === 'VIDEO' || node.nodeName === 'DETAILS') && node.getAttribute('tabindex') === null) {
+    return 0;
+  }
+  return node.tabIndex;
+}
+function isNonTabbableRadio(node) {
+  if (node.tagName !== 'INPUT' || node.type !== 'radio') {
+    return false;
+  }
+  if (!node.name) {
+    return false;
+  }
+  const getRadio = selector => node.ownerDocument.querySelector(`input[type="radio"]${selector}`);
+  let roving = getRadio(`[name="${node.name}"]:checked`);
+  if (!roving) {
+    roving = getRadio(`[name="${node.name}"]`);
+  }
+  return roving !== node;
+}
+function isNodeMatchingSelectorFocusable(node) {
+  if (node.disabled || node.tagName === 'INPUT' && node.type === 'hidden' || isNonTabbableRadio(node)) {
+    return false;
+  }
+  return true;
+}
+function defaultGetTabbable(root) {
+  const regularTabNodes = [];
+  const orderedTabNodes = [];
+  Array.from(root.querySelectorAll(candidatesSelector)).forEach((node, i) => {
+    const nodeTabIndex = getTabIndex(node);
+    if (nodeTabIndex === -1 || !isNodeMatchingSelectorFocusable(node)) {
+      return;
+    }
+    if (nodeTabIndex === 0) {
+      regularTabNodes.push(node);
+    } else {
+      orderedTabNodes.push({
+        documentOrder: i,
+        tabIndex: nodeTabIndex,
+        node: node
+      });
+    }
+  });
+  return orderedTabNodes.sort((a, b) => a.tabIndex === b.tabIndex ? a.documentOrder - b.documentOrder : a.tabIndex - b.tabIndex).map(a => a.node).concat(regularTabNodes);
+}
+function defaultIsEnabled() {
+  return true;
+}
+
+/**
+ * Utility component that locks focus inside the component.
+ *
+ * Demos:
+ *
+ * - [Focus Trap](https://mui.com/base-ui/react-focus-trap/)
+ *
+ * API:
+ *
+ * - [FocusTrap API](https://mui.com/base-ui/react-focus-trap/components-api/#focus-trap)
+ */
+function FocusTrap(props) {
+  const {
+    children,
+    disableAutoFocus = false,
+    disableEnforceFocus = false,
+    disableRestoreFocus = false,
+    getTabbable = defaultGetTabbable,
+    isEnabled = defaultIsEnabled,
+    open
+  } = props;
+  const ignoreNextEnforceFocus = React__namespace.useRef(false);
+  const sentinelStart = React__namespace.useRef(null);
+  const sentinelEnd = React__namespace.useRef(null);
+  const nodeToRestore = React__namespace.useRef(null);
+  const reactFocusEventTarget = React__namespace.useRef(null);
+  // This variable is useful when disableAutoFocus is true.
+  // It waits for the active element to move into the component to activate.
+  const activated = React__namespace.useRef(false);
+  const rootRef = React__namespace.useRef(null);
+  // @ts-expect-error TODO upstream fix
+  const handleRef = useForkRef(children.ref, rootRef);
+  const lastKeydown = React__namespace.useRef(null);
+  React__namespace.useEffect(() => {
+    // We might render an empty child.
+    if (!open || !rootRef.current) {
+      return;
+    }
+    activated.current = !disableAutoFocus;
+  }, [disableAutoFocus, open]);
+  React__namespace.useEffect(() => {
+    // We might render an empty child.
+    if (!open || !rootRef.current) {
+      return;
+    }
+    const doc = ownerDocument(rootRef.current);
+    if (!rootRef.current.contains(doc.activeElement)) {
+      if (!rootRef.current.hasAttribute('tabIndex')) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.error(['MUI: The modal content node does not accept focus.', 'For the benefit of assistive technologies, ' + 'the tabIndex of the node is being set to "-1".'].join('\n'));
+        }
+        rootRef.current.setAttribute('tabIndex', '-1');
+      }
+      if (activated.current) {
+        rootRef.current.focus();
+      }
+    }
+    return () => {
+      // restoreLastFocus()
+      if (!disableRestoreFocus) {
+        // In IE11 it is possible for document.activeElement to be null resulting
+        // in nodeToRestore.current being null.
+        // Not all elements in IE11 have a focus method.
+        // Once IE11 support is dropped the focus() call can be unconditional.
+        if (nodeToRestore.current && nodeToRestore.current.focus) {
+          ignoreNextEnforceFocus.current = true;
+          nodeToRestore.current.focus();
+        }
+        nodeToRestore.current = null;
+      }
+    };
+    // Missing `disableRestoreFocus` which is fine.
+    // We don't support changing that prop on an open FocusTrap
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+  React__namespace.useEffect(() => {
+    // We might render an empty child.
+    if (!open || !rootRef.current) {
+      return;
+    }
+    const doc = ownerDocument(rootRef.current);
+    const loopFocus = nativeEvent => {
+      lastKeydown.current = nativeEvent;
+      if (disableEnforceFocus || !isEnabled() || nativeEvent.key !== 'Tab') {
+        return;
+      }
+
+      // Make sure the next tab starts from the right place.
+      // doc.activeElement refers to the origin.
+      if (doc.activeElement === rootRef.current && nativeEvent.shiftKey) {
+        // We need to ignore the next contain as
+        // it will try to move the focus back to the rootRef element.
+        ignoreNextEnforceFocus.current = true;
+        if (sentinelEnd.current) {
+          sentinelEnd.current.focus();
+        }
+      }
+    };
+    const contain = () => {
+      const rootElement = rootRef.current;
+
+      // Cleanup functions are executed lazily in React 17.
+      // Contain can be called between the component being unmounted and its cleanup function being run.
+      if (rootElement === null) {
+        return;
+      }
+      if (!doc.hasFocus() || !isEnabled() || ignoreNextEnforceFocus.current) {
+        ignoreNextEnforceFocus.current = false;
+        return;
+      }
+
+      // The focus is already inside
+      if (rootElement.contains(doc.activeElement)) {
+        return;
+      }
+
+      // The disableEnforceFocus is set and the focus is outside of the focus trap (and sentinel nodes)
+      if (disableEnforceFocus && doc.activeElement !== sentinelStart.current && doc.activeElement !== sentinelEnd.current) {
+        return;
+      }
+
+      // if the focus event is not coming from inside the children's react tree, reset the refs
+      if (doc.activeElement !== reactFocusEventTarget.current) {
+        reactFocusEventTarget.current = null;
+      } else if (reactFocusEventTarget.current !== null) {
+        return;
+      }
+      if (!activated.current) {
+        return;
+      }
+      let tabbable = [];
+      if (doc.activeElement === sentinelStart.current || doc.activeElement === sentinelEnd.current) {
+        tabbable = getTabbable(rootRef.current);
+      }
+
+      // one of the sentinel nodes was focused, so move the focus
+      // to the first/last tabbable element inside the focus trap
+      if (tabbable.length > 0) {
+        var _lastKeydown$current, _lastKeydown$current2;
+        const isShiftTab = Boolean(((_lastKeydown$current = lastKeydown.current) == null ? void 0 : _lastKeydown$current.shiftKey) && ((_lastKeydown$current2 = lastKeydown.current) == null ? void 0 : _lastKeydown$current2.key) === 'Tab');
+        const focusNext = tabbable[0];
+        const focusPrevious = tabbable[tabbable.length - 1];
+        if (typeof focusNext !== 'string' && typeof focusPrevious !== 'string') {
+          if (isShiftTab) {
+            focusPrevious.focus();
+          } else {
+            focusNext.focus();
+          }
+        }
+        // no tabbable elements in the trap focus or the focus was outside of the focus trap
+      } else {
+        rootElement.focus();
+      }
+    };
+    doc.addEventListener('focusin', contain);
+    doc.addEventListener('keydown', loopFocus, true);
+
+    // With Edge, Safari and Firefox, no focus related events are fired when the focused area stops being a focused area.
+    // e.g. https://bugzilla.mozilla.org/show_bug.cgi?id=559561.
+    // Instead, we can look if the active element was restored on the BODY element.
+    //
+    // The whatwg spec defines how the browser should behave but does not explicitly mention any events:
+    // https://html.spec.whatwg.org/multipage/interaction.html#focus-fixup-rule.
+    const interval = setInterval(() => {
+      if (doc.activeElement && doc.activeElement.tagName === 'BODY') {
+        contain();
+      }
+    }, 50);
+    return () => {
+      clearInterval(interval);
+      doc.removeEventListener('focusin', contain);
+      doc.removeEventListener('keydown', loopFocus, true);
+    };
+  }, [disableAutoFocus, disableEnforceFocus, disableRestoreFocus, isEnabled, open, getTabbable]);
+  const onFocus = event => {
+    if (nodeToRestore.current === null) {
+      nodeToRestore.current = event.relatedTarget;
+    }
+    activated.current = true;
+    reactFocusEventTarget.current = event.target;
+    const childrenPropsHandler = children.props.onFocus;
+    if (childrenPropsHandler) {
+      childrenPropsHandler(event);
+    }
+  };
+  const handleFocusSentinel = event => {
+    if (nodeToRestore.current === null) {
+      nodeToRestore.current = event.relatedTarget;
+    }
+    activated.current = true;
+  };
+  return /*#__PURE__*/require$$2.jsxs(React__namespace.Fragment, {
+    children: [/*#__PURE__*/require$$2.jsx("div", {
+      tabIndex: open ? 0 : -1,
+      onFocus: handleFocusSentinel,
+      ref: sentinelStart,
+      "data-testid": "sentinelStart"
+    }), /*#__PURE__*/React__namespace.cloneElement(children, {
+      ref: handleRef,
+      onFocus
+    }), /*#__PURE__*/require$$2.jsx("div", {
+      tabIndex: open ? 0 : -1,
+      onFocus: handleFocusSentinel,
+      ref: sentinelEnd,
+      "data-testid": "sentinelEnd"
+    })]
+  });
+}
+process.env.NODE_ENV !== "production" ? FocusTrap.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit TypeScript types and run "yarn proptypes"  |
+  // ----------------------------------------------------------------------
+  /**
+   * A single child content element.
+   */
+  children: elementAcceptingRef$1,
+  /**
+   * If `true`, the focus trap will not automatically shift focus to itself when it opens, and
+   * replace it to the last focused element when it closes.
+   * This also works correctly with any focus trap children that have the `disableAutoFocus` prop.
+   *
+   * Generally this should never be set to `true` as it makes the focus trap less
+   * accessible to assistive technologies, like screen readers.
+   * @default false
+   */
+  disableAutoFocus: PropTypes.bool,
+  /**
+   * If `true`, the focus trap will not prevent focus from leaving the focus trap while open.
+   *
+   * Generally this should never be set to `true` as it makes the focus trap less
+   * accessible to assistive technologies, like screen readers.
+   * @default false
+   */
+  disableEnforceFocus: PropTypes.bool,
+  /**
+   * If `true`, the focus trap will not restore focus to previously focused element once
+   * focus trap is hidden or unmounted.
+   * @default false
+   */
+  disableRestoreFocus: PropTypes.bool,
+  /**
+   * Returns an array of ordered tabbable nodes (i.e. in tab order) within the root.
+   * For instance, you can provide the "tabbable" npm dependency.
+   * @param {HTMLElement} root
+   */
+  getTabbable: PropTypes.func,
+  /**
+   * This prop extends the `open` prop.
+   * It allows to toggle the open state without having to wait for a rerender when changing the `open` prop.
+   * This prop should be memoized.
+   * It can be used to support multiple focus trap mounted at the same time.
+   * @default function defaultIsEnabled(): boolean {
+   *   return true;
+   * }
+   */
+  isEnabled: PropTypes.func,
+  /**
+   * If `true`, focus is locked.
+   */
+  open: PropTypes.bool.isRequired
+} : void 0;
+if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line
+  FocusTrap['propTypes' + ''] = exactProp(FocusTrap.propTypes);
+}
+
+function getContainer(container) {
+  return typeof container === 'function' ? container() : container;
+}
+
+/**
+ * Portals provide a first-class way to render children into a DOM node
+ * that exists outside the DOM hierarchy of the parent component.
+ *
+ * Demos:
+ *
+ * - [Portal](https://mui.com/base-ui/react-portal/)
+ *
+ * API:
+ *
+ * - [Portal API](https://mui.com/base-ui/react-portal/components-api/#portal)
+ */
+const Portal = /*#__PURE__*/React__namespace.forwardRef(function Portal(props, forwardedRef) {
+  const {
+    children,
+    container,
+    disablePortal = false
+  } = props;
+  const [mountNode, setMountNode] = React__namespace.useState(null);
+  // @ts-expect-error TODO upstream fix
+  const handleRef = useForkRef( /*#__PURE__*/React__namespace.isValidElement(children) ? children.ref : null, forwardedRef);
+  useEnhancedEffect(() => {
+    if (!disablePortal) {
+      setMountNode(getContainer(container) || document.body);
+    }
+  }, [container, disablePortal]);
+  useEnhancedEffect(() => {
+    if (mountNode && !disablePortal) {
+      setRef(forwardedRef, mountNode);
+      return () => {
+        setRef(forwardedRef, null);
+      };
+    }
+    return undefined;
+  }, [forwardedRef, mountNode, disablePortal]);
+  if (disablePortal) {
+    if ( /*#__PURE__*/React__namespace.isValidElement(children)) {
+      const newProps = {
+        ref: handleRef
+      };
+      return /*#__PURE__*/React__namespace.cloneElement(children, newProps);
+    }
+    return /*#__PURE__*/require$$2.jsx(React__namespace.Fragment, {
+      children: children
+    });
+  }
+  return /*#__PURE__*/require$$2.jsx(React__namespace.Fragment, {
+    children: mountNode ? /*#__PURE__*/ReactDOM__namespace.createPortal(children, mountNode) : mountNode
+  });
 });
+process.env.NODE_ENV !== "production" ? Portal.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit TypeScript types and run "yarn proptypes"  |
+  // ----------------------------------------------------------------------
+  /**
+   * The children to render into the `container`.
+   */
+  children: PropTypes.node,
+  /**
+   * An HTML element or function that returns one.
+   * The `container` will have the portal children appended to it.
+   *
+   * You can also provide a callback, which is called in a React layout effect.
+   * This lets you set the container from a ref, and also makes server-side rendering possible.
+   *
+   * By default, it uses the body of the top-level document object,
+   * so it's simply `document.body` most of the time.
+   */
+  container: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([HTMLElementType, PropTypes.func]),
+  /**
+   * The `children` will be under the DOM hierarchy of the parent component.
+   * @default false
+   */
+  disablePortal: PropTypes.bool
+} : void 0;
+if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line
+  Portal['propTypes' + ''] = exactProp(Portal.propTypes);
+}
 
 function _setPrototypeOf(o, p) {
   _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
@@ -9017,3194 +9811,7 @@ function getTransitionProps(props, options) {
   };
 }
 
-function getCollapseUtilityClass(slot) {
-  return generateUtilityClass('MuiCollapse', slot);
-}
-generateUtilityClasses('MuiCollapse', ['root', 'horizontal', 'vertical', 'entered', 'hidden', 'wrapper', 'wrapperInner']);
-
-const _excluded$g = ["addEndListener", "children", "className", "collapsedSize", "component", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "orientation", "style", "timeout", "TransitionComponent"];
-const useUtilityClasses$c = ownerState => {
-  const {
-    orientation,
-    classes
-  } = ownerState;
-  const slots = {
-    root: ['root', `${orientation}`],
-    entered: ['entered'],
-    hidden: ['hidden'],
-    wrapper: ['wrapper', `${orientation}`],
-    wrapperInner: ['wrapperInner', `${orientation}`]
-  };
-  return composeClasses(slots, getCollapseUtilityClass, classes);
-};
-const CollapseRoot = styled('div', {
-  name: 'MuiCollapse',
-  slot: 'Root',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, styles[ownerState.orientation], ownerState.state === 'entered' && styles.entered, ownerState.state === 'exited' && !ownerState.in && ownerState.collapsedSize === '0px' && styles.hidden];
-  }
-})(({
-  theme,
-  ownerState
-}) => _extends({
-  height: 0,
-  overflow: 'hidden',
-  transition: theme.transitions.create('height')
-}, ownerState.orientation === 'horizontal' && {
-  height: 'auto',
-  width: 0,
-  transition: theme.transitions.create('width')
-}, ownerState.state === 'entered' && _extends({
-  height: 'auto',
-  overflow: 'visible'
-}, ownerState.orientation === 'horizontal' && {
-  width: 'auto'
-}), ownerState.state === 'exited' && !ownerState.in && ownerState.collapsedSize === '0px' && {
-  visibility: 'hidden'
-}));
-const CollapseWrapper = styled('div', {
-  name: 'MuiCollapse',
-  slot: 'Wrapper',
-  overridesResolver: (props, styles) => styles.wrapper
-})(({
-  ownerState
-}) => _extends({
-  // Hack to get children with a negative margin to not falsify the height computation.
-  display: 'flex',
-  width: '100%'
-}, ownerState.orientation === 'horizontal' && {
-  width: 'auto',
-  height: '100%'
-}));
-const CollapseWrapperInner = styled('div', {
-  name: 'MuiCollapse',
-  slot: 'WrapperInner',
-  overridesResolver: (props, styles) => styles.wrapperInner
-})(({
-  ownerState
-}) => _extends({
-  width: '100%'
-}, ownerState.orientation === 'horizontal' && {
-  width: 'auto',
-  height: '100%'
-}));
-
-/**
- * The Collapse transition is used by the
- * [Vertical Stepper](/material-ui/react-stepper/#vertical-stepper) StepContent component.
- * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
- */
-const Collapse = /*#__PURE__*/React__namespace.forwardRef(function Collapse(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiCollapse'
-  });
-  const {
-      addEndListener,
-      children,
-      className,
-      collapsedSize: collapsedSizeProp = '0px',
-      component,
-      easing,
-      in: inProp,
-      onEnter,
-      onEntered,
-      onEntering,
-      onExit,
-      onExited,
-      onExiting,
-      orientation = 'vertical',
-      style,
-      timeout = duration.standard,
-      // eslint-disable-next-line react/prop-types
-      TransitionComponent = Transition$1
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$g);
-  const ownerState = _extends({}, props, {
-    orientation,
-    collapsedSize: collapsedSizeProp
-  });
-  const classes = useUtilityClasses$c(ownerState);
-  const theme = useTheme();
-  const timer = React__namespace.useRef();
-  const wrapperRef = React__namespace.useRef(null);
-  const autoTransitionDuration = React__namespace.useRef();
-  const collapsedSize = typeof collapsedSizeProp === 'number' ? `${collapsedSizeProp}px` : collapsedSizeProp;
-  const isHorizontal = orientation === 'horizontal';
-  const size = isHorizontal ? 'width' : 'height';
-  React__namespace.useEffect(() => {
-    return () => {
-      clearTimeout(timer.current);
-    };
-  }, []);
-  const nodeRef = React__namespace.useRef(null);
-  const handleRef = useForkRef(ref, nodeRef);
-  const normalizedTransitionCallback = callback => maybeIsAppearing => {
-    if (callback) {
-      const node = nodeRef.current;
-
-      // onEnterXxx and onExitXxx callbacks have a different arguments.length value.
-      if (maybeIsAppearing === undefined) {
-        callback(node);
-      } else {
-        callback(node, maybeIsAppearing);
-      }
-    }
-  };
-  const getWrapperSize = () => wrapperRef.current ? wrapperRef.current[isHorizontal ? 'clientWidth' : 'clientHeight'] : 0;
-  const handleEnter = normalizedTransitionCallback((node, isAppearing) => {
-    if (wrapperRef.current && isHorizontal) {
-      // Set absolute position to get the size of collapsed content
-      wrapperRef.current.style.position = 'absolute';
-    }
-    node.style[size] = collapsedSize;
-    if (onEnter) {
-      onEnter(node, isAppearing);
-    }
-  });
-  const handleEntering = normalizedTransitionCallback((node, isAppearing) => {
-    const wrapperSize = getWrapperSize();
-    if (wrapperRef.current && isHorizontal) {
-      // After the size is read reset the position back to default
-      wrapperRef.current.style.position = '';
-    }
-    const {
-      duration: transitionDuration,
-      easing: transitionTimingFunction
-    } = getTransitionProps({
-      style,
-      timeout,
-      easing
-    }, {
-      mode: 'enter'
-    });
-    if (timeout === 'auto') {
-      const duration2 = theme.transitions.getAutoHeightDuration(wrapperSize);
-      node.style.transitionDuration = `${duration2}ms`;
-      autoTransitionDuration.current = duration2;
-    } else {
-      node.style.transitionDuration = typeof transitionDuration === 'string' ? transitionDuration : `${transitionDuration}ms`;
-    }
-    node.style[size] = `${wrapperSize}px`;
-    node.style.transitionTimingFunction = transitionTimingFunction;
-    if (onEntering) {
-      onEntering(node, isAppearing);
-    }
-  });
-  const handleEntered = normalizedTransitionCallback((node, isAppearing) => {
-    node.style[size] = 'auto';
-    if (onEntered) {
-      onEntered(node, isAppearing);
-    }
-  });
-  const handleExit = normalizedTransitionCallback(node => {
-    node.style[size] = `${getWrapperSize()}px`;
-    if (onExit) {
-      onExit(node);
-    }
-  });
-  const handleExited = normalizedTransitionCallback(onExited);
-  const handleExiting = normalizedTransitionCallback(node => {
-    const wrapperSize = getWrapperSize();
-    const {
-      duration: transitionDuration,
-      easing: transitionTimingFunction
-    } = getTransitionProps({
-      style,
-      timeout,
-      easing
-    }, {
-      mode: 'exit'
-    });
-    if (timeout === 'auto') {
-      // TODO: rename getAutoHeightDuration to something more generic (width support)
-      // Actually it just calculates animation duration based on size
-      const duration2 = theme.transitions.getAutoHeightDuration(wrapperSize);
-      node.style.transitionDuration = `${duration2}ms`;
-      autoTransitionDuration.current = duration2;
-    } else {
-      node.style.transitionDuration = typeof transitionDuration === 'string' ? transitionDuration : `${transitionDuration}ms`;
-    }
-    node.style[size] = collapsedSize;
-    node.style.transitionTimingFunction = transitionTimingFunction;
-    if (onExiting) {
-      onExiting(node);
-    }
-  });
-  const handleAddEndListener = next => {
-    if (timeout === 'auto') {
-      timer.current = setTimeout(next, autoTransitionDuration.current || 0);
-    }
-    if (addEndListener) {
-      // Old call signature before `react-transition-group` implemented `nodeRef`
-      addEndListener(nodeRef.current, next);
-    }
-  };
-  return /*#__PURE__*/require$$2.jsx(TransitionComponent, _extends({
-    in: inProp,
-    onEnter: handleEnter,
-    onEntered: handleEntered,
-    onEntering: handleEntering,
-    onExit: handleExit,
-    onExited: handleExited,
-    onExiting: handleExiting,
-    addEndListener: handleAddEndListener,
-    nodeRef: nodeRef,
-    timeout: timeout === 'auto' ? null : timeout
-  }, other, {
-    children: (state, childProps) => /*#__PURE__*/require$$2.jsx(CollapseRoot, _extends({
-      as: component,
-      className: clsx(classes.root, className, {
-        'entered': classes.entered,
-        'exited': !inProp && collapsedSize === '0px' && classes.hidden
-      }[state]),
-      style: _extends({
-        [isHorizontal ? 'minWidth' : 'minHeight']: collapsedSize
-      }, style),
-      ownerState: _extends({}, ownerState, {
-        state
-      }),
-      ref: handleRef
-    }, childProps, {
-      children: /*#__PURE__*/require$$2.jsx(CollapseWrapper, {
-        ownerState: _extends({}, ownerState, {
-          state
-        }),
-        className: classes.wrapper,
-        ref: wrapperRef,
-        children: /*#__PURE__*/require$$2.jsx(CollapseWrapperInner, {
-          ownerState: _extends({}, ownerState, {
-            state
-          }),
-          className: classes.wrapperInner,
-          children: children
-        })
-      })
-    }))
-  }));
-});
-process.env.NODE_ENV !== "production" ? Collapse.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * Add a custom transition end trigger. Called with the transitioning DOM
-   * node and a done callback. Allows for more fine grained transition end
-   * logic. Note: Timeouts are still used as a fallback if provided.
-   */
-  addEndListener: PropTypes.func,
-  /**
-   * The content node to be collapsed.
-   */
-  children: PropTypes.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * The width (horizontal) or height (vertical) of the container when collapsed.
-   * @default '0px'
-   */
-  collapsedSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: elementTypeAcceptingRef$1,
-  /**
-   * The transition timing function.
-   * You may specify a single easing or a object containing enter and exit values.
-   */
-  easing: PropTypes.oneOfType([PropTypes.shape({
-    enter: PropTypes.string,
-    exit: PropTypes.string
-  }), PropTypes.string]),
-  /**
-   * If `true`, the component will transition in.
-   */
-  in: PropTypes.bool,
-  /**
-   * @ignore
-   */
-  onEnter: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onEntered: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onEntering: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onExit: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onExited: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onExiting: PropTypes.func,
-  /**
-   * The transition orientation.
-   * @default 'vertical'
-   */
-  orientation: PropTypes.oneOf(['horizontal', 'vertical']),
-  /**
-   * @ignore
-   */
-  style: PropTypes.object,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
-  /**
-   * The duration for the transition, in milliseconds.
-   * You may specify a single timeout for all transitions, or individually with an object.
-   *
-   * Set to 'auto' to automatically calculate transition time based on height.
-   * @default duration.standard
-   */
-  timeout: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number, PropTypes.shape({
-    appear: PropTypes.number,
-    enter: PropTypes.number,
-    exit: PropTypes.number
-  })])
-} : void 0;
-Collapse.muiSupportAuto = true;
-var Collapse$1 = Collapse;
-
-function getPaperUtilityClass(slot) {
-  return generateUtilityClass('MuiPaper', slot);
-}
-generateUtilityClasses('MuiPaper', ['root', 'rounded', 'outlined', 'elevation', 'elevation0', 'elevation1', 'elevation2', 'elevation3', 'elevation4', 'elevation5', 'elevation6', 'elevation7', 'elevation8', 'elevation9', 'elevation10', 'elevation11', 'elevation12', 'elevation13', 'elevation14', 'elevation15', 'elevation16', 'elevation17', 'elevation18', 'elevation19', 'elevation20', 'elevation21', 'elevation22', 'elevation23', 'elevation24']);
-
-const _excluded$f = ["className", "component", "elevation", "square", "variant"];
-const useUtilityClasses$b = ownerState => {
-  const {
-    square,
-    elevation,
-    variant,
-    classes
-  } = ownerState;
-  const slots = {
-    root: ['root', variant, !square && 'rounded', variant === 'elevation' && `elevation${elevation}`]
-  };
-  return composeClasses(slots, getPaperUtilityClass, classes);
-};
-const PaperRoot = styled('div', {
-  name: 'MuiPaper',
-  slot: 'Root',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, styles[ownerState.variant], !ownerState.square && styles.rounded, ownerState.variant === 'elevation' && styles[`elevation${ownerState.elevation}`]];
-  }
-})(({
-  theme,
-  ownerState
-}) => {
-  var _theme$vars$overlays;
-  return _extends({
-    backgroundColor: (theme.vars || theme).palette.background.paper,
-    color: (theme.vars || theme).palette.text.primary,
-    transition: theme.transitions.create('box-shadow')
-  }, !ownerState.square && {
-    borderRadius: theme.shape.borderRadius
-  }, ownerState.variant === 'outlined' && {
-    border: `1px solid ${(theme.vars || theme).palette.divider}`
-  }, ownerState.variant === 'elevation' && _extends({
-    boxShadow: (theme.vars || theme).shadows[ownerState.elevation]
-  }, !theme.vars && theme.palette.mode === 'dark' && {
-    backgroundImage: `linear-gradient(${alpha('#fff', getOverlayAlpha(ownerState.elevation))}, ${alpha('#fff', getOverlayAlpha(ownerState.elevation))})`
-  }, theme.vars && {
-    backgroundImage: (_theme$vars$overlays = theme.vars.overlays) == null ? void 0 : _theme$vars$overlays[ownerState.elevation]
-  }));
-});
-const Paper = /*#__PURE__*/React__namespace.forwardRef(function Paper(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiPaper'
-  });
-  const {
-      className,
-      component = 'div',
-      elevation = 1,
-      square = false,
-      variant = 'elevation'
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$f);
-  const ownerState = _extends({}, props, {
-    component,
-    elevation,
-    square,
-    variant
-  });
-  const classes = useUtilityClasses$b(ownerState);
-  if (process.env.NODE_ENV !== 'production') {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const theme = useTheme();
-    if (theme.shadows[elevation] === undefined) {
-      console.error([`MUI: The elevation provided <Paper elevation={${elevation}}> is not available in the theme.`, `Please make sure that \`theme.shadows[${elevation}]\` is defined.`].join('\n'));
-    }
-  }
-  return /*#__PURE__*/require$$2.jsx(PaperRoot, _extends({
-    as: component,
-    ownerState: ownerState,
-    className: clsx(classes.root, className),
-    ref: ref
-  }, other));
-});
-process.env.NODE_ENV !== "production" ? Paper.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * The content of the component.
-   */
-  children: PropTypes.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: PropTypes.elementType,
-  /**
-   * Shadow depth, corresponds to `dp` in the spec.
-   * It accepts values between 0 and 24 inclusive.
-   * @default 1
-   */
-  elevation: chainPropTypes(integerPropType, props => {
-    const {
-      elevation,
-      variant
-    } = props;
-    if (elevation > 0 && variant === 'outlined') {
-      return new Error(`MUI: Combining \`elevation={${elevation}}\` with \`variant="${variant}"\` has no effect. Either use \`elevation={0}\` or use a different \`variant\`.`);
-    }
-    return null;
-  }),
-  /**
-   * If `true`, rounded corners are disabled.
-   * @default false
-   */
-  square: PropTypes.bool,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
-  /**
-   * The variant to use.
-   * @default 'elevation'
-   */
-  variant: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['elevation', 'outlined']), PropTypes.string])
-} : void 0;
-var Paper$1 = Paper;
-
-function Ripple(props) {
-  const {
-    className,
-    classes,
-    pulsate = false,
-    rippleX,
-    rippleY,
-    rippleSize,
-    in: inProp,
-    onExited,
-    timeout
-  } = props;
-  const [leaving, setLeaving] = React__namespace.useState(false);
-  const rippleClassName = clsx(className, classes.ripple, classes.rippleVisible, pulsate && classes.ripplePulsate);
-  const rippleStyles = {
-    width: rippleSize,
-    height: rippleSize,
-    top: -(rippleSize / 2) + rippleY,
-    left: -(rippleSize / 2) + rippleX
-  };
-  const childClassName = clsx(classes.child, leaving && classes.childLeaving, pulsate && classes.childPulsate);
-  if (!inProp && !leaving) {
-    setLeaving(true);
-  }
-  React__namespace.useEffect(() => {
-    if (!inProp && onExited != null) {
-      // react-transition-group#onExited
-      const timeoutId = setTimeout(onExited, timeout);
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }
-    return undefined;
-  }, [onExited, inProp, timeout]);
-  return /*#__PURE__*/require$$2.jsx("span", {
-    className: rippleClassName,
-    style: rippleStyles,
-    children: /*#__PURE__*/require$$2.jsx("span", {
-      className: childClassName
-    })
-  });
-}
-process.env.NODE_ENV !== "production" ? Ripple.propTypes = {
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  /**
-   * @ignore - injected from TransitionGroup
-   */
-  in: PropTypes.bool,
-  /**
-   * @ignore - injected from TransitionGroup
-   */
-  onExited: PropTypes.func,
-  /**
-   * If `true`, the ripple pulsates, typically indicating the keyboard focus state of an element.
-   */
-  pulsate: PropTypes.bool,
-  /**
-   * Diameter of the ripple.
-   */
-  rippleSize: PropTypes.number,
-  /**
-   * Horizontal position of the ripple center.
-   */
-  rippleX: PropTypes.number,
-  /**
-   * Vertical position of the ripple center.
-   */
-  rippleY: PropTypes.number,
-  /**
-   * exit delay
-   */
-  timeout: PropTypes.number.isRequired
-} : void 0;
-
-const touchRippleClasses = generateUtilityClasses('MuiTouchRipple', ['root', 'ripple', 'rippleVisible', 'ripplePulsate', 'child', 'childLeaving', 'childPulsate']);
-
-const _excluded$e = ["center", "classes", "className"];
-let _ = t => t,
-  _t,
-  _t2,
-  _t3,
-  _t4;
-const DURATION = 550;
-const DELAY_RIPPLE = 80;
-const enterKeyframe = keyframes(_t || (_t = _`
-  0% {
-    transform: scale(0);
-    opacity: 0.1;
-  }
-
-  100% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-`));
-const exitKeyframe = keyframes(_t2 || (_t2 = _`
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-`));
-const pulsateKeyframe = keyframes(_t3 || (_t3 = _`
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(0.92);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-`));
-const TouchRippleRoot = styled('span', {
-  name: 'MuiTouchRipple',
-  slot: 'Root'
-})({
-  overflow: 'hidden',
-  pointerEvents: 'none',
-  position: 'absolute',
-  zIndex: 0,
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
-  borderRadius: 'inherit'
-});
-
-// This `styled()` function invokes keyframes. `styled-components` only supports keyframes
-// in string templates. Do not convert these styles in JS object as it will break.
-const TouchRippleRipple = styled(Ripple, {
-  name: 'MuiTouchRipple',
-  slot: 'Ripple'
-})(_t4 || (_t4 = _`
-  opacity: 0;
-  position: absolute;
-
-  &.${0} {
-    opacity: 0.3;
-    transform: scale(1);
-    animation-name: ${0};
-    animation-duration: ${0}ms;
-    animation-timing-function: ${0};
-  }
-
-  &.${0} {
-    animation-duration: ${0}ms;
-  }
-
-  & .${0} {
-    opacity: 1;
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: currentColor;
-  }
-
-  & .${0} {
-    opacity: 0;
-    animation-name: ${0};
-    animation-duration: ${0}ms;
-    animation-timing-function: ${0};
-  }
-
-  & .${0} {
-    position: absolute;
-    /* @noflip */
-    left: 0px;
-    top: 0;
-    animation-name: ${0};
-    animation-duration: 2500ms;
-    animation-timing-function: ${0};
-    animation-iteration-count: infinite;
-    animation-delay: 200ms;
-  }
-`), touchRippleClasses.rippleVisible, enterKeyframe, DURATION, ({
-  theme
-}) => theme.transitions.easing.easeInOut, touchRippleClasses.ripplePulsate, ({
-  theme
-}) => theme.transitions.duration.shorter, touchRippleClasses.child, touchRippleClasses.childLeaving, exitKeyframe, DURATION, ({
-  theme
-}) => theme.transitions.easing.easeInOut, touchRippleClasses.childPulsate, pulsateKeyframe, ({
-  theme
-}) => theme.transitions.easing.easeInOut);
-
-/**
- * @ignore - internal component.
- *
- * TODO v5: Make private
- */
-const TouchRipple = /*#__PURE__*/React__namespace.forwardRef(function TouchRipple(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiTouchRipple'
-  });
-  const {
-      center: centerProp = false,
-      classes = {},
-      className
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$e);
-  const [ripples, setRipples] = React__namespace.useState([]);
-  const nextKey = React__namespace.useRef(0);
-  const rippleCallback = React__namespace.useRef(null);
-  React__namespace.useEffect(() => {
-    if (rippleCallback.current) {
-      rippleCallback.current();
-      rippleCallback.current = null;
-    }
-  }, [ripples]);
-
-  // Used to filter out mouse emulated events on mobile.
-  const ignoringMouseDown = React__namespace.useRef(false);
-  // We use a timer in order to only show the ripples for touch "click" like events.
-  // We don't want to display the ripple for touch scroll events.
-  const startTimer = React__namespace.useRef(0);
-
-  // This is the hook called once the previous timeout is ready.
-  const startTimerCommit = React__namespace.useRef(null);
-  const container = React__namespace.useRef(null);
-  React__namespace.useEffect(() => {
-    return () => {
-      if (startTimer.current) {
-        clearTimeout(startTimer.current);
-      }
-    };
-  }, []);
-  const startCommit = React__namespace.useCallback(params => {
-    const {
-      pulsate,
-      rippleX,
-      rippleY,
-      rippleSize,
-      cb
-    } = params;
-    setRipples(oldRipples => [...oldRipples, /*#__PURE__*/require$$2.jsx(TouchRippleRipple, {
-      classes: {
-        ripple: clsx(classes.ripple, touchRippleClasses.ripple),
-        rippleVisible: clsx(classes.rippleVisible, touchRippleClasses.rippleVisible),
-        ripplePulsate: clsx(classes.ripplePulsate, touchRippleClasses.ripplePulsate),
-        child: clsx(classes.child, touchRippleClasses.child),
-        childLeaving: clsx(classes.childLeaving, touchRippleClasses.childLeaving),
-        childPulsate: clsx(classes.childPulsate, touchRippleClasses.childPulsate)
-      },
-      timeout: DURATION,
-      pulsate: pulsate,
-      rippleX: rippleX,
-      rippleY: rippleY,
-      rippleSize: rippleSize
-    }, nextKey.current)]);
-    nextKey.current += 1;
-    rippleCallback.current = cb;
-  }, [classes]);
-  const start = React__namespace.useCallback((event = {}, options = {}, cb = () => {}) => {
-    const {
-      pulsate = false,
-      center = centerProp || options.pulsate,
-      fakeElement = false // For test purposes
-    } = options;
-    if ((event == null ? void 0 : event.type) === 'mousedown' && ignoringMouseDown.current) {
-      ignoringMouseDown.current = false;
-      return;
-    }
-    if ((event == null ? void 0 : event.type) === 'touchstart') {
-      ignoringMouseDown.current = true;
-    }
-    const element = fakeElement ? null : container.current;
-    const rect = element ? element.getBoundingClientRect() : {
-      width: 0,
-      height: 0,
-      left: 0,
-      top: 0
-    };
-
-    // Get the size of the ripple
-    let rippleX;
-    let rippleY;
-    let rippleSize;
-    if (center || event === undefined || event.clientX === 0 && event.clientY === 0 || !event.clientX && !event.touches) {
-      rippleX = Math.round(rect.width / 2);
-      rippleY = Math.round(rect.height / 2);
-    } else {
-      const {
-        clientX,
-        clientY
-      } = event.touches && event.touches.length > 0 ? event.touches[0] : event;
-      rippleX = Math.round(clientX - rect.left);
-      rippleY = Math.round(clientY - rect.top);
-    }
-    if (center) {
-      rippleSize = Math.sqrt((2 * rect.width ** 2 + rect.height ** 2) / 3);
-
-      // For some reason the animation is broken on Mobile Chrome if the size is even.
-      if (rippleSize % 2 === 0) {
-        rippleSize += 1;
-      }
-    } else {
-      const sizeX = Math.max(Math.abs((element ? element.clientWidth : 0) - rippleX), rippleX) * 2 + 2;
-      const sizeY = Math.max(Math.abs((element ? element.clientHeight : 0) - rippleY), rippleY) * 2 + 2;
-      rippleSize = Math.sqrt(sizeX ** 2 + sizeY ** 2);
-    }
-
-    // Touche devices
-    if (event != null && event.touches) {
-      // check that this isn't another touchstart due to multitouch
-      // otherwise we will only clear a single timer when unmounting while two
-      // are running
-      if (startTimerCommit.current === null) {
-        // Prepare the ripple effect.
-        startTimerCommit.current = () => {
-          startCommit({
-            pulsate,
-            rippleX,
-            rippleY,
-            rippleSize,
-            cb
-          });
-        };
-        // Delay the execution of the ripple effect.
-        startTimer.current = setTimeout(() => {
-          if (startTimerCommit.current) {
-            startTimerCommit.current();
-            startTimerCommit.current = null;
-          }
-        }, DELAY_RIPPLE); // We have to make a tradeoff with this value.
-      }
-    } else {
-      startCommit({
-        pulsate,
-        rippleX,
-        rippleY,
-        rippleSize,
-        cb
-      });
-    }
-  }, [centerProp, startCommit]);
-  const pulsate = React__namespace.useCallback(() => {
-    start({}, {
-      pulsate: true
-    });
-  }, [start]);
-  const stop = React__namespace.useCallback((event, cb) => {
-    clearTimeout(startTimer.current);
-
-    // The touch interaction occurs too quickly.
-    // We still want to show ripple effect.
-    if ((event == null ? void 0 : event.type) === 'touchend' && startTimerCommit.current) {
-      startTimerCommit.current();
-      startTimerCommit.current = null;
-      startTimer.current = setTimeout(() => {
-        stop(event, cb);
-      });
-      return;
-    }
-    startTimerCommit.current = null;
-    setRipples(oldRipples => {
-      if (oldRipples.length > 0) {
-        return oldRipples.slice(1);
-      }
-      return oldRipples;
-    });
-    rippleCallback.current = cb;
-  }, []);
-  React__namespace.useImperativeHandle(ref, () => ({
-    pulsate,
-    start,
-    stop
-  }), [pulsate, start, stop]);
-  return /*#__PURE__*/require$$2.jsx(TouchRippleRoot, _extends({
-    className: clsx(touchRippleClasses.root, classes.root, className),
-    ref: container
-  }, other, {
-    children: /*#__PURE__*/require$$2.jsx(TransitionGroup$1, {
-      component: null,
-      exit: true,
-      children: ripples
-    })
-  }));
-});
-process.env.NODE_ENV !== "production" ? TouchRipple.propTypes = {
-  /**
-   * If `true`, the ripple starts at the center of the component
-   * rather than at the point of interaction.
-   */
-  center: PropTypes.bool,
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string
-} : void 0;
-var TouchRipple$1 = TouchRipple;
-
-function getButtonBaseUtilityClass(slot) {
-  return generateUtilityClass('MuiButtonBase', slot);
-}
-const buttonBaseClasses = generateUtilityClasses('MuiButtonBase', ['root', 'disabled', 'focusVisible']);
-
-const _excluded$d = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "touchRippleRef", "type"];
-const useUtilityClasses$a = ownerState => {
-  const {
-    disabled,
-    focusVisible,
-    focusVisibleClassName,
-    classes
-  } = ownerState;
-  const slots = {
-    root: ['root', disabled && 'disabled', focusVisible && 'focusVisible']
-  };
-  const composedClasses = composeClasses(slots, getButtonBaseUtilityClass, classes);
-  if (focusVisible && focusVisibleClassName) {
-    composedClasses.root += ` ${focusVisibleClassName}`;
-  }
-  return composedClasses;
-};
-const ButtonBaseRoot = styled('button', {
-  name: 'MuiButtonBase',
-  slot: 'Root',
-  overridesResolver: (props, styles) => styles.root
-})({
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  position: 'relative',
-  boxSizing: 'border-box',
-  WebkitTapHighlightColor: 'transparent',
-  backgroundColor: 'transparent',
-  // Reset default value
-  // We disable the focus ring for mouse, touch and keyboard users.
-  outline: 0,
-  border: 0,
-  margin: 0,
-  // Remove the margin in Safari
-  borderRadius: 0,
-  padding: 0,
-  // Remove the padding in Firefox
-  cursor: 'pointer',
-  userSelect: 'none',
-  verticalAlign: 'middle',
-  MozAppearance: 'none',
-  // Reset
-  WebkitAppearance: 'none',
-  // Reset
-  textDecoration: 'none',
-  // So we take precedent over the style of a native <a /> element.
-  color: 'inherit',
-  '&::-moz-focus-inner': {
-    borderStyle: 'none' // Remove Firefox dotted outline.
-  },
-  [`&.${buttonBaseClasses.disabled}`]: {
-    pointerEvents: 'none',
-    // Disable link interactions
-    cursor: 'default'
-  },
-  '@media print': {
-    colorAdjust: 'exact'
-  }
-});
-
-/**
- * `ButtonBase` contains as few styles as possible.
- * It aims to be a simple building block for creating a button.
- * It contains a load of style reset and some focus/ripple logic.
- */
-const ButtonBase = /*#__PURE__*/React__namespace.forwardRef(function ButtonBase(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiButtonBase'
-  });
-  const {
-      action,
-      centerRipple = false,
-      children,
-      className,
-      component = 'button',
-      disabled = false,
-      disableRipple = false,
-      disableTouchRipple = false,
-      focusRipple = false,
-      LinkComponent = 'a',
-      onBlur,
-      onClick,
-      onContextMenu,
-      onDragLeave,
-      onFocus,
-      onFocusVisible,
-      onKeyDown,
-      onKeyUp,
-      onMouseDown,
-      onMouseLeave,
-      onMouseUp,
-      onTouchEnd,
-      onTouchMove,
-      onTouchStart,
-      tabIndex = 0,
-      TouchRippleProps,
-      touchRippleRef,
-      type
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$d);
-  const buttonRef = React__namespace.useRef(null);
-  const rippleRef = React__namespace.useRef(null);
-  const handleRippleRef = useForkRef(rippleRef, touchRippleRef);
-  const {
-    isFocusVisibleRef,
-    onFocus: handleFocusVisible,
-    onBlur: handleBlurVisible,
-    ref: focusVisibleRef
-  } = useIsFocusVisible();
-  const [focusVisible, setFocusVisible] = React__namespace.useState(false);
-  if (disabled && focusVisible) {
-    setFocusVisible(false);
-  }
-  React__namespace.useImperativeHandle(action, () => ({
-    focusVisible: () => {
-      setFocusVisible(true);
-      buttonRef.current.focus();
-    }
-  }), []);
-  const [mountedState, setMountedState] = React__namespace.useState(false);
-  React__namespace.useEffect(() => {
-    setMountedState(true);
-  }, []);
-  const enableTouchRipple = mountedState && !disableRipple && !disabled;
-  React__namespace.useEffect(() => {
-    if (focusVisible && focusRipple && !disableRipple && mountedState) {
-      rippleRef.current.pulsate();
-    }
-  }, [disableRipple, focusRipple, focusVisible, mountedState]);
-  function useRippleHandler(rippleAction, eventCallback, skipRippleAction = disableTouchRipple) {
-    return useEventCallback(event => {
-      if (eventCallback) {
-        eventCallback(event);
-      }
-      const ignore = skipRippleAction;
-      if (!ignore && rippleRef.current) {
-        rippleRef.current[rippleAction](event);
-      }
-      return true;
-    });
-  }
-  const handleMouseDown = useRippleHandler('start', onMouseDown);
-  const handleContextMenu = useRippleHandler('stop', onContextMenu);
-  const handleDragLeave = useRippleHandler('stop', onDragLeave);
-  const handleMouseUp = useRippleHandler('stop', onMouseUp);
-  const handleMouseLeave = useRippleHandler('stop', event => {
-    if (focusVisible) {
-      event.preventDefault();
-    }
-    if (onMouseLeave) {
-      onMouseLeave(event);
-    }
-  });
-  const handleTouchStart = useRippleHandler('start', onTouchStart);
-  const handleTouchEnd = useRippleHandler('stop', onTouchEnd);
-  const handleTouchMove = useRippleHandler('stop', onTouchMove);
-  const handleBlur = useRippleHandler('stop', event => {
-    handleBlurVisible(event);
-    if (isFocusVisibleRef.current === false) {
-      setFocusVisible(false);
-    }
-    if (onBlur) {
-      onBlur(event);
-    }
-  }, false);
-  const handleFocus = useEventCallback(event => {
-    // Fix for https://github.com/facebook/react/issues/7769
-    if (!buttonRef.current) {
-      buttonRef.current = event.currentTarget;
-    }
-    handleFocusVisible(event);
-    if (isFocusVisibleRef.current === true) {
-      setFocusVisible(true);
-      if (onFocusVisible) {
-        onFocusVisible(event);
-      }
-    }
-    if (onFocus) {
-      onFocus(event);
-    }
-  });
-  const isNonNativeButton = () => {
-    const button = buttonRef.current;
-    return component && component !== 'button' && !(button.tagName === 'A' && button.href);
-  };
-
-  /**
-   * IE11 shim for https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/repeat
-   */
-  const keydownRef = React__namespace.useRef(false);
-  const handleKeyDown = useEventCallback(event => {
-    // Check if key is already down to avoid repeats being counted as multiple activations
-    if (focusRipple && !keydownRef.current && focusVisible && rippleRef.current && event.key === ' ') {
-      keydownRef.current = true;
-      rippleRef.current.stop(event, () => {
-        rippleRef.current.start(event);
-      });
-    }
-    if (event.target === event.currentTarget && isNonNativeButton() && event.key === ' ') {
-      event.preventDefault();
-    }
-    if (onKeyDown) {
-      onKeyDown(event);
-    }
-
-    // Keyboard accessibility for non interactive elements
-    if (event.target === event.currentTarget && isNonNativeButton() && event.key === 'Enter' && !disabled) {
-      event.preventDefault();
-      if (onClick) {
-        onClick(event);
-      }
-    }
-  });
-  const handleKeyUp = useEventCallback(event => {
-    // calling preventDefault in keyUp on a <button> will not dispatch a click event if Space is pressed
-    // https://codesandbox.io/p/sandbox/button-keyup-preventdefault-dn7f0
-    if (focusRipple && event.key === ' ' && rippleRef.current && focusVisible && !event.defaultPrevented) {
-      keydownRef.current = false;
-      rippleRef.current.stop(event, () => {
-        rippleRef.current.pulsate(event);
-      });
-    }
-    if (onKeyUp) {
-      onKeyUp(event);
-    }
-
-    // Keyboard accessibility for non interactive elements
-    if (onClick && event.target === event.currentTarget && isNonNativeButton() && event.key === ' ' && !event.defaultPrevented) {
-      onClick(event);
-    }
-  });
-  let ComponentProp = component;
-  if (ComponentProp === 'button' && (other.href || other.to)) {
-    ComponentProp = LinkComponent;
-  }
-  const buttonProps = {};
-  if (ComponentProp === 'button') {
-    buttonProps.type = type === undefined ? 'button' : type;
-    buttonProps.disabled = disabled;
-  } else {
-    if (!other.href && !other.to) {
-      buttonProps.role = 'button';
-    }
-    if (disabled) {
-      buttonProps['aria-disabled'] = disabled;
-    }
-  }
-  const handleRef = useForkRef(ref, focusVisibleRef, buttonRef);
-  if (process.env.NODE_ENV !== 'production') {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    React__namespace.useEffect(() => {
-      if (enableTouchRipple && !rippleRef.current) {
-        console.error(['MUI: The `component` prop provided to ButtonBase is invalid.', 'Please make sure the children prop is rendered in this custom component.'].join('\n'));
-      }
-    }, [enableTouchRipple]);
-  }
-  const ownerState = _extends({}, props, {
-    centerRipple,
-    component,
-    disabled,
-    disableRipple,
-    disableTouchRipple,
-    focusRipple,
-    tabIndex,
-    focusVisible
-  });
-  const classes = useUtilityClasses$a(ownerState);
-  return /*#__PURE__*/require$$2.jsxs(ButtonBaseRoot, _extends({
-    as: ComponentProp,
-    className: clsx(classes.root, className),
-    ownerState: ownerState,
-    onBlur: handleBlur,
-    onClick: onClick,
-    onContextMenu: handleContextMenu,
-    onFocus: handleFocus,
-    onKeyDown: handleKeyDown,
-    onKeyUp: handleKeyUp,
-    onMouseDown: handleMouseDown,
-    onMouseLeave: handleMouseLeave,
-    onMouseUp: handleMouseUp,
-    onDragLeave: handleDragLeave,
-    onTouchEnd: handleTouchEnd,
-    onTouchMove: handleTouchMove,
-    onTouchStart: handleTouchStart,
-    ref: handleRef,
-    tabIndex: disabled ? -1 : tabIndex,
-    type: type
-  }, buttonProps, other, {
-    children: [children, enableTouchRipple ?
-    
-    /* TouchRipple is only needed client-side, x2 boost on the server. */
-    require$$2.jsx(TouchRipple$1, _extends({
-      ref: handleRippleRef,
-      center: centerRipple
-    }, TouchRippleProps)) : null]
-  }));
-});
-process.env.NODE_ENV !== "production" ? ButtonBase.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * A ref for imperative actions.
-   * It currently only supports `focusVisible()` action.
-   */
-  action: refType$1,
-  /**
-   * If `true`, the ripples are centered.
-   * They won't start at the cursor interaction position.
-   * @default false
-   */
-  centerRipple: PropTypes.bool,
-  /**
-   * The content of the component.
-   */
-  children: PropTypes.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: elementTypeAcceptingRef$1,
-  /**
-   * If `true`, the component is disabled.
-   * @default false
-   */
-  disabled: PropTypes.bool,
-  /**
-   * If `true`, the ripple effect is disabled.
-   *
-   * ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure
-   * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
-   * @default false
-   */
-  disableRipple: PropTypes.bool,
-  /**
-   * If `true`, the touch ripple effect is disabled.
-   * @default false
-   */
-  disableTouchRipple: PropTypes.bool,
-  /**
-   * If `true`, the base button will have a keyboard focus ripple.
-   * @default false
-   */
-  focusRipple: PropTypes.bool,
-  /**
-   * This prop can help identify which element has keyboard focus.
-   * The class name will be applied when the element gains the focus through keyboard interaction.
-   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
-   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/HEAD/explainer.md).
-   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
-   * if needed.
-   */
-  focusVisibleClassName: PropTypes.string,
-  /**
-   * @ignore
-   */
-  href: PropTypes /* @typescript-to-proptypes-ignore */.any,
-  /**
-   * The component used to render a link when the `href` prop is provided.
-   * @default 'a'
-   */
-  LinkComponent: PropTypes.elementType,
-  /**
-   * @ignore
-   */
-  onBlur: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onClick: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onContextMenu: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onDragLeave: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onFocus: PropTypes.func,
-  /**
-   * Callback fired when the component is focused with a keyboard.
-   * We trigger a `onFocus` callback too.
-   */
-  onFocusVisible: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onKeyDown: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onKeyUp: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onMouseDown: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onMouseLeave: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onMouseUp: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onTouchEnd: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onTouchMove: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onTouchStart: PropTypes.func,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
-  /**
-   * @default 0
-   */
-  tabIndex: PropTypes.number,
-  /**
-   * Props applied to the `TouchRipple` element.
-   */
-  TouchRippleProps: PropTypes.object,
-  /**
-   * A ref that points to the `TouchRipple` element.
-   */
-  touchRippleRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({
-    current: PropTypes.shape({
-      pulsate: PropTypes.func.isRequired,
-      start: PropTypes.func.isRequired,
-      stop: PropTypes.func.isRequired
-    })
-  })]),
-  /**
-   * @ignore
-   */
-  type: PropTypes.oneOfType([PropTypes.oneOf(['button', 'reset', 'submit']), PropTypes.string])
-} : void 0;
-var ButtonBase$1 = ButtonBase;
-
-function getTypographyUtilityClass(slot) {
-  return generateUtilityClass('MuiTypography', slot);
-}
-generateUtilityClasses('MuiTypography', ['root', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'inherit', 'button', 'caption', 'overline', 'alignLeft', 'alignRight', 'alignCenter', 'alignJustify', 'noWrap', 'gutterBottom', 'paragraph']);
-
-const _excluded$c = ["align", "className", "component", "gutterBottom", "noWrap", "paragraph", "variant", "variantMapping"];
-const useUtilityClasses$9 = ownerState => {
-  const {
-    align,
-    gutterBottom,
-    noWrap,
-    paragraph,
-    variant,
-    classes
-  } = ownerState;
-  const slots = {
-    root: ['root', variant, ownerState.align !== 'inherit' && `align${capitalize(align)}`, gutterBottom && 'gutterBottom', noWrap && 'noWrap', paragraph && 'paragraph']
-  };
-  return composeClasses(slots, getTypographyUtilityClass, classes);
-};
-const TypographyRoot = styled('span', {
-  name: 'MuiTypography',
-  slot: 'Root',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, ownerState.variant && styles[ownerState.variant], ownerState.align !== 'inherit' && styles[`align${capitalize(ownerState.align)}`], ownerState.noWrap && styles.noWrap, ownerState.gutterBottom && styles.gutterBottom, ownerState.paragraph && styles.paragraph];
-  }
-})(({
-  theme,
-  ownerState
-}) => _extends({
-  margin: 0
-}, ownerState.variant === 'inherit' && {
-  // Some elements, like <button> on Chrome have default font that doesn't inherit, reset this.
-  font: 'inherit'
-}, ownerState.variant !== 'inherit' && theme.typography[ownerState.variant], ownerState.align !== 'inherit' && {
-  textAlign: ownerState.align
-}, ownerState.noWrap && {
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap'
-}, ownerState.gutterBottom && {
-  marginBottom: '0.35em'
-}, ownerState.paragraph && {
-  marginBottom: 16
-}));
-const defaultVariantMapping = {
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  h4: 'h4',
-  h5: 'h5',
-  h6: 'h6',
-  subtitle1: 'h6',
-  subtitle2: 'h6',
-  body1: 'p',
-  body2: 'p',
-  inherit: 'p'
-};
-
-// TODO v6: deprecate these color values in v5.x and remove the transformation in v6
-const colorTransformations = {
-  primary: 'primary.main',
-  textPrimary: 'text.primary',
-  secondary: 'secondary.main',
-  textSecondary: 'text.secondary',
-  error: 'error.main'
-};
-const transformDeprecatedColors = color => {
-  return colorTransformations[color] || color;
-};
-const Typography = /*#__PURE__*/React__namespace.forwardRef(function Typography(inProps, ref) {
-  const themeProps = useThemeProps({
-    props: inProps,
-    name: 'MuiTypography'
-  });
-  const color = transformDeprecatedColors(themeProps.color);
-  const props = extendSxProp(_extends({}, themeProps, {
-    color
-  }));
-  const {
-      align = 'inherit',
-      className,
-      component,
-      gutterBottom = false,
-      noWrap = false,
-      paragraph = false,
-      variant = 'body1',
-      variantMapping = defaultVariantMapping
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$c);
-  const ownerState = _extends({}, props, {
-    align,
-    color,
-    className,
-    component,
-    gutterBottom,
-    noWrap,
-    paragraph,
-    variant,
-    variantMapping
-  });
-  const Component = component || (paragraph ? 'p' : variantMapping[variant] || defaultVariantMapping[variant]) || 'span';
-  const classes = useUtilityClasses$9(ownerState);
-  return /*#__PURE__*/require$$2.jsx(TypographyRoot, _extends({
-    as: Component,
-    ref: ref,
-    ownerState: ownerState,
-    className: clsx(classes.root, className)
-  }, other));
-});
-process.env.NODE_ENV !== "production" ? Typography.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * Set the text-align on the component.
-   * @default 'inherit'
-   */
-  align: PropTypes.oneOf(['center', 'inherit', 'justify', 'left', 'right']),
-  /**
-   * The content of the component.
-   */
-  children: PropTypes.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: PropTypes.elementType,
-  /**
-   * If `true`, the text will have a bottom margin.
-   * @default false
-   */
-  gutterBottom: PropTypes.bool,
-  /**
-   * If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
-   *
-   * Note that text overflow can only happen with block or inline-block level elements
-   * (the element needs to have a width in order to overflow).
-   * @default false
-   */
-  noWrap: PropTypes.bool,
-  /**
-   * If `true`, the element will be a paragraph element.
-   * @default false
-   */
-  paragraph: PropTypes.bool,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
-  /**
-   * Applies the theme typography styles.
-   * @default 'body1'
-   */
-  variant: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['body1', 'body2', 'button', 'caption', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'inherit', 'overline', 'subtitle1', 'subtitle2']), PropTypes.string]),
-  /**
-   * The component maps the variant prop to a range of different HTML element types.
-   * For instance, subtitle1 to `<h6>`.
-   * If you wish to change that mapping, you can provide your own.
-   * Alternatively, you can use the `component` prop.
-   * @default {
-   *   h1: 'h1',
-   *   h2: 'h2',
-   *   h3: 'h3',
-   *   h4: 'h4',
-   *   h5: 'h5',
-   *   h6: 'h6',
-   *   subtitle1: 'h6',
-   *   subtitle2: 'h6',
-   *   body1: 'p',
-   *   body2: 'p',
-   *   inherit: 'p',
-   * }
-   */
-  variantMapping: PropTypes /* @typescript-to-proptypes-ignore */.object
-} : void 0;
-var Typography$1 = Typography;
-
-/**
- * Determines if a given element is a DOM element name (i.e. not a React component).
- */
-function isHostComponent(element) {
-  return typeof element === 'string';
-}
-
-/**
- * Type of the ownerState based on the type of an element it applies to.
- * This resolves to the provided OwnerState for React components and `undefined` for host components.
- * Falls back to `OwnerState | undefined` when the exact type can't be determined in development time.
- */
-
-/**
- * Appends the ownerState object to the props, merging with the existing one if necessary.
- *
- * @param elementType Type of the element that owns the `existingProps`. If the element is a DOM node or undefined, `ownerState` is not applied.
- * @param otherProps Props of the element.
- * @param ownerState
- */
-function appendOwnerState(elementType, otherProps, ownerState) {
-  if (elementType === undefined || isHostComponent(elementType)) {
-    return otherProps;
-  }
-  return _extends({}, otherProps, {
-    ownerState: _extends({}, otherProps.ownerState, ownerState)
-  });
-}
-
-/**
- * Extracts event handlers from a given object.
- * A prop is considered an event handler if it is a function and its name starts with `on`.
- *
- * @param object An object to extract event handlers from.
- * @param excludeKeys An array of keys to exclude from the returned object.
- */
-function extractEventHandlers(object, excludeKeys = []) {
-  if (object === undefined) {
-    return {};
-  }
-  const result = {};
-  Object.keys(object).filter(prop => prop.match(/^on[A-Z]/) && typeof object[prop] === 'function' && !excludeKeys.includes(prop)).forEach(prop => {
-    result[prop] = object[prop];
-  });
-  return result;
-}
-
-/**
- * If `componentProps` is a function, calls it with the provided `ownerState`.
- * Otherwise, just returns `componentProps`.
- */
-function resolveComponentProps(componentProps, ownerState, slotState) {
-  if (typeof componentProps === 'function') {
-    return componentProps(ownerState, slotState);
-  }
-  return componentProps;
-}
-
-/**
- * Removes event handlers from the given object.
- * A field is considered an event handler if it is a function with a name beginning with `on`.
- *
- * @param object Object to remove event handlers from.
- * @returns Object with event handlers removed.
- */
-function omitEventHandlers(object) {
-  if (object === undefined) {
-    return {};
-  }
-  const result = {};
-  Object.keys(object).filter(prop => !(prop.match(/^on[A-Z]/) && typeof object[prop] === 'function')).forEach(prop => {
-    result[prop] = object[prop];
-  });
-  return result;
-}
-
-/**
- * Merges the slot component internal props (usually coming from a hook)
- * with the externally provided ones.
- *
- * The merge order is (the latter overrides the former):
- * 1. The internal props (specified as a getter function to work with get*Props hook result)
- * 2. Additional props (specified internally on a Base UI component)
- * 3. External props specified on the owner component. These should only be used on a root slot.
- * 4. External props specified in the `slotProps.*` prop.
- * 5. The `className` prop - combined from all the above.
- * @param parameters
- * @returns
- */
-function mergeSlotProps(parameters) {
-  const {
-    getSlotProps,
-    additionalProps,
-    externalSlotProps,
-    externalForwardedProps,
-    className
-  } = parameters;
-  if (!getSlotProps) {
-    // The simpler case - getSlotProps is not defined, so no internal event handlers are defined,
-    // so we can simply merge all the props without having to worry about extracting event handlers.
-    const joinedClasses = clsx(additionalProps == null ? void 0 : additionalProps.className, className, externalForwardedProps == null ? void 0 : externalForwardedProps.className, externalSlotProps == null ? void 0 : externalSlotProps.className);
-    const mergedStyle = _extends({}, additionalProps == null ? void 0 : additionalProps.style, externalForwardedProps == null ? void 0 : externalForwardedProps.style, externalSlotProps == null ? void 0 : externalSlotProps.style);
-    const props = _extends({}, additionalProps, externalForwardedProps, externalSlotProps);
-    if (joinedClasses.length > 0) {
-      props.className = joinedClasses;
-    }
-    if (Object.keys(mergedStyle).length > 0) {
-      props.style = mergedStyle;
-    }
-    return {
-      props,
-      internalRef: undefined
-    };
-  }
-
-  // In this case, getSlotProps is responsible for calling the external event handlers.
-  // We don't need to include them in the merged props because of this.
-
-  const eventHandlers = extractEventHandlers(_extends({}, externalForwardedProps, externalSlotProps));
-  const componentsPropsWithoutEventHandlers = omitEventHandlers(externalSlotProps);
-  const otherPropsWithoutEventHandlers = omitEventHandlers(externalForwardedProps);
-  const internalSlotProps = getSlotProps(eventHandlers);
-
-  // The order of classes is important here.
-  // Emotion (that we use in libraries consuming Base UI) depends on this order
-  // to properly override style. It requires the most important classes to be last
-  // (see https://github.com/mui/material-ui/pull/33205) for the related discussion.
-  const joinedClasses = clsx(internalSlotProps == null ? void 0 : internalSlotProps.className, additionalProps == null ? void 0 : additionalProps.className, className, externalForwardedProps == null ? void 0 : externalForwardedProps.className, externalSlotProps == null ? void 0 : externalSlotProps.className);
-  const mergedStyle = _extends({}, internalSlotProps == null ? void 0 : internalSlotProps.style, additionalProps == null ? void 0 : additionalProps.style, externalForwardedProps == null ? void 0 : externalForwardedProps.style, externalSlotProps == null ? void 0 : externalSlotProps.style);
-  const props = _extends({}, internalSlotProps, additionalProps, otherPropsWithoutEventHandlers, componentsPropsWithoutEventHandlers);
-  if (joinedClasses.length > 0) {
-    props.className = joinedClasses;
-  }
-  if (Object.keys(mergedStyle).length > 0) {
-    props.style = mergedStyle;
-  }
-  return {
-    props,
-    internalRef: internalSlotProps.ref
-  };
-}
-
-const _excluded$b = ["elementType", "externalSlotProps", "ownerState", "skipResolvingSlotProps"];
-/**
- * @ignore - do not document.
- * Builds the props to be passed into the slot of an unstyled component.
- * It merges the internal props of the component with the ones supplied by the user, allowing to customize the behavior.
- * If the slot component is not a host component, it also merges in the `ownerState`.
- *
- * @param parameters.getSlotProps - A function that returns the props to be passed to the slot component.
- */
-function useSlotProps(parameters) {
-  var _parameters$additiona;
-  const {
-      elementType,
-      externalSlotProps,
-      ownerState,
-      skipResolvingSlotProps = false
-    } = parameters,
-    rest = _objectWithoutPropertiesLoose(parameters, _excluded$b);
-  const resolvedComponentsProps = skipResolvingSlotProps ? {} : resolveComponentProps(externalSlotProps, ownerState);
-  const {
-    props: mergedProps,
-    internalRef
-  } = mergeSlotProps(_extends({}, rest, {
-    externalSlotProps: resolvedComponentsProps
-  }));
-  const ref = useForkRef(internalRef, resolvedComponentsProps == null ? void 0 : resolvedComponentsProps.ref, (_parameters$additiona = parameters.additionalProps) == null ? void 0 : _parameters$additiona.ref);
-  const props = appendOwnerState(elementType, _extends({}, mergedProps, {
-    ref
-  }), ownerState);
-  return props;
-}
-
-// Inspired by https://github.com/focus-trap/tabbable
-const candidatesSelector = ['input', 'select', 'textarea', 'a[href]', 'button', '[tabindex]', 'audio[controls]', 'video[controls]', '[contenteditable]:not([contenteditable="false"])'].join(',');
-function getTabIndex(node) {
-  const tabindexAttr = parseInt(node.getAttribute('tabindex') || '', 10);
-  if (!Number.isNaN(tabindexAttr)) {
-    return tabindexAttr;
-  }
-
-  // Browsers do not return `tabIndex` correctly for contentEditable nodes;
-  // https://bugs.chromium.org/p/chromium/issues/detail?id=661108&q=contenteditable%20tabindex&can=2
-  // so if they don't have a tabindex attribute specifically set, assume it's 0.
-  // in Chrome, <details/>, <audio controls/> and <video controls/> elements get a default
-  //  `tabIndex` of -1 when the 'tabindex' attribute isn't specified in the DOM,
-  //  yet they are still part of the regular tab order; in FF, they get a default
-  //  `tabIndex` of 0; since Chrome still puts those elements in the regular tab
-  //  order, consider their tab index to be 0.
-  if (node.contentEditable === 'true' || (node.nodeName === 'AUDIO' || node.nodeName === 'VIDEO' || node.nodeName === 'DETAILS') && node.getAttribute('tabindex') === null) {
-    return 0;
-  }
-  return node.tabIndex;
-}
-function isNonTabbableRadio(node) {
-  if (node.tagName !== 'INPUT' || node.type !== 'radio') {
-    return false;
-  }
-  if (!node.name) {
-    return false;
-  }
-  const getRadio = selector => node.ownerDocument.querySelector(`input[type="radio"]${selector}`);
-  let roving = getRadio(`[name="${node.name}"]:checked`);
-  if (!roving) {
-    roving = getRadio(`[name="${node.name}"]`);
-  }
-  return roving !== node;
-}
-function isNodeMatchingSelectorFocusable(node) {
-  if (node.disabled || node.tagName === 'INPUT' && node.type === 'hidden' || isNonTabbableRadio(node)) {
-    return false;
-  }
-  return true;
-}
-function defaultGetTabbable(root) {
-  const regularTabNodes = [];
-  const orderedTabNodes = [];
-  Array.from(root.querySelectorAll(candidatesSelector)).forEach((node, i) => {
-    const nodeTabIndex = getTabIndex(node);
-    if (nodeTabIndex === -1 || !isNodeMatchingSelectorFocusable(node)) {
-      return;
-    }
-    if (nodeTabIndex === 0) {
-      regularTabNodes.push(node);
-    } else {
-      orderedTabNodes.push({
-        documentOrder: i,
-        tabIndex: nodeTabIndex,
-        node: node
-      });
-    }
-  });
-  return orderedTabNodes.sort((a, b) => a.tabIndex === b.tabIndex ? a.documentOrder - b.documentOrder : a.tabIndex - b.tabIndex).map(a => a.node).concat(regularTabNodes);
-}
-function defaultIsEnabled() {
-  return true;
-}
-
-/**
- * Utility component that locks focus inside the component.
- *
- * Demos:
- *
- * - [Focus Trap](https://mui.com/base-ui/react-focus-trap/)
- *
- * API:
- *
- * - [FocusTrap API](https://mui.com/base-ui/react-focus-trap/components-api/#focus-trap)
- */
-function FocusTrap(props) {
-  const {
-    children,
-    disableAutoFocus = false,
-    disableEnforceFocus = false,
-    disableRestoreFocus = false,
-    getTabbable = defaultGetTabbable,
-    isEnabled = defaultIsEnabled,
-    open
-  } = props;
-  const ignoreNextEnforceFocus = React__namespace.useRef(false);
-  const sentinelStart = React__namespace.useRef(null);
-  const sentinelEnd = React__namespace.useRef(null);
-  const nodeToRestore = React__namespace.useRef(null);
-  const reactFocusEventTarget = React__namespace.useRef(null);
-  // This variable is useful when disableAutoFocus is true.
-  // It waits for the active element to move into the component to activate.
-  const activated = React__namespace.useRef(false);
-  const rootRef = React__namespace.useRef(null);
-  // @ts-expect-error TODO upstream fix
-  const handleRef = useForkRef(children.ref, rootRef);
-  const lastKeydown = React__namespace.useRef(null);
-  React__namespace.useEffect(() => {
-    // We might render an empty child.
-    if (!open || !rootRef.current) {
-      return;
-    }
-    activated.current = !disableAutoFocus;
-  }, [disableAutoFocus, open]);
-  React__namespace.useEffect(() => {
-    // We might render an empty child.
-    if (!open || !rootRef.current) {
-      return;
-    }
-    const doc = ownerDocument(rootRef.current);
-    if (!rootRef.current.contains(doc.activeElement)) {
-      if (!rootRef.current.hasAttribute('tabIndex')) {
-        if (process.env.NODE_ENV !== 'production') {
-          console.error(['MUI: The modal content node does not accept focus.', 'For the benefit of assistive technologies, ' + 'the tabIndex of the node is being set to "-1".'].join('\n'));
-        }
-        rootRef.current.setAttribute('tabIndex', '-1');
-      }
-      if (activated.current) {
-        rootRef.current.focus();
-      }
-    }
-    return () => {
-      // restoreLastFocus()
-      if (!disableRestoreFocus) {
-        // In IE11 it is possible for document.activeElement to be null resulting
-        // in nodeToRestore.current being null.
-        // Not all elements in IE11 have a focus method.
-        // Once IE11 support is dropped the focus() call can be unconditional.
-        if (nodeToRestore.current && nodeToRestore.current.focus) {
-          ignoreNextEnforceFocus.current = true;
-          nodeToRestore.current.focus();
-        }
-        nodeToRestore.current = null;
-      }
-    };
-    // Missing `disableRestoreFocus` which is fine.
-    // We don't support changing that prop on an open FocusTrap
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
-  React__namespace.useEffect(() => {
-    // We might render an empty child.
-    if (!open || !rootRef.current) {
-      return;
-    }
-    const doc = ownerDocument(rootRef.current);
-    const loopFocus = nativeEvent => {
-      lastKeydown.current = nativeEvent;
-      if (disableEnforceFocus || !isEnabled() || nativeEvent.key !== 'Tab') {
-        return;
-      }
-
-      // Make sure the next tab starts from the right place.
-      // doc.activeElement refers to the origin.
-      if (doc.activeElement === rootRef.current && nativeEvent.shiftKey) {
-        // We need to ignore the next contain as
-        // it will try to move the focus back to the rootRef element.
-        ignoreNextEnforceFocus.current = true;
-        if (sentinelEnd.current) {
-          sentinelEnd.current.focus();
-        }
-      }
-    };
-    const contain = () => {
-      const rootElement = rootRef.current;
-
-      // Cleanup functions are executed lazily in React 17.
-      // Contain can be called between the component being unmounted and its cleanup function being run.
-      if (rootElement === null) {
-        return;
-      }
-      if (!doc.hasFocus() || !isEnabled() || ignoreNextEnforceFocus.current) {
-        ignoreNextEnforceFocus.current = false;
-        return;
-      }
-
-      // The focus is already inside
-      if (rootElement.contains(doc.activeElement)) {
-        return;
-      }
-
-      // The disableEnforceFocus is set and the focus is outside of the focus trap (and sentinel nodes)
-      if (disableEnforceFocus && doc.activeElement !== sentinelStart.current && doc.activeElement !== sentinelEnd.current) {
-        return;
-      }
-
-      // if the focus event is not coming from inside the children's react tree, reset the refs
-      if (doc.activeElement !== reactFocusEventTarget.current) {
-        reactFocusEventTarget.current = null;
-      } else if (reactFocusEventTarget.current !== null) {
-        return;
-      }
-      if (!activated.current) {
-        return;
-      }
-      let tabbable = [];
-      if (doc.activeElement === sentinelStart.current || doc.activeElement === sentinelEnd.current) {
-        tabbable = getTabbable(rootRef.current);
-      }
-
-      // one of the sentinel nodes was focused, so move the focus
-      // to the first/last tabbable element inside the focus trap
-      if (tabbable.length > 0) {
-        var _lastKeydown$current, _lastKeydown$current2;
-        const isShiftTab = Boolean(((_lastKeydown$current = lastKeydown.current) == null ? void 0 : _lastKeydown$current.shiftKey) && ((_lastKeydown$current2 = lastKeydown.current) == null ? void 0 : _lastKeydown$current2.key) === 'Tab');
-        const focusNext = tabbable[0];
-        const focusPrevious = tabbable[tabbable.length - 1];
-        if (typeof focusNext !== 'string' && typeof focusPrevious !== 'string') {
-          if (isShiftTab) {
-            focusPrevious.focus();
-          } else {
-            focusNext.focus();
-          }
-        }
-        // no tabbable elements in the trap focus or the focus was outside of the focus trap
-      } else {
-        rootElement.focus();
-      }
-    };
-    doc.addEventListener('focusin', contain);
-    doc.addEventListener('keydown', loopFocus, true);
-
-    // With Edge, Safari and Firefox, no focus related events are fired when the focused area stops being a focused area.
-    // e.g. https://bugzilla.mozilla.org/show_bug.cgi?id=559561.
-    // Instead, we can look if the active element was restored on the BODY element.
-    //
-    // The whatwg spec defines how the browser should behave but does not explicitly mention any events:
-    // https://html.spec.whatwg.org/multipage/interaction.html#focus-fixup-rule.
-    const interval = setInterval(() => {
-      if (doc.activeElement && doc.activeElement.tagName === 'BODY') {
-        contain();
-      }
-    }, 50);
-    return () => {
-      clearInterval(interval);
-      doc.removeEventListener('focusin', contain);
-      doc.removeEventListener('keydown', loopFocus, true);
-    };
-  }, [disableAutoFocus, disableEnforceFocus, disableRestoreFocus, isEnabled, open, getTabbable]);
-  const onFocus = event => {
-    if (nodeToRestore.current === null) {
-      nodeToRestore.current = event.relatedTarget;
-    }
-    activated.current = true;
-    reactFocusEventTarget.current = event.target;
-    const childrenPropsHandler = children.props.onFocus;
-    if (childrenPropsHandler) {
-      childrenPropsHandler(event);
-    }
-  };
-  const handleFocusSentinel = event => {
-    if (nodeToRestore.current === null) {
-      nodeToRestore.current = event.relatedTarget;
-    }
-    activated.current = true;
-  };
-  return /*#__PURE__*/require$$2.jsxs(React__namespace.Fragment, {
-    children: [/*#__PURE__*/require$$2.jsx("div", {
-      tabIndex: open ? 0 : -1,
-      onFocus: handleFocusSentinel,
-      ref: sentinelStart,
-      "data-testid": "sentinelStart"
-    }), /*#__PURE__*/React__namespace.cloneElement(children, {
-      ref: handleRef,
-      onFocus
-    }), /*#__PURE__*/require$$2.jsx("div", {
-      tabIndex: open ? 0 : -1,
-      onFocus: handleFocusSentinel,
-      ref: sentinelEnd,
-      "data-testid": "sentinelEnd"
-    })]
-  });
-}
-process.env.NODE_ENV !== "production" ? FocusTrap.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit TypeScript types and run "yarn proptypes"  |
-  // ----------------------------------------------------------------------
-  /**
-   * A single child content element.
-   */
-  children: elementAcceptingRef$1,
-  /**
-   * If `true`, the focus trap will not automatically shift focus to itself when it opens, and
-   * replace it to the last focused element when it closes.
-   * This also works correctly with any focus trap children that have the `disableAutoFocus` prop.
-   *
-   * Generally this should never be set to `true` as it makes the focus trap less
-   * accessible to assistive technologies, like screen readers.
-   * @default false
-   */
-  disableAutoFocus: PropTypes.bool,
-  /**
-   * If `true`, the focus trap will not prevent focus from leaving the focus trap while open.
-   *
-   * Generally this should never be set to `true` as it makes the focus trap less
-   * accessible to assistive technologies, like screen readers.
-   * @default false
-   */
-  disableEnforceFocus: PropTypes.bool,
-  /**
-   * If `true`, the focus trap will not restore focus to previously focused element once
-   * focus trap is hidden or unmounted.
-   * @default false
-   */
-  disableRestoreFocus: PropTypes.bool,
-  /**
-   * Returns an array of ordered tabbable nodes (i.e. in tab order) within the root.
-   * For instance, you can provide the "tabbable" npm dependency.
-   * @param {HTMLElement} root
-   */
-  getTabbable: PropTypes.func,
-  /**
-   * This prop extends the `open` prop.
-   * It allows to toggle the open state without having to wait for a rerender when changing the `open` prop.
-   * This prop should be memoized.
-   * It can be used to support multiple focus trap mounted at the same time.
-   * @default function defaultIsEnabled(): boolean {
-   *   return true;
-   * }
-   */
-  isEnabled: PropTypes.func,
-  /**
-   * If `true`, focus is locked.
-   */
-  open: PropTypes.bool.isRequired
-} : void 0;
-if (process.env.NODE_ENV !== 'production') {
-  // eslint-disable-next-line
-  FocusTrap['propTypes' + ''] = exactProp(FocusTrap.propTypes);
-}
-
-function getContainer$1(container) {
-  return typeof container === 'function' ? container() : container;
-}
-
-/**
- * Portals provide a first-class way to render children into a DOM node
- * that exists outside the DOM hierarchy of the parent component.
- *
- * Demos:
- *
- * - [Portal](https://mui.com/base-ui/react-portal/)
- *
- * API:
- *
- * - [Portal API](https://mui.com/base-ui/react-portal/components-api/#portal)
- */
-const Portal = /*#__PURE__*/React__namespace.forwardRef(function Portal(props, forwardedRef) {
-  const {
-    children,
-    container,
-    disablePortal = false
-  } = props;
-  const [mountNode, setMountNode] = React__namespace.useState(null);
-  // @ts-expect-error TODO upstream fix
-  const handleRef = useForkRef( /*#__PURE__*/React__namespace.isValidElement(children) ? children.ref : null, forwardedRef);
-  useEnhancedEffect(() => {
-    if (!disablePortal) {
-      setMountNode(getContainer$1(container) || document.body);
-    }
-  }, [container, disablePortal]);
-  useEnhancedEffect(() => {
-    if (mountNode && !disablePortal) {
-      setRef(forwardedRef, mountNode);
-      return () => {
-        setRef(forwardedRef, null);
-      };
-    }
-    return undefined;
-  }, [forwardedRef, mountNode, disablePortal]);
-  if (disablePortal) {
-    if ( /*#__PURE__*/React__namespace.isValidElement(children)) {
-      const newProps = {
-        ref: handleRef
-      };
-      return /*#__PURE__*/React__namespace.cloneElement(children, newProps);
-    }
-    return /*#__PURE__*/require$$2.jsx(React__namespace.Fragment, {
-      children: children
-    });
-  }
-  return /*#__PURE__*/require$$2.jsx(React__namespace.Fragment, {
-    children: mountNode ? /*#__PURE__*/ReactDOM__namespace.createPortal(children, mountNode) : mountNode
-  });
-});
-process.env.NODE_ENV !== "production" ? Portal.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit TypeScript types and run "yarn proptypes"  |
-  // ----------------------------------------------------------------------
-  /**
-   * The children to render into the `container`.
-   */
-  children: PropTypes.node,
-  /**
-   * An HTML element or function that returns one.
-   * The `container` will have the portal children appended to it.
-   *
-   * You can also provide a callback, which is called in a React layout effect.
-   * This lets you set the container from a ref, and also makes server-side rendering possible.
-   *
-   * By default, it uses the body of the top-level document object,
-   * so it's simply `document.body` most of the time.
-   */
-  container: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([HTMLElementType, PropTypes.func]),
-  /**
-   * The `children` will be under the DOM hierarchy of the parent component.
-   * @default false
-   */
-  disablePortal: PropTypes.bool
-} : void 0;
-if (process.env.NODE_ENV !== 'production') {
-  // eslint-disable-next-line
-  Portal['propTypes' + ''] = exactProp(Portal.propTypes);
-}
-
-// Is a vertical scrollbar displayed?
-function isOverflowing(container) {
-  const doc = ownerDocument(container);
-  if (doc.body === container) {
-    return ownerWindow(container).innerWidth > doc.documentElement.clientWidth;
-  }
-  return container.scrollHeight > container.clientHeight;
-}
-function ariaHidden(element, show) {
-  if (show) {
-    element.setAttribute('aria-hidden', 'true');
-  } else {
-    element.removeAttribute('aria-hidden');
-  }
-}
-function getPaddingRight(element) {
-  return parseInt(ownerWindow(element).getComputedStyle(element).paddingRight, 10) || 0;
-}
-function isAriaHiddenForbiddenOnElement(element) {
-  // The forbidden HTML tags are the ones from ARIA specification that
-  // can be children of body and can't have aria-hidden attribute.
-  // cf. https://www.w3.org/TR/html-aria/#docconformance
-  const forbiddenTagNames = ['TEMPLATE', 'SCRIPT', 'STYLE', 'LINK', 'MAP', 'META', 'NOSCRIPT', 'PICTURE', 'COL', 'COLGROUP', 'PARAM', 'SLOT', 'SOURCE', 'TRACK'];
-  const isForbiddenTagName = forbiddenTagNames.indexOf(element.tagName) !== -1;
-  const isInputHidden = element.tagName === 'INPUT' && element.getAttribute('type') === 'hidden';
-  return isForbiddenTagName || isInputHidden;
-}
-function ariaHiddenSiblings(container, mountElement, currentElement, elementsToExclude, show) {
-  const blacklist = [mountElement, currentElement, ...elementsToExclude];
-  [].forEach.call(container.children, element => {
-    const isNotExcludedElement = blacklist.indexOf(element) === -1;
-    const isNotForbiddenElement = !isAriaHiddenForbiddenOnElement(element);
-    if (isNotExcludedElement && isNotForbiddenElement) {
-      ariaHidden(element, show);
-    }
-  });
-}
-function findIndexOf(items, callback) {
-  let idx = -1;
-  items.some((item, index) => {
-    if (callback(item)) {
-      idx = index;
-      return true;
-    }
-    return false;
-  });
-  return idx;
-}
-function handleContainer(containerInfo, props) {
-  const restoreStyle = [];
-  const container = containerInfo.container;
-  if (!props.disableScrollLock) {
-    if (isOverflowing(container)) {
-      // Compute the size before applying overflow hidden to avoid any scroll jumps.
-      const scrollbarSize = getScrollbarSize(ownerDocument(container));
-      restoreStyle.push({
-        value: container.style.paddingRight,
-        property: 'padding-right',
-        el: container
-      });
-      // Use computed style, here to get the real padding to add our scrollbar width.
-      container.style.paddingRight = `${getPaddingRight(container) + scrollbarSize}px`;
-
-      // .mui-fixed is a global helper.
-      const fixedElements = ownerDocument(container).querySelectorAll('.mui-fixed');
-      [].forEach.call(fixedElements, element => {
-        restoreStyle.push({
-          value: element.style.paddingRight,
-          property: 'padding-right',
-          el: element
-        });
-        element.style.paddingRight = `${getPaddingRight(element) + scrollbarSize}px`;
-      });
-    }
-    let scrollContainer;
-    if (container.parentNode instanceof DocumentFragment) {
-      scrollContainer = ownerDocument(container).body;
-    } else {
-      // Support html overflow-y: auto for scroll stability between pages
-      // https://css-tricks.com/snippets/css/force-vertical-scrollbar/
-      const parent = container.parentElement;
-      const containerWindow = ownerWindow(container);
-      scrollContainer = (parent == null ? void 0 : parent.nodeName) === 'HTML' && containerWindow.getComputedStyle(parent).overflowY === 'scroll' ? parent : container;
-    }
-
-    // Block the scroll even if no scrollbar is visible to account for mobile keyboard
-    // screensize shrink.
-    restoreStyle.push({
-      value: scrollContainer.style.overflow,
-      property: 'overflow',
-      el: scrollContainer
-    }, {
-      value: scrollContainer.style.overflowX,
-      property: 'overflow-x',
-      el: scrollContainer
-    }, {
-      value: scrollContainer.style.overflowY,
-      property: 'overflow-y',
-      el: scrollContainer
-    });
-    scrollContainer.style.overflow = 'hidden';
-  }
-  const restore = () => {
-    restoreStyle.forEach(({
-      value,
-      el,
-      property
-    }) => {
-      if (value) {
-        el.style.setProperty(property, value);
-      } else {
-        el.style.removeProperty(property);
-      }
-    });
-  };
-  return restore;
-}
-function getHiddenSiblings(container) {
-  const hiddenSiblings = [];
-  [].forEach.call(container.children, element => {
-    if (element.getAttribute('aria-hidden') === 'true') {
-      hiddenSiblings.push(element);
-    }
-  });
-  return hiddenSiblings;
-}
-/**
- * @ignore - do not document.
- *
- * Proper state management for containers and the modals in those containers.
- * Simplified, but inspired by react-overlay's ModalManager class.
- * Used by the Modal to ensure proper styling of containers.
- */
-class ModalManager {
-  constructor() {
-    this.containers = void 0;
-    this.modals = void 0;
-    this.modals = [];
-    this.containers = [];
-  }
-  add(modal, container) {
-    let modalIndex = this.modals.indexOf(modal);
-    if (modalIndex !== -1) {
-      return modalIndex;
-    }
-    modalIndex = this.modals.length;
-    this.modals.push(modal);
-
-    // If the modal we are adding is already in the DOM.
-    if (modal.modalRef) {
-      ariaHidden(modal.modalRef, false);
-    }
-    const hiddenSiblings = getHiddenSiblings(container);
-    ariaHiddenSiblings(container, modal.mount, modal.modalRef, hiddenSiblings, true);
-    const containerIndex = findIndexOf(this.containers, item => item.container === container);
-    if (containerIndex !== -1) {
-      this.containers[containerIndex].modals.push(modal);
-      return modalIndex;
-    }
-    this.containers.push({
-      modals: [modal],
-      container,
-      restore: null,
-      hiddenSiblings
-    });
-    return modalIndex;
-  }
-  mount(modal, props) {
-    const containerIndex = findIndexOf(this.containers, item => item.modals.indexOf(modal) !== -1);
-    const containerInfo = this.containers[containerIndex];
-    if (!containerInfo.restore) {
-      containerInfo.restore = handleContainer(containerInfo, props);
-    }
-  }
-  remove(modal, ariaHiddenState = true) {
-    const modalIndex = this.modals.indexOf(modal);
-    if (modalIndex === -1) {
-      return modalIndex;
-    }
-    const containerIndex = findIndexOf(this.containers, item => item.modals.indexOf(modal) !== -1);
-    const containerInfo = this.containers[containerIndex];
-    containerInfo.modals.splice(containerInfo.modals.indexOf(modal), 1);
-    this.modals.splice(modalIndex, 1);
-
-    // If that was the last modal in a container, clean up the container.
-    if (containerInfo.modals.length === 0) {
-      // The modal might be closed before it had the chance to be mounted in the DOM.
-      if (containerInfo.restore) {
-        containerInfo.restore();
-      }
-      if (modal.modalRef) {
-        // In case the modal wasn't in the DOM yet.
-        ariaHidden(modal.modalRef, ariaHiddenState);
-      }
-      ariaHiddenSiblings(containerInfo.container, modal.mount, modal.modalRef, containerInfo.hiddenSiblings, false);
-      this.containers.splice(containerIndex, 1);
-    } else {
-      // Otherwise make sure the next top modal is visible to a screen reader.
-      const nextTop = containerInfo.modals[containerInfo.modals.length - 1];
-      // as soon as a modal is adding its modalRef is undefined. it can't set
-      // aria-hidden because the dom element doesn't exist either
-      // when modal was unmounted before modalRef gets null
-      if (nextTop.modalRef) {
-        ariaHidden(nextTop.modalRef, false);
-      }
-    }
-    return modalIndex;
-  }
-  isTopModal(modal) {
-    return this.modals.length > 0 && this.modals[this.modals.length - 1] === modal;
-  }
-}
-
-function getContainer(container) {
-  return typeof container === 'function' ? container() : container;
-}
-function getHasTransition(children) {
-  return children ? children.props.hasOwnProperty('in') : false;
-}
-
-// A modal manager used to track and manage the state of open Modals.
-// Modals don't open on the server so this won't conflict with concurrent requests.
-const defaultManager = new ModalManager();
-/**
- *
- * Demos:
- *
- * - [Modal](https://mui.com/base-ui/react-modal/#hook)
- *
- * API:
- *
- * - [useModal API](https://mui.com/base-ui/react-modal/hooks-api/#use-modal)
- */
-function useModal(parameters) {
-  const {
-    container,
-    disableEscapeKeyDown = false,
-    disableScrollLock = false,
-    // @ts-ignore internal logic - Base UI supports the manager as a prop too
-    manager = defaultManager,
-    closeAfterTransition = false,
-    onTransitionEnter,
-    onTransitionExited,
-    children,
-    onClose,
-    open,
-    rootRef
-  } = parameters;
-
-  // @ts-ignore internal logic
-  const modal = React__namespace.useRef({});
-  const mountNodeRef = React__namespace.useRef(null);
-  const modalRef = React__namespace.useRef(null);
-  const handleRef = useForkRef(modalRef, rootRef);
-  const [exited, setExited] = React__namespace.useState(!open);
-  const hasTransition = getHasTransition(children);
-  let ariaHiddenProp = true;
-  if (parameters['aria-hidden'] === 'false' || parameters['aria-hidden'] === false) {
-    ariaHiddenProp = false;
-  }
-  const getDoc = () => ownerDocument(mountNodeRef.current);
-  const getModal = () => {
-    modal.current.modalRef = modalRef.current;
-    modal.current.mount = mountNodeRef.current;
-    return modal.current;
-  };
-  const handleMounted = () => {
-    manager.mount(getModal(), {
-      disableScrollLock
-    });
-
-    // Fix a bug on Chrome where the scroll isn't initially 0.
-    if (modalRef.current) {
-      modalRef.current.scrollTop = 0;
-    }
-  };
-  const handleOpen = useEventCallback(() => {
-    const resolvedContainer = getContainer(container) || getDoc().body;
-    manager.add(getModal(), resolvedContainer);
-
-    // The element was already mounted.
-    if (modalRef.current) {
-      handleMounted();
-    }
-  });
-  const isTopModal = React__namespace.useCallback(() => manager.isTopModal(getModal()), [manager]);
-  const handlePortalRef = useEventCallback(node => {
-    mountNodeRef.current = node;
-    if (!node) {
-      return;
-    }
-    if (open && isTopModal()) {
-      handleMounted();
-    } else if (modalRef.current) {
-      ariaHidden(modalRef.current, ariaHiddenProp);
-    }
-  });
-  const handleClose = React__namespace.useCallback(() => {
-    manager.remove(getModal(), ariaHiddenProp);
-  }, [ariaHiddenProp, manager]);
-  React__namespace.useEffect(() => {
-    return () => {
-      handleClose();
-    };
-  }, [handleClose]);
-  React__namespace.useEffect(() => {
-    if (open) {
-      handleOpen();
-    } else if (!hasTransition || !closeAfterTransition) {
-      handleClose();
-    }
-  }, [open, handleClose, hasTransition, closeAfterTransition, handleOpen]);
-  const createHandleKeyDown = otherHandlers => event => {
-    var _otherHandlers$onKeyD;
-    (_otherHandlers$onKeyD = otherHandlers.onKeyDown) == null || _otherHandlers$onKeyD.call(otherHandlers, event);
-
-    // The handler doesn't take event.defaultPrevented into account:
-    //
-    // event.preventDefault() is meant to stop default behaviors like
-    // clicking a checkbox to check it, hitting a button to submit a form,
-    // and hitting left arrow to move the cursor in a text input etc.
-    // Only special HTML elements have these default behaviors.
-    if (event.key !== 'Escape' || event.which === 229 ||
-    // Wait until IME is settled.
-    !isTopModal()) {
-      return;
-    }
-    if (!disableEscapeKeyDown) {
-      // Swallow the event, in case someone is listening for the escape key on the body.
-      event.stopPropagation();
-      if (onClose) {
-        onClose(event, 'escapeKeyDown');
-      }
-    }
-  };
-  const createHandleBackdropClick = otherHandlers => event => {
-    var _otherHandlers$onClic;
-    (_otherHandlers$onClic = otherHandlers.onClick) == null || _otherHandlers$onClic.call(otherHandlers, event);
-    if (event.target !== event.currentTarget) {
-      return;
-    }
-    if (onClose) {
-      onClose(event, 'backdropClick');
-    }
-  };
-  const getRootProps = (otherHandlers = {}) => {
-    const propsEventHandlers = extractEventHandlers(parameters);
-
-    // The custom event handlers shouldn't be spread on the root element
-    delete propsEventHandlers.onTransitionEnter;
-    delete propsEventHandlers.onTransitionExited;
-    const externalEventHandlers = _extends({}, propsEventHandlers, otherHandlers);
-    return _extends({
-      role: 'presentation'
-    }, externalEventHandlers, {
-      onKeyDown: createHandleKeyDown(externalEventHandlers),
-      ref: handleRef
-    });
-  };
-  const getBackdropProps = (otherHandlers = {}) => {
-    const externalEventHandlers = otherHandlers;
-    return _extends({
-      'aria-hidden': true
-    }, externalEventHandlers, {
-      onClick: createHandleBackdropClick(externalEventHandlers),
-      open
-    });
-  };
-  const getTransitionProps = () => {
-    const handleEnter = () => {
-      setExited(false);
-      if (onTransitionEnter) {
-        onTransitionEnter();
-      }
-    };
-    const handleExited = () => {
-      setExited(true);
-      if (onTransitionExited) {
-        onTransitionExited();
-      }
-      if (closeAfterTransition) {
-        handleClose();
-      }
-    };
-    return {
-      onEnter: createChainedFunction(handleEnter, children == null ? void 0 : children.props.onEnter),
-      onExited: createChainedFunction(handleExited, children == null ? void 0 : children.props.onExited)
-    };
-  };
-  return {
-    getRootProps,
-    getBackdropProps,
-    getTransitionProps,
-    rootRef: handleRef,
-    portalRef: handlePortalRef,
-    isTopModal,
-    exited,
-    hasTransition
-  };
-}
-
-function getListSubheaderUtilityClass(slot) {
-  return generateUtilityClass('MuiListSubheader', slot);
-}
-generateUtilityClasses('MuiListSubheader', ['root', 'colorPrimary', 'colorInherit', 'gutters', 'inset', 'sticky']);
-
-const _excluded$a = ["className", "color", "component", "disableGutters", "disableSticky", "inset"];
-const useUtilityClasses$8 = ownerState => {
-  const {
-    classes,
-    color,
-    disableGutters,
-    inset,
-    disableSticky
-  } = ownerState;
-  const slots = {
-    root: ['root', color !== 'default' && `color${capitalize(color)}`, !disableGutters && 'gutters', inset && 'inset', !disableSticky && 'sticky']
-  };
-  return composeClasses(slots, getListSubheaderUtilityClass, classes);
-};
-const ListSubheaderRoot = styled('li', {
-  name: 'MuiListSubheader',
-  slot: 'Root',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, ownerState.color !== 'default' && styles[`color${capitalize(ownerState.color)}`], !ownerState.disableGutters && styles.gutters, ownerState.inset && styles.inset, !ownerState.disableSticky && styles.sticky];
-  }
-})(({
-  theme,
-  ownerState
-}) => _extends({
-  boxSizing: 'border-box',
-  lineHeight: '48px',
-  listStyle: 'none',
-  color: (theme.vars || theme).palette.text.secondary,
-  fontFamily: theme.typography.fontFamily,
-  fontWeight: theme.typography.fontWeightMedium,
-  fontSize: theme.typography.pxToRem(14)
-}, ownerState.color === 'primary' && {
-  color: (theme.vars || theme).palette.primary.main
-}, ownerState.color === 'inherit' && {
-  color: 'inherit'
-}, !ownerState.disableGutters && {
-  paddingLeft: 16,
-  paddingRight: 16
-}, ownerState.inset && {
-  paddingLeft: 72
-}, !ownerState.disableSticky && {
-  position: 'sticky',
-  top: 0,
-  zIndex: 1,
-  backgroundColor: (theme.vars || theme).palette.background.paper
-}));
-const ListSubheader = /*#__PURE__*/React__namespace.forwardRef(function ListSubheader(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiListSubheader'
-  });
-  const {
-      className,
-      color = 'default',
-      component = 'li',
-      disableGutters = false,
-      disableSticky = false,
-      inset = false
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$a);
-  const ownerState = _extends({}, props, {
-    color,
-    component,
-    disableGutters,
-    disableSticky,
-    inset
-  });
-  const classes = useUtilityClasses$8(ownerState);
-  return /*#__PURE__*/require$$2.jsx(ListSubheaderRoot, _extends({
-    as: component,
-    className: clsx(classes.root, className),
-    ref: ref,
-    ownerState: ownerState
-  }, other));
-});
-ListSubheader.muiSkipListHighlight = true;
-process.env.NODE_ENV !== "production" ? ListSubheader.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * The content of the component.
-   */
-  children: PropTypes.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * The color of the component. It supports those theme colors that make sense for this component.
-   * @default 'default'
-   */
-  color: PropTypes.oneOf(['default', 'inherit', 'primary']),
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: PropTypes.elementType,
-  /**
-   * If `true`, the List Subheader will not have gutters.
-   * @default false
-   */
-  disableGutters: PropTypes.bool,
-  /**
-   * If `true`, the List Subheader will not stick to the top during scroll.
-   * @default false
-   */
-  disableSticky: PropTypes.bool,
-  /**
-   * If `true`, the List Subheader is indented.
-   * @default false
-   */
-  inset: PropTypes.bool,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
-} : void 0;
-var ListSubheader$1 = ListSubheader;
-
-var CancelIcon = createSvgIcon$1( /*#__PURE__*/require$$2.jsx("path", {
-  d: "M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
-}), 'Cancel');
-
-function getChipUtilityClass(slot) {
-  return generateUtilityClass('MuiChip', slot);
-}
-const chipClasses = generateUtilityClasses('MuiChip', ['root', 'sizeSmall', 'sizeMedium', 'colorError', 'colorInfo', 'colorPrimary', 'colorSecondary', 'colorSuccess', 'colorWarning', 'disabled', 'clickable', 'clickableColorPrimary', 'clickableColorSecondary', 'deletable', 'deletableColorPrimary', 'deletableColorSecondary', 'outlined', 'filled', 'outlinedPrimary', 'outlinedSecondary', 'filledPrimary', 'filledSecondary', 'avatar', 'avatarSmall', 'avatarMedium', 'avatarColorPrimary', 'avatarColorSecondary', 'icon', 'iconSmall', 'iconMedium', 'iconColorPrimary', 'iconColorSecondary', 'label', 'labelSmall', 'labelMedium', 'deleteIcon', 'deleteIconSmall', 'deleteIconMedium', 'deleteIconColorPrimary', 'deleteIconColorSecondary', 'deleteIconOutlinedColorPrimary', 'deleteIconOutlinedColorSecondary', 'deleteIconFilledColorPrimary', 'deleteIconFilledColorSecondary', 'focusVisible']);
-var chipClasses$1 = chipClasses;
-
-const _excluded$9 = ["avatar", "className", "clickable", "color", "component", "deleteIcon", "disabled", "icon", "label", "onClick", "onDelete", "onKeyDown", "onKeyUp", "size", "variant", "tabIndex", "skipFocusWhenDisabled"];
-const useUtilityClasses$7 = ownerState => {
-  const {
-    classes,
-    disabled,
-    size,
-    color,
-    iconColor,
-    onDelete,
-    clickable,
-    variant
-  } = ownerState;
-  const slots = {
-    root: ['root', variant, disabled && 'disabled', `size${capitalize(size)}`, `color${capitalize(color)}`, clickable && 'clickable', clickable && `clickableColor${capitalize(color)}`, onDelete && 'deletable', onDelete && `deletableColor${capitalize(color)}`, `${variant}${capitalize(color)}`],
-    label: ['label', `label${capitalize(size)}`],
-    avatar: ['avatar', `avatar${capitalize(size)}`, `avatarColor${capitalize(color)}`],
-    icon: ['icon', `icon${capitalize(size)}`, `iconColor${capitalize(iconColor)}`],
-    deleteIcon: ['deleteIcon', `deleteIcon${capitalize(size)}`, `deleteIconColor${capitalize(color)}`, `deleteIcon${capitalize(variant)}Color${capitalize(color)}`]
-  };
-  return composeClasses(slots, getChipUtilityClass, classes);
-};
-const ChipRoot = styled('div', {
-  name: 'MuiChip',
-  slot: 'Root',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    const {
-      color,
-      iconColor,
-      clickable,
-      onDelete,
-      size,
-      variant
-    } = ownerState;
-    return [{
-      [`& .${chipClasses$1.avatar}`]: styles.avatar
-    }, {
-      [`& .${chipClasses$1.avatar}`]: styles[`avatar${capitalize(size)}`]
-    }, {
-      [`& .${chipClasses$1.avatar}`]: styles[`avatarColor${capitalize(color)}`]
-    }, {
-      [`& .${chipClasses$1.icon}`]: styles.icon
-    }, {
-      [`& .${chipClasses$1.icon}`]: styles[`icon${capitalize(size)}`]
-    }, {
-      [`& .${chipClasses$1.icon}`]: styles[`iconColor${capitalize(iconColor)}`]
-    }, {
-      [`& .${chipClasses$1.deleteIcon}`]: styles.deleteIcon
-    }, {
-      [`& .${chipClasses$1.deleteIcon}`]: styles[`deleteIcon${capitalize(size)}`]
-    }, {
-      [`& .${chipClasses$1.deleteIcon}`]: styles[`deleteIconColor${capitalize(color)}`]
-    }, {
-      [`& .${chipClasses$1.deleteIcon}`]: styles[`deleteIcon${capitalize(variant)}Color${capitalize(color)}`]
-    }, styles.root, styles[`size${capitalize(size)}`], styles[`color${capitalize(color)}`], clickable && styles.clickable, clickable && color !== 'default' && styles[`clickableColor${capitalize(color)})`], onDelete && styles.deletable, onDelete && color !== 'default' && styles[`deletableColor${capitalize(color)}`], styles[variant], styles[`${variant}${capitalize(color)}`]];
-  }
-})(({
-  theme,
-  ownerState
-}) => {
-  const textColor = theme.palette.mode === 'light' ? theme.palette.grey[700] : theme.palette.grey[300];
-  return _extends({
-    maxWidth: '100%',
-    fontFamily: theme.typography.fontFamily,
-    fontSize: theme.typography.pxToRem(13),
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 32,
-    color: (theme.vars || theme).palette.text.primary,
-    backgroundColor: (theme.vars || theme).palette.action.selected,
-    borderRadius: 32 / 2,
-    whiteSpace: 'nowrap',
-    transition: theme.transitions.create(['background-color', 'box-shadow']),
-    // reset cursor explicitly in case ButtonBase is used
-    cursor: 'unset',
-    // We disable the focus ring for mouse, touch and keyboard users.
-    outline: 0,
-    textDecoration: 'none',
-    border: 0,
-    // Remove `button` border
-    padding: 0,
-    // Remove `button` padding
-    verticalAlign: 'middle',
-    boxSizing: 'border-box',
-    [`&.${chipClasses$1.disabled}`]: {
-      opacity: (theme.vars || theme).palette.action.disabledOpacity,
-      pointerEvents: 'none'
-    },
-    [`& .${chipClasses$1.avatar}`]: {
-      marginLeft: 5,
-      marginRight: -6,
-      width: 24,
-      height: 24,
-      color: theme.vars ? theme.vars.palette.Chip.defaultAvatarColor : textColor,
-      fontSize: theme.typography.pxToRem(12)
-    },
-    [`& .${chipClasses$1.avatarColorPrimary}`]: {
-      color: (theme.vars || theme).palette.primary.contrastText,
-      backgroundColor: (theme.vars || theme).palette.primary.dark
-    },
-    [`& .${chipClasses$1.avatarColorSecondary}`]: {
-      color: (theme.vars || theme).palette.secondary.contrastText,
-      backgroundColor: (theme.vars || theme).palette.secondary.dark
-    },
-    [`& .${chipClasses$1.avatarSmall}`]: {
-      marginLeft: 4,
-      marginRight: -4,
-      width: 18,
-      height: 18,
-      fontSize: theme.typography.pxToRem(10)
-    },
-    [`& .${chipClasses$1.icon}`]: _extends({
-      marginLeft: 5,
-      marginRight: -6
-    }, ownerState.size === 'small' && {
-      fontSize: 18,
-      marginLeft: 4,
-      marginRight: -4
-    }, ownerState.iconColor === ownerState.color && _extends({
-      color: theme.vars ? theme.vars.palette.Chip.defaultIconColor : textColor
-    }, ownerState.color !== 'default' && {
-      color: 'inherit'
-    })),
-    [`& .${chipClasses$1.deleteIcon}`]: _extends({
-      WebkitTapHighlightColor: 'transparent',
-      color: theme.vars ? `rgba(${theme.vars.palette.text.primaryChannel} / 0.26)` : alpha(theme.palette.text.primary, 0.26),
-      fontSize: 22,
-      cursor: 'pointer',
-      margin: '0 5px 0 -6px',
-      '&:hover': {
-        color: theme.vars ? `rgba(${theme.vars.palette.text.primaryChannel} / 0.4)` : alpha(theme.palette.text.primary, 0.4)
-      }
-    }, ownerState.size === 'small' && {
-      fontSize: 16,
-      marginRight: 4,
-      marginLeft: -4
-    }, ownerState.color !== 'default' && {
-      color: theme.vars ? `rgba(${theme.vars.palette[ownerState.color].contrastTextChannel} / 0.7)` : alpha(theme.palette[ownerState.color].contrastText, 0.7),
-      '&:hover, &:active': {
-        color: (theme.vars || theme).palette[ownerState.color].contrastText
-      }
-    })
-  }, ownerState.size === 'small' && {
-    height: 24
-  }, ownerState.color !== 'default' && {
-    backgroundColor: (theme.vars || theme).palette[ownerState.color].main,
-    color: (theme.vars || theme).palette[ownerState.color].contrastText
-  }, ownerState.onDelete && {
-    [`&.${chipClasses$1.focusVisible}`]: {
-      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.action.selectedChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.focusOpacity}))` : alpha(theme.palette.action.selected, theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity)
-    }
-  }, ownerState.onDelete && ownerState.color !== 'default' && {
-    [`&.${chipClasses$1.focusVisible}`]: {
-      backgroundColor: (theme.vars || theme).palette[ownerState.color].dark
-    }
-  });
-}, ({
-  theme,
-  ownerState
-}) => _extends({}, ownerState.clickable && {
-  userSelect: 'none',
-  WebkitTapHighlightColor: 'transparent',
-  cursor: 'pointer',
-  '&:hover': {
-    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.action.selectedChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.hoverOpacity}))` : alpha(theme.palette.action.selected, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity)
-  },
-  [`&.${chipClasses$1.focusVisible}`]: {
-    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.action.selectedChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.focusOpacity}))` : alpha(theme.palette.action.selected, theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity)
-  },
-  '&:active': {
-    boxShadow: (theme.vars || theme).shadows[1]
-  }
-}, ownerState.clickable && ownerState.color !== 'default' && {
-  [`&:hover, &.${chipClasses$1.focusVisible}`]: {
-    backgroundColor: (theme.vars || theme).palette[ownerState.color].dark
-  }
-}), ({
-  theme,
-  ownerState
-}) => _extends({}, ownerState.variant === 'outlined' && {
-  backgroundColor: 'transparent',
-  border: theme.vars ? `1px solid ${theme.vars.palette.Chip.defaultBorder}` : `1px solid ${theme.palette.mode === 'light' ? theme.palette.grey[400] : theme.palette.grey[700]}`,
-  [`&.${chipClasses$1.clickable}:hover`]: {
-    backgroundColor: (theme.vars || theme).palette.action.hover
-  },
-  [`&.${chipClasses$1.focusVisible}`]: {
-    backgroundColor: (theme.vars || theme).palette.action.focus
-  },
-  [`& .${chipClasses$1.avatar}`]: {
-    marginLeft: 4
-  },
-  [`& .${chipClasses$1.avatarSmall}`]: {
-    marginLeft: 2
-  },
-  [`& .${chipClasses$1.icon}`]: {
-    marginLeft: 4
-  },
-  [`& .${chipClasses$1.iconSmall}`]: {
-    marginLeft: 2
-  },
-  [`& .${chipClasses$1.deleteIcon}`]: {
-    marginRight: 5
-  },
-  [`& .${chipClasses$1.deleteIconSmall}`]: {
-    marginRight: 3
-  }
-}, ownerState.variant === 'outlined' && ownerState.color !== 'default' && {
-  color: (theme.vars || theme).palette[ownerState.color].main,
-  border: `1px solid ${theme.vars ? `rgba(${theme.vars.palette[ownerState.color].mainChannel} / 0.7)` : alpha(theme.palette[ownerState.color].main, 0.7)}`,
-  [`&.${chipClasses$1.clickable}:hover`]: {
-    backgroundColor: theme.vars ? `rgba(${theme.vars.palette[ownerState.color].mainChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette[ownerState.color].main, theme.palette.action.hoverOpacity)
-  },
-  [`&.${chipClasses$1.focusVisible}`]: {
-    backgroundColor: theme.vars ? `rgba(${theme.vars.palette[ownerState.color].mainChannel} / ${theme.vars.palette.action.focusOpacity})` : alpha(theme.palette[ownerState.color].main, theme.palette.action.focusOpacity)
-  },
-  [`& .${chipClasses$1.deleteIcon}`]: {
-    color: theme.vars ? `rgba(${theme.vars.palette[ownerState.color].mainChannel} / 0.7)` : alpha(theme.palette[ownerState.color].main, 0.7),
-    '&:hover, &:active': {
-      color: (theme.vars || theme).palette[ownerState.color].main
-    }
-  }
-}));
-const ChipLabel = styled('span', {
-  name: 'MuiChip',
-  slot: 'Label',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    const {
-      size
-    } = ownerState;
-    return [styles.label, styles[`label${capitalize(size)}`]];
-  }
-})(({
-  ownerState
-}) => _extends({
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  paddingLeft: 12,
-  paddingRight: 12,
-  whiteSpace: 'nowrap'
-}, ownerState.variant === 'outlined' && {
-  paddingLeft: 11,
-  paddingRight: 11
-}, ownerState.size === 'small' && {
-  paddingLeft: 8,
-  paddingRight: 8
-}, ownerState.size === 'small' && ownerState.variant === 'outlined' && {
-  paddingLeft: 7,
-  paddingRight: 7
-}));
-function isDeleteKeyboardEvent(keyboardEvent) {
-  return keyboardEvent.key === 'Backspace' || keyboardEvent.key === 'Delete';
-}
-
-/**
- * Chips represent complex entities in small blocks, such as a contact.
- */
-const Chip = /*#__PURE__*/React__namespace.forwardRef(function Chip(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiChip'
-  });
-  const {
-      avatar: avatarProp,
-      className,
-      clickable: clickableProp,
-      color = 'default',
-      component: ComponentProp,
-      deleteIcon: deleteIconProp,
-      disabled = false,
-      icon: iconProp,
-      label,
-      onClick,
-      onDelete,
-      onKeyDown,
-      onKeyUp,
-      size = 'medium',
-      variant = 'filled',
-      tabIndex,
-      skipFocusWhenDisabled = false // TODO v6: Rename to `focusableWhenDisabled`.
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$9);
-  const chipRef = React__namespace.useRef(null);
-  const handleRef = useForkRef(chipRef, ref);
-  const handleDeleteIconClick = event => {
-    // Stop the event from bubbling up to the `Chip`
-    event.stopPropagation();
-    if (onDelete) {
-      onDelete(event);
-    }
-  };
-  const handleKeyDown = event => {
-    // Ignore events from children of `Chip`.
-    if (event.currentTarget === event.target && isDeleteKeyboardEvent(event)) {
-      // Will be handled in keyUp, otherwise some browsers
-      // might init navigation
-      event.preventDefault();
-    }
-    if (onKeyDown) {
-      onKeyDown(event);
-    }
-  };
-  const handleKeyUp = event => {
-    // Ignore events from children of `Chip`.
-    if (event.currentTarget === event.target) {
-      if (onDelete && isDeleteKeyboardEvent(event)) {
-        onDelete(event);
-      } else if (event.key === 'Escape' && chipRef.current) {
-        chipRef.current.blur();
-      }
-    }
-    if (onKeyUp) {
-      onKeyUp(event);
-    }
-  };
-  const clickable = clickableProp !== false && onClick ? true : clickableProp;
-  const component = clickable || onDelete ? ButtonBase$1 : ComponentProp || 'div';
-  const ownerState = _extends({}, props, {
-    component,
-    disabled,
-    size,
-    color,
-    iconColor: /*#__PURE__*/React__namespace.isValidElement(iconProp) ? iconProp.props.color || color : color,
-    onDelete: !!onDelete,
-    clickable,
-    variant
-  });
-  const classes = useUtilityClasses$7(ownerState);
-  const moreProps = component === ButtonBase$1 ? _extends({
-    component: ComponentProp || 'div',
-    focusVisibleClassName: classes.focusVisible
-  }, onDelete && {
-    disableRipple: true
-  }) : {};
-  let deleteIcon = null;
-  if (onDelete) {
-    deleteIcon = deleteIconProp && /*#__PURE__*/React__namespace.isValidElement(deleteIconProp) ? ( /*#__PURE__*/React__namespace.cloneElement(deleteIconProp, {
-      className: clsx(deleteIconProp.props.className, classes.deleteIcon),
-      onClick: handleDeleteIconClick
-    })) : /*#__PURE__*/require$$2.jsx(CancelIcon, {
-      className: clsx(classes.deleteIcon),
-      onClick: handleDeleteIconClick
-    });
-  }
-  let avatar = null;
-  if (avatarProp && /*#__PURE__*/React__namespace.isValidElement(avatarProp)) {
-    avatar = /*#__PURE__*/React__namespace.cloneElement(avatarProp, {
-      className: clsx(classes.avatar, avatarProp.props.className)
-    });
-  }
-  let icon = null;
-  if (iconProp && /*#__PURE__*/React__namespace.isValidElement(iconProp)) {
-    icon = /*#__PURE__*/React__namespace.cloneElement(iconProp, {
-      className: clsx(classes.icon, iconProp.props.className)
-    });
-  }
-  if (process.env.NODE_ENV !== 'production') {
-    if (avatar && icon) {
-      console.error('MUI: The Chip component can not handle the avatar ' + 'and the icon prop at the same time. Pick one.');
-    }
-  }
-  return /*#__PURE__*/require$$2.jsxs(ChipRoot, _extends({
-    as: component,
-    className: clsx(classes.root, className),
-    disabled: clickable && disabled ? true : undefined,
-    onClick: onClick,
-    onKeyDown: handleKeyDown,
-    onKeyUp: handleKeyUp,
-    ref: handleRef,
-    tabIndex: skipFocusWhenDisabled && disabled ? -1 : tabIndex,
-    ownerState: ownerState
-  }, moreProps, other, {
-    children: [avatar || icon, /*#__PURE__*/require$$2.jsx(ChipLabel, {
-      className: clsx(classes.label),
-      ownerState: ownerState,
-      children: label
-    }), deleteIcon]
-  }));
-});
-process.env.NODE_ENV !== "production" ? Chip.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * The Avatar element to display.
-   */
-  avatar: PropTypes.element,
-  /**
-   * This prop isn't supported.
-   * Use the `component` prop if you need to change the children structure.
-   */
-  children: unsupportedProp,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * If `true`, the chip will appear clickable, and will raise when pressed,
-   * even if the onClick prop is not defined.
-   * If `false`, the chip will not appear clickable, even if onClick prop is defined.
-   * This can be used, for example,
-   * along with the component prop to indicate an anchor Chip is clickable.
-   * Note: this controls the UI and does not affect the onClick event.
-   */
-  clickable: PropTypes.bool,
-  /**
-   * The color of the component.
-   * It supports both default and custom theme colors, which can be added as shown in the
-   * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
-   * @default 'default'
-   */
-  color: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['default', 'primary', 'secondary', 'error', 'info', 'success', 'warning']), PropTypes.string]),
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: PropTypes.elementType,
-  /**
-   * Override the default delete icon element. Shown only if `onDelete` is set.
-   */
-  deleteIcon: PropTypes.element,
-  /**
-   * If `true`, the component is disabled.
-   * @default false
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Icon element.
-   */
-  icon: PropTypes.element,
-  /**
-   * The content of the component.
-   */
-  label: PropTypes.node,
-  /**
-   * @ignore
-   */
-  onClick: PropTypes.func,
-  /**
-   * Callback fired when the delete icon is clicked.
-   * If set, the delete icon will be shown.
-   */
-  onDelete: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onKeyDown: PropTypes.func,
-  /**
-   * @ignore
-   */
-  onKeyUp: PropTypes.func,
-  /**
-   * The size of the component.
-   * @default 'medium'
-   */
-  size: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['medium', 'small']), PropTypes.string]),
-  /**
-   * If `true`, allows the disabled chip to escape focus.
-   * If `false`, allows the disabled chip to receive focus.
-   * @default false
-   */
-  skipFocusWhenDisabled: PropTypes.bool,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
-  /**
-   * @ignore
-   */
-  tabIndex: PropTypes.number,
-  /**
-   * The variant to use.
-   * @default 'filled'
-   */
-  variant: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['filled', 'outlined']), PropTypes.string])
-} : void 0;
-var Chip$1 = Chip;
-
-const _excluded$8 = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+const _excluded$g = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
 const styles = {
   entering: {
     opacity: 1
@@ -12241,7 +9848,7 @@ const Fade = /*#__PURE__*/React__namespace.forwardRef(function Fade(props, ref) 
       // eslint-disable-next-line react/prop-types
       TransitionComponent = Transition$1
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$8);
+    other = _objectWithoutPropertiesLoose(props, _excluded$g);
   const nodeRef = React__namespace.useRef(null);
   const handleRef = useForkRef(nodeRef, children.ref, ref);
   const normalizedTransitionCallback = callback => maybeIsAppearing => {
@@ -12402,8 +10009,8 @@ function getBackdropUtilityClass(slot) {
 }
 generateUtilityClasses('MuiBackdrop', ['root', 'invisible']);
 
-const _excluded$7 = ["children", "className", "component", "components", "componentsProps", "invisible", "open", "slotProps", "slots", "TransitionComponent", "transitionDuration"];
-const useUtilityClasses$6 = ownerState => {
+const _excluded$f = ["children", "className", "component", "components", "componentsProps", "invisible", "open", "slotProps", "slots", "TransitionComponent", "transitionDuration"];
+const useUtilityClasses$d = ownerState => {
   const {
     classes,
     invisible
@@ -12457,12 +10064,12 @@ const Backdrop = /*#__PURE__*/React__namespace.forwardRef(function Backdrop(inPr
       TransitionComponent = Fade$1,
       transitionDuration
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$7);
+    other = _objectWithoutPropertiesLoose(props, _excluded$f);
   const ownerState = _extends({}, props, {
     component,
     invisible
   });
-  const classes = useUtilityClasses$6(ownerState);
+  const classes = useUtilityClasses$d(ownerState);
   const rootSlotProps = (_slotProps$root = slotProps.root) != null ? _slotProps$root : componentsProps.root;
   return /*#__PURE__*/require$$2.jsx(TransitionComponent, _extends({
     in: open,
@@ -12578,44 +10185,13 @@ process.env.NODE_ENV !== "production" ? Backdrop.propTypes /* remove-proptypes *
 } : void 0;
 var Backdrop$1 = Backdrop;
 
-const boxClasses = generateUtilityClasses('MuiBox', ['root']);
-var boxClasses$1 = boxClasses;
-
-const defaultTheme = createTheme();
-const Box = createBox({
-  themeId: THEME_ID,
-  defaultTheme,
-  defaultClassName: boxClasses$1.root,
-  generateClassName: ClassNameGenerator$1.generate
-});
-process.env.NODE_ENV !== "production" ? Box.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * @ignore
-   */
-  children: PropTypes.node,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: PropTypes.elementType,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
-} : void 0;
-var Box$1 = Box;
-
 function getModalUtilityClass(slot) {
   return generateUtilityClass('MuiModal', slot);
 }
 generateUtilityClasses('MuiModal', ['root', 'hidden', 'backdrop']);
 
-const _excluded$6 = ["BackdropComponent", "BackdropProps", "classes", "className", "closeAfterTransition", "children", "container", "component", "components", "componentsProps", "disableAutoFocus", "disableEnforceFocus", "disableEscapeKeyDown", "disablePortal", "disableRestoreFocus", "disableScrollLock", "hideBackdrop", "keepMounted", "onBackdropClick", "onClose", "onTransitionEnter", "onTransitionExited", "open", "slotProps", "slots", "theme"];
-const useUtilityClasses$5 = ownerState => {
+const _excluded$e = ["BackdropComponent", "BackdropProps", "classes", "className", "closeAfterTransition", "children", "container", "component", "components", "componentsProps", "disableAutoFocus", "disableEnforceFocus", "disableEscapeKeyDown", "disablePortal", "disableRestoreFocus", "disableScrollLock", "hideBackdrop", "keepMounted", "onBackdropClick", "onClose", "onTransitionEnter", "onTransitionExited", "open", "slotProps", "slots", "theme"];
+const useUtilityClasses$c = ownerState => {
   const {
     open,
     exited,
@@ -12702,7 +10278,7 @@ const Modal = /*#__PURE__*/React__namespace.forwardRef(function Modal(inProps, r
       slots
       // eslint-disable-next-line react/prop-types
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$6);
+    other = _objectWithoutPropertiesLoose(props, _excluded$e);
   const propsWithDefaults = _extends({}, props, {
     closeAfterTransition,
     disableAutoFocus,
@@ -12728,7 +10304,7 @@ const Modal = /*#__PURE__*/React__namespace.forwardRef(function Modal(inProps, r
   const ownerState = _extends({}, propsWithDefaults, {
     exited
   });
-  const classes = useUtilityClasses$5(ownerState);
+  const classes = useUtilityClasses$c(ownerState);
   const childProps = {};
   if (children.props.tabIndex === undefined) {
     childProps.tabIndex = '-1';
@@ -12980,7 +10556,236 @@ process.env.NODE_ENV !== "production" ? Modal.propTypes /* remove-proptypes */ =
 } : void 0;
 var Modal$1 = Modal;
 
-const _excluded$5 = ["addEndListener", "appear", "children", "container", "direction", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+function getSvgIconUtilityClass(slot) {
+  return generateUtilityClass('MuiSvgIcon', slot);
+}
+generateUtilityClasses('MuiSvgIcon', ['root', 'colorPrimary', 'colorSecondary', 'colorAction', 'colorError', 'colorDisabled', 'fontSizeInherit', 'fontSizeSmall', 'fontSizeMedium', 'fontSizeLarge']);
+
+const _excluded$d = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"];
+const useUtilityClasses$b = ownerState => {
+  const {
+    color,
+    fontSize,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root', color !== 'inherit' && `color${capitalize(color)}`, `fontSize${capitalize(fontSize)}`]
+  };
+  return composeClasses(slots, getSvgIconUtilityClass, classes);
+};
+const SvgIconRoot = styled('svg', {
+  name: 'MuiSvgIcon',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.color !== 'inherit' && styles[`color${capitalize(ownerState.color)}`], styles[`fontSize${capitalize(ownerState.fontSize)}`]];
+  }
+})(({
+  theme,
+  ownerState
+}) => {
+  var _theme$transitions, _theme$transitions$cr, _theme$transitions2, _theme$typography, _theme$typography$pxT, _theme$typography2, _theme$typography2$px, _theme$typography3, _theme$typography3$px, _palette$ownerState$c, _palette, _palette2, _palette3;
+  return {
+    userSelect: 'none',
+    width: '1em',
+    height: '1em',
+    display: 'inline-block',
+    // the <svg> will define the property that has `currentColor`
+    // e.g. heroicons uses fill="none" and stroke="currentColor"
+    fill: ownerState.hasSvgAsChild ? undefined : 'currentColor',
+    flexShrink: 0,
+    transition: (_theme$transitions = theme.transitions) == null || (_theme$transitions$cr = _theme$transitions.create) == null ? void 0 : _theme$transitions$cr.call(_theme$transitions, 'fill', {
+      duration: (_theme$transitions2 = theme.transitions) == null || (_theme$transitions2 = _theme$transitions2.duration) == null ? void 0 : _theme$transitions2.shorter
+    }),
+    fontSize: {
+      inherit: 'inherit',
+      small: ((_theme$typography = theme.typography) == null || (_theme$typography$pxT = _theme$typography.pxToRem) == null ? void 0 : _theme$typography$pxT.call(_theme$typography, 20)) || '1.25rem',
+      medium: ((_theme$typography2 = theme.typography) == null || (_theme$typography2$px = _theme$typography2.pxToRem) == null ? void 0 : _theme$typography2$px.call(_theme$typography2, 24)) || '1.5rem',
+      large: ((_theme$typography3 = theme.typography) == null || (_theme$typography3$px = _theme$typography3.pxToRem) == null ? void 0 : _theme$typography3$px.call(_theme$typography3, 35)) || '2.1875rem'
+    }[ownerState.fontSize],
+    // TODO v5 deprecate, v6 remove for sx
+    color: (_palette$ownerState$c = (_palette = (theme.vars || theme).palette) == null || (_palette = _palette[ownerState.color]) == null ? void 0 : _palette.main) != null ? _palette$ownerState$c : {
+      action: (_palette2 = (theme.vars || theme).palette) == null || (_palette2 = _palette2.action) == null ? void 0 : _palette2.active,
+      disabled: (_palette3 = (theme.vars || theme).palette) == null || (_palette3 = _palette3.action) == null ? void 0 : _palette3.disabled,
+      inherit: undefined
+    }[ownerState.color]
+  };
+});
+const SvgIcon = /*#__PURE__*/React__namespace.forwardRef(function SvgIcon(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiSvgIcon'
+  });
+  const {
+      children,
+      className,
+      color = 'inherit',
+      component = 'svg',
+      fontSize = 'medium',
+      htmlColor,
+      inheritViewBox = false,
+      titleAccess,
+      viewBox = '0 0 24 24'
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$d);
+  const hasSvgAsChild = /*#__PURE__*/React__namespace.isValidElement(children) && children.type === 'svg';
+  const ownerState = _extends({}, props, {
+    color,
+    component,
+    fontSize,
+    instanceFontSize: inProps.fontSize,
+    inheritViewBox,
+    viewBox,
+    hasSvgAsChild
+  });
+  const more = {};
+  if (!inheritViewBox) {
+    more.viewBox = viewBox;
+  }
+  const classes = useUtilityClasses$b(ownerState);
+  return /*#__PURE__*/require$$2.jsxs(SvgIconRoot, _extends({
+    as: component,
+    className: clsx(classes.root, className),
+    focusable: "false",
+    color: htmlColor,
+    "aria-hidden": titleAccess ? undefined : true,
+    role: titleAccess ? 'img' : undefined,
+    ref: ref
+  }, more, other, hasSvgAsChild && children.props, {
+    ownerState: ownerState,
+    children: [hasSvgAsChild ? children.props.children : children, titleAccess ? /*#__PURE__*/require$$2.jsx("title", {
+      children: titleAccess
+    }) : null]
+  }));
+});
+process.env.NODE_ENV !== "production" ? SvgIcon.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * Node passed into the SVG element.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The color of the component.
+   * It supports both default and custom theme colors, which can be added as shown in the
+   * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
+   * You can use the `htmlColor` prop to apply a color attribute to the SVG element.
+   * @default 'inherit'
+   */
+  color: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['inherit', 'action', 'disabled', 'primary', 'secondary', 'error', 'info', 'success', 'warning']), PropTypes.string]),
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
+  /**
+   * The fontSize applied to the icon. Defaults to 24px, but can be configure to inherit font size.
+   * @default 'medium'
+   */
+  fontSize: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['inherit', 'large', 'medium', 'small']), PropTypes.string]),
+  /**
+   * Applies a color attribute to the SVG element.
+   */
+  htmlColor: PropTypes.string,
+  /**
+   * If `true`, the root node will inherit the custom `component`'s viewBox and the `viewBox`
+   * prop will be ignored.
+   * Useful when you want to reference a custom `component` and have `SvgIcon` pass that
+   * `component`'s viewBox to the root node.
+   * @default false
+   */
+  inheritViewBox: PropTypes.bool,
+  /**
+   * The shape-rendering attribute. The behavior of the different options is described on the
+   * [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering).
+   * If you are having issues with blurry icons you should investigate this prop.
+   */
+  shapeRendering: PropTypes.string,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
+  /**
+   * Provides a human-readable title for the element that contains it.
+   * https://www.w3.org/TR/SVG-access/#Equivalent
+   */
+  titleAccess: PropTypes.string,
+  /**
+   * Allows you to redefine what the coordinates without units mean inside an SVG element.
+   * For example, if the SVG element is 500 (width) by 200 (height),
+   * and you pass viewBox="0 0 50 20",
+   * this means that the coordinates inside the SVG will go from the top left corner (0,0)
+   * to bottom right (50,20) and each unit will be worth 10px.
+   * @default '0 0 24 24'
+   */
+  viewBox: PropTypes.string
+} : void 0;
+SvgIcon.muiName = 'SvgIcon';
+
+function createSvgIcon$1(path, displayName) {
+  function Component(props, ref) {
+    return /*#__PURE__*/require$$2.jsx(SvgIcon, _extends({
+      "data-testid": `${displayName}Icon`,
+      ref: ref
+    }, props, {
+      children: path
+    }));
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    // Need to set `displayName` on the inner component for React.memo.
+    // React prior to 16.14 ignores `displayName` on the wrapper.
+    Component.displayName = `${displayName}Icon`;
+  }
+  Component.muiName = SvgIcon.muiName;
+  return /*#__PURE__*/React__namespace.memo( /*#__PURE__*/React__namespace.forwardRef(Component));
+}
+
+// TODO: remove this export once ClassNameGenerator is stable
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const unstable_ClassNameGenerator = {
+  configure: generator => {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(['MUI: `ClassNameGenerator` import from `@mui/material/utils` is outdated and might cause unexpected issues.', '', "You should use `import { unstable_ClassNameGenerator } from '@mui/material/className'` instead", '', 'The detail of the issue: https://github.com/mui/material-ui/issues/30011#issuecomment-1024993401', '', 'The updated documentation: https://mui.com/guides/classname-generator/'].join('\n'));
+    }
+    ClassNameGenerator$1.configure(generator);
+  }
+};
+
+var utils = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  capitalize: capitalize,
+  createChainedFunction: createChainedFunction,
+  createSvgIcon: createSvgIcon$1,
+  debounce: debounce$1,
+  deprecatedPropType: deprecatedPropType,
+  isMuiElement: isMuiElement,
+  ownerDocument: ownerDocument,
+  ownerWindow: ownerWindow,
+  requirePropFactory: requirePropFactory,
+  setRef: setRef,
+  unstable_ClassNameGenerator: unstable_ClassNameGenerator,
+  unstable_useEnhancedEffect: useEnhancedEffect,
+  unstable_useId: useId,
+  unsupportedProp: unsupportedProp,
+  useControlled: useControlled,
+  useEventCallback: useEventCallback,
+  useForkRef: useForkRef,
+  useIsFocusVisible: useIsFocusVisible
+});
+
+const _excluded$c = ["addEndListener", "appear", "children", "container", "direction", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
 function getTranslateValue(direction, node, resolvedContainer) {
   const rect = node.getBoundingClientRect();
   const containerRect = resolvedContainer && resolvedContainer.getBoundingClientRect();
@@ -13069,7 +10874,7 @@ const Slide = /*#__PURE__*/React__namespace.forwardRef(function Slide(props, ref
       // eslint-disable-next-line react/prop-types
       TransitionComponent = Transition$1
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$5);
+    other = _objectWithoutPropertiesLoose(props, _excluded$c);
   const childrenRef = React__namespace.useRef(null);
   const handleRef = useForkRef(children.ref, childrenRef, ref);
   const normalizedTransitionCallback = callback => isAppearing => {
@@ -13292,12 +11097,148 @@ process.env.NODE_ENV !== "production" ? Slide.propTypes /* remove-proptypes */ =
 } : void 0;
 var Slide$1 = Slide;
 
+function getPaperUtilityClass(slot) {
+  return generateUtilityClass('MuiPaper', slot);
+}
+generateUtilityClasses('MuiPaper', ['root', 'rounded', 'outlined', 'elevation', 'elevation0', 'elevation1', 'elevation2', 'elevation3', 'elevation4', 'elevation5', 'elevation6', 'elevation7', 'elevation8', 'elevation9', 'elevation10', 'elevation11', 'elevation12', 'elevation13', 'elevation14', 'elevation15', 'elevation16', 'elevation17', 'elevation18', 'elevation19', 'elevation20', 'elevation21', 'elevation22', 'elevation23', 'elevation24']);
+
+const _excluded$b = ["className", "component", "elevation", "square", "variant"];
+const useUtilityClasses$a = ownerState => {
+  const {
+    square,
+    elevation,
+    variant,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root', variant, !square && 'rounded', variant === 'elevation' && `elevation${elevation}`]
+  };
+  return composeClasses(slots, getPaperUtilityClass, classes);
+};
+const PaperRoot = styled('div', {
+  name: 'MuiPaper',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, styles[ownerState.variant], !ownerState.square && styles.rounded, ownerState.variant === 'elevation' && styles[`elevation${ownerState.elevation}`]];
+  }
+})(({
+  theme,
+  ownerState
+}) => {
+  var _theme$vars$overlays;
+  return _extends({
+    backgroundColor: (theme.vars || theme).palette.background.paper,
+    color: (theme.vars || theme).palette.text.primary,
+    transition: theme.transitions.create('box-shadow')
+  }, !ownerState.square && {
+    borderRadius: theme.shape.borderRadius
+  }, ownerState.variant === 'outlined' && {
+    border: `1px solid ${(theme.vars || theme).palette.divider}`
+  }, ownerState.variant === 'elevation' && _extends({
+    boxShadow: (theme.vars || theme).shadows[ownerState.elevation]
+  }, !theme.vars && theme.palette.mode === 'dark' && {
+    backgroundImage: `linear-gradient(${alpha('#fff', getOverlayAlpha(ownerState.elevation))}, ${alpha('#fff', getOverlayAlpha(ownerState.elevation))})`
+  }, theme.vars && {
+    backgroundImage: (_theme$vars$overlays = theme.vars.overlays) == null ? void 0 : _theme$vars$overlays[ownerState.elevation]
+  }));
+});
+const Paper = /*#__PURE__*/React__namespace.forwardRef(function Paper(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiPaper'
+  });
+  const {
+      className,
+      component = 'div',
+      elevation = 1,
+      square = false,
+      variant = 'elevation'
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$b);
+  const ownerState = _extends({}, props, {
+    component,
+    elevation,
+    square,
+    variant
+  });
+  const classes = useUtilityClasses$a(ownerState);
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const theme = useTheme();
+    if (theme.shadows[elevation] === undefined) {
+      console.error([`MUI: The elevation provided <Paper elevation={${elevation}}> is not available in the theme.`, `Please make sure that \`theme.shadows[${elevation}]\` is defined.`].join('\n'));
+    }
+  }
+  return /*#__PURE__*/require$$2.jsx(PaperRoot, _extends({
+    as: component,
+    ownerState: ownerState,
+    className: clsx(classes.root, className),
+    ref: ref
+  }, other));
+});
+process.env.NODE_ENV !== "production" ? Paper.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * The content of the component.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
+  /**
+   * Shadow depth, corresponds to `dp` in the spec.
+   * It accepts values between 0 and 24 inclusive.
+   * @default 1
+   */
+  elevation: chainPropTypes(integerPropType, props => {
+    const {
+      elevation,
+      variant
+    } = props;
+    if (elevation > 0 && variant === 'outlined') {
+      return new Error(`MUI: Combining \`elevation={${elevation}}\` with \`variant="${variant}"\` has no effect. Either use \`elevation={0}\` or use a different \`variant\`.`);
+    }
+    return null;
+  }),
+  /**
+   * If `true`, rounded corners are disabled.
+   * @default false
+   */
+  square: PropTypes.bool,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
+  /**
+   * The variant to use.
+   * @default 'elevation'
+   */
+  variant: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['elevation', 'outlined']), PropTypes.string])
+} : void 0;
+var Paper$1 = Paper;
+
 function getDrawerUtilityClass(slot) {
   return generateUtilityClass('MuiDrawer', slot);
 }
 generateUtilityClasses('MuiDrawer', ['root', 'docked', 'paper', 'paperAnchorLeft', 'paperAnchorRight', 'paperAnchorTop', 'paperAnchorBottom', 'paperAnchorDockedLeft', 'paperAnchorDockedRight', 'paperAnchorDockedTop', 'paperAnchorDockedBottom', 'modal']);
 
-const _excluded$4 = ["BackdropProps"],
+const _excluded$a = ["BackdropProps"],
   _excluded2 = ["anchor", "BackdropProps", "children", "className", "elevation", "hideBackdrop", "ModalProps", "onClose", "open", "PaperProps", "SlideProps", "TransitionComponent", "transitionDuration", "variant"];
 const overridesResolver$1 = (props, styles) => {
   const {
@@ -13305,7 +11246,7 @@ const overridesResolver$1 = (props, styles) => {
   } = props;
   return [styles.root, (ownerState.variant === 'permanent' || ownerState.variant === 'persistent') && styles.docked, styles.modal];
 };
-const useUtilityClasses$4 = ownerState => {
+const useUtilityClasses$9 = ownerState => {
   const {
     classes,
     anchor,
@@ -13437,7 +11378,7 @@ const Drawer = /*#__PURE__*/React__namespace.forwardRef(function Drawer(inProps,
       transitionDuration = defaultTransitionDuration,
       variant = 'temporary'
     } = props,
-    ModalProps = _objectWithoutPropertiesLoose(props.ModalProps, _excluded$4),
+    ModalProps = _objectWithoutPropertiesLoose(props.ModalProps, _excluded$a),
     other = _objectWithoutPropertiesLoose(props, _excluded2);
 
   // Let's assume that the Drawer will always be rendered on user space.
@@ -13455,7 +11396,7 @@ const Drawer = /*#__PURE__*/React__namespace.forwardRef(function Drawer(inProps,
     open,
     variant
   }, other);
-  const classes = useUtilityClasses$4(ownerState);
+  const classes = useUtilityClasses$9(ownerState);
   const drawer = /*#__PURE__*/require$$2.jsx(DrawerPaper, _extends({
     elevation: variant === 'temporary' ? elevation : 0,
     square: true
@@ -13593,612 +11534,6 @@ process.env.NODE_ENV !== "production" ? Drawer.propTypes /* remove-proptypes */ 
   variant: PropTypes.oneOf(['permanent', 'persistent', 'temporary'])
 } : void 0;
 var Drawer$1 = Drawer;
-
-/**
- * @ignore - internal component.
- */
-const ListContext = /*#__PURE__*/React__namespace.createContext({});
-if (process.env.NODE_ENV !== 'production') {
-  ListContext.displayName = 'ListContext';
-}
-var ListContext$1 = ListContext;
-
-function getListUtilityClass(slot) {
-  return generateUtilityClass('MuiList', slot);
-}
-generateUtilityClasses('MuiList', ['root', 'padding', 'dense', 'subheader']);
-
-const _excluded$3 = ["children", "className", "component", "dense", "disablePadding", "subheader"];
-const useUtilityClasses$3 = ownerState => {
-  const {
-    classes,
-    disablePadding,
-    dense,
-    subheader
-  } = ownerState;
-  const slots = {
-    root: ['root', !disablePadding && 'padding', dense && 'dense', subheader && 'subheader']
-  };
-  return composeClasses(slots, getListUtilityClass, classes);
-};
-const ListRoot = styled('ul', {
-  name: 'MuiList',
-  slot: 'Root',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, !ownerState.disablePadding && styles.padding, ownerState.dense && styles.dense, ownerState.subheader && styles.subheader];
-  }
-})(({
-  ownerState
-}) => _extends({
-  listStyle: 'none',
-  margin: 0,
-  padding: 0,
-  position: 'relative'
-}, !ownerState.disablePadding && {
-  paddingTop: 8,
-  paddingBottom: 8
-}, ownerState.subheader && {
-  paddingTop: 0
-}));
-const List = /*#__PURE__*/React__namespace.forwardRef(function List(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiList'
-  });
-  const {
-      children,
-      className,
-      component = 'ul',
-      dense = false,
-      disablePadding = false,
-      subheader
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$3);
-  const context = React__namespace.useMemo(() => ({
-    dense
-  }), [dense]);
-  const ownerState = _extends({}, props, {
-    component,
-    dense,
-    disablePadding
-  });
-  const classes = useUtilityClasses$3(ownerState);
-  return /*#__PURE__*/require$$2.jsx(ListContext$1.Provider, {
-    value: context,
-    children: /*#__PURE__*/require$$2.jsxs(ListRoot, _extends({
-      as: component,
-      className: clsx(classes.root, className),
-      ref: ref,
-      ownerState: ownerState
-    }, other, {
-      children: [subheader, children]
-    }))
-  });
-});
-process.env.NODE_ENV !== "production" ? List.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * The content of the component.
-   */
-  children: PropTypes.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: PropTypes.elementType,
-  /**
-   * If `true`, compact vertical padding designed for keyboard and mouse input is used for
-   * the list and list items.
-   * The prop is available to descendant components as the `dense` context.
-   * @default false
-   */
-  dense: PropTypes.bool,
-  /**
-   * If `true`, vertical padding is removed from the list.
-   * @default false
-   */
-  disablePadding: PropTypes.bool,
-  /**
-   * The content of the subheader, normally `ListSubheader`.
-   */
-  subheader: PropTypes.node,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
-} : void 0;
-var List$1 = List;
-
-function getListItemButtonUtilityClass(slot) {
-  return generateUtilityClass('MuiListItemButton', slot);
-}
-const listItemButtonClasses = generateUtilityClasses('MuiListItemButton', ['root', 'focusVisible', 'dense', 'alignItemsFlexStart', 'disabled', 'divider', 'gutters', 'selected']);
-var listItemButtonClasses$1 = listItemButtonClasses;
-
-const _excluded$2 = ["alignItems", "autoFocus", "component", "children", "dense", "disableGutters", "divider", "focusVisibleClassName", "selected", "className"];
-const overridesResolver = (props, styles) => {
-  const {
-    ownerState
-  } = props;
-  return [styles.root, ownerState.dense && styles.dense, ownerState.alignItems === 'flex-start' && styles.alignItemsFlexStart, ownerState.divider && styles.divider, !ownerState.disableGutters && styles.gutters];
-};
-const useUtilityClasses$2 = ownerState => {
-  const {
-    alignItems,
-    classes,
-    dense,
-    disabled,
-    disableGutters,
-    divider,
-    selected
-  } = ownerState;
-  const slots = {
-    root: ['root', dense && 'dense', !disableGutters && 'gutters', divider && 'divider', disabled && 'disabled', alignItems === 'flex-start' && 'alignItemsFlexStart', selected && 'selected']
-  };
-  const composedClasses = composeClasses(slots, getListItemButtonUtilityClass, classes);
-  return _extends({}, classes, composedClasses);
-};
-const ListItemButtonRoot = styled(ButtonBase$1, {
-  shouldForwardProp: prop => rootShouldForwardProp(prop) || prop === 'classes',
-  name: 'MuiListItemButton',
-  slot: 'Root',
-  overridesResolver
-})(({
-  theme,
-  ownerState
-}) => _extends({
-  display: 'flex',
-  flexGrow: 1,
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  position: 'relative',
-  textDecoration: 'none',
-  minWidth: 0,
-  boxSizing: 'border-box',
-  textAlign: 'left',
-  paddingTop: 8,
-  paddingBottom: 8,
-  transition: theme.transitions.create('background-color', {
-    duration: theme.transitions.duration.shortest
-  }),
-  '&:hover': {
-    textDecoration: 'none',
-    backgroundColor: (theme.vars || theme).palette.action.hover,
-    // Reset on touch devices, it doesn't add specificity
-    '@media (hover: none)': {
-      backgroundColor: 'transparent'
-    }
-  },
-  [`&.${listItemButtonClasses$1.selected}`]: {
-    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
-    [`&.${listItemButtonClasses$1.focusVisible}`]: {
-      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.focusOpacity}))` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity)
-    }
-  },
-  [`&.${listItemButtonClasses$1.selected}:hover`]: {
-    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.hoverOpacity}))` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
-    // Reset on touch devices, it doesn't add specificity
-    '@media (hover: none)': {
-      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity)
-    }
-  },
-  [`&.${listItemButtonClasses$1.focusVisible}`]: {
-    backgroundColor: (theme.vars || theme).palette.action.focus
-  },
-  [`&.${listItemButtonClasses$1.disabled}`]: {
-    opacity: (theme.vars || theme).palette.action.disabledOpacity
-  }
-}, ownerState.divider && {
-  borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
-  backgroundClip: 'padding-box'
-}, ownerState.alignItems === 'flex-start' && {
-  alignItems: 'flex-start'
-}, !ownerState.disableGutters && {
-  paddingLeft: 16,
-  paddingRight: 16
-}, ownerState.dense && {
-  paddingTop: 4,
-  paddingBottom: 4
-}));
-const ListItemButton = /*#__PURE__*/React__namespace.forwardRef(function ListItemButton(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiListItemButton'
-  });
-  const {
-      alignItems = 'center',
-      autoFocus = false,
-      component = 'div',
-      children,
-      dense = false,
-      disableGutters = false,
-      divider = false,
-      focusVisibleClassName,
-      selected = false,
-      className
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$2);
-  const context = React__namespace.useContext(ListContext$1);
-  const childContext = React__namespace.useMemo(() => ({
-    dense: dense || context.dense || false,
-    alignItems,
-    disableGutters
-  }), [alignItems, context.dense, dense, disableGutters]);
-  const listItemRef = React__namespace.useRef(null);
-  useEnhancedEffect(() => {
-    if (autoFocus) {
-      if (listItemRef.current) {
-        listItemRef.current.focus();
-      } else if (process.env.NODE_ENV !== 'production') {
-        console.error('MUI: Unable to set focus to a ListItemButton whose component has not been rendered.');
-      }
-    }
-  }, [autoFocus]);
-  const ownerState = _extends({}, props, {
-    alignItems,
-    dense: childContext.dense,
-    disableGutters,
-    divider,
-    selected
-  });
-  const classes = useUtilityClasses$2(ownerState);
-  const handleRef = useForkRef(listItemRef, ref);
-  return /*#__PURE__*/require$$2.jsx(ListContext$1.Provider, {
-    value: childContext,
-    children: /*#__PURE__*/require$$2.jsx(ListItemButtonRoot, _extends({
-      ref: handleRef,
-      href: other.href || other.to
-      // `ButtonBase` processes `href` or `to` if `component` is set to 'button'
-      ,
-      component: (other.href || other.to) && component === 'div' ? 'button' : component,
-      focusVisibleClassName: clsx(classes.focusVisible, focusVisibleClassName),
-      ownerState: ownerState,
-      className: clsx(classes.root, className)
-    }, other, {
-      classes: classes,
-      children: children
-    }))
-  });
-});
-process.env.NODE_ENV !== "production" ? ListItemButton.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * Defines the `align-items` style property.
-   * @default 'center'
-   */
-  alignItems: PropTypes.oneOf(['center', 'flex-start']),
-  /**
-   * If `true`, the list item is focused during the first mount.
-   * Focus will also be triggered if the value changes from false to true.
-   * @default false
-   */
-  autoFocus: PropTypes.bool,
-  /**
-   * The content of the component if a `ListItemSecondaryAction` is used it must
-   * be the last child.
-   */
-  children: PropTypes.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * The component used for the root node.
-   * Either a string to use a HTML element or a component.
-   */
-  component: PropTypes.elementType,
-  /**
-   * If `true`, compact vertical padding designed for keyboard and mouse input is used.
-   * The prop defaults to the value inherited from the parent List component.
-   * @default false
-   */
-  dense: PropTypes.bool,
-  /**
-   * If `true`, the component is disabled.
-   * @default false
-   */
-  disabled: PropTypes.bool,
-  /**
-   * If `true`, the left and right padding is removed.
-   * @default false
-   */
-  disableGutters: PropTypes.bool,
-  /**
-   * If `true`, a 1px light border is added to the bottom of the list item.
-   * @default false
-   */
-  divider: PropTypes.bool,
-  /**
-   * This prop can help identify which element has keyboard focus.
-   * The class name will be applied when the element gains the focus through keyboard interaction.
-   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
-   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/HEAD/explainer.md).
-   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
-   * if needed.
-   */
-  focusVisibleClassName: PropTypes.string,
-  /**
-   * @ignore
-   */
-  href: PropTypes.string,
-  /**
-   * Use to apply selected styling.
-   * @default false
-   */
-  selected: PropTypes.bool,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
-} : void 0;
-var ListItemButton$1 = ListItemButton;
-
-function getListItemIconUtilityClass(slot) {
-  return generateUtilityClass('MuiListItemIcon', slot);
-}
-generateUtilityClasses('MuiListItemIcon', ['root', 'alignItemsFlexStart']);
-
-const _excluded$1 = ["className"];
-const useUtilityClasses$1 = ownerState => {
-  const {
-    alignItems,
-    classes
-  } = ownerState;
-  const slots = {
-    root: ['root', alignItems === 'flex-start' && 'alignItemsFlexStart']
-  };
-  return composeClasses(slots, getListItemIconUtilityClass, classes);
-};
-const ListItemIconRoot = styled('div', {
-  name: 'MuiListItemIcon',
-  slot: 'Root',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [styles.root, ownerState.alignItems === 'flex-start' && styles.alignItemsFlexStart];
-  }
-})(({
-  theme,
-  ownerState
-}) => _extends({
-  minWidth: 56,
-  color: (theme.vars || theme).palette.action.active,
-  flexShrink: 0,
-  display: 'inline-flex'
-}, ownerState.alignItems === 'flex-start' && {
-  marginTop: 8
-}));
-
-/**
- * A simple wrapper to apply `List` styles to an `Icon` or `SvgIcon`.
- */
-const ListItemIcon = /*#__PURE__*/React__namespace.forwardRef(function ListItemIcon(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiListItemIcon'
-  });
-  const {
-      className
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$1);
-  const context = React__namespace.useContext(ListContext$1);
-  const ownerState = _extends({}, props, {
-    alignItems: context.alignItems
-  });
-  const classes = useUtilityClasses$1(ownerState);
-  return /*#__PURE__*/require$$2.jsx(ListItemIconRoot, _extends({
-    className: clsx(classes.root, className),
-    ownerState: ownerState,
-    ref: ref
-  }, other));
-});
-process.env.NODE_ENV !== "production" ? ListItemIcon.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * The content of the component, normally `Icon`, `SvgIcon`,
-   * or a `@mui/icons-material` SVG icon element.
-   */
-  children: PropTypes.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
-} : void 0;
-var ListItemIcon$1 = ListItemIcon;
-
-function getListItemTextUtilityClass(slot) {
-  return generateUtilityClass('MuiListItemText', slot);
-}
-const listItemTextClasses = generateUtilityClasses('MuiListItemText', ['root', 'multiline', 'dense', 'inset', 'primary', 'secondary']);
-var listItemTextClasses$1 = listItemTextClasses;
-
-const _excluded = ["children", "className", "disableTypography", "inset", "primary", "primaryTypographyProps", "secondary", "secondaryTypographyProps"];
-const useUtilityClasses = ownerState => {
-  const {
-    classes,
-    inset,
-    primary,
-    secondary,
-    dense
-  } = ownerState;
-  const slots = {
-    root: ['root', inset && 'inset', dense && 'dense', primary && secondary && 'multiline'],
-    primary: ['primary'],
-    secondary: ['secondary']
-  };
-  return composeClasses(slots, getListItemTextUtilityClass, classes);
-};
-const ListItemTextRoot = styled('div', {
-  name: 'MuiListItemText',
-  slot: 'Root',
-  overridesResolver: (props, styles) => {
-    const {
-      ownerState
-    } = props;
-    return [{
-      [`& .${listItemTextClasses$1.primary}`]: styles.primary
-    }, {
-      [`& .${listItemTextClasses$1.secondary}`]: styles.secondary
-    }, styles.root, ownerState.inset && styles.inset, ownerState.primary && ownerState.secondary && styles.multiline, ownerState.dense && styles.dense];
-  }
-})(({
-  ownerState
-}) => _extends({
-  flex: '1 1 auto',
-  minWidth: 0,
-  marginTop: 4,
-  marginBottom: 4
-}, ownerState.primary && ownerState.secondary && {
-  marginTop: 6,
-  marginBottom: 6
-}, ownerState.inset && {
-  paddingLeft: 56
-}));
-const ListItemText = /*#__PURE__*/React__namespace.forwardRef(function ListItemText(inProps, ref) {
-  const props = useThemeProps({
-    props: inProps,
-    name: 'MuiListItemText'
-  });
-  const {
-      children,
-      className,
-      disableTypography = false,
-      inset = false,
-      primary: primaryProp,
-      primaryTypographyProps,
-      secondary: secondaryProp,
-      secondaryTypographyProps
-    } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded);
-  const {
-    dense
-  } = React__namespace.useContext(ListContext$1);
-  let primary = primaryProp != null ? primaryProp : children;
-  let secondary = secondaryProp;
-  const ownerState = _extends({}, props, {
-    disableTypography,
-    inset,
-    primary: !!primary,
-    secondary: !!secondary,
-    dense
-  });
-  const classes = useUtilityClasses(ownerState);
-  if (primary != null && primary.type !== Typography$1 && !disableTypography) {
-    primary = /*#__PURE__*/require$$2.jsx(Typography$1, _extends({
-      variant: dense ? 'body2' : 'body1',
-      className: classes.primary,
-      component: primaryTypographyProps != null && primaryTypographyProps.variant ? undefined : 'span',
-      display: "block"
-    }, primaryTypographyProps, {
-      children: primary
-    }));
-  }
-  if (secondary != null && secondary.type !== Typography$1 && !disableTypography) {
-    secondary = /*#__PURE__*/require$$2.jsx(Typography$1, _extends({
-      variant: "body2",
-      className: classes.secondary,
-      color: "text.secondary",
-      display: "block"
-    }, secondaryTypographyProps, {
-      children: secondary
-    }));
-  }
-  return /*#__PURE__*/require$$2.jsxs(ListItemTextRoot, _extends({
-    className: clsx(classes.root, className),
-    ownerState: ownerState,
-    ref: ref
-  }, other, {
-    children: [primary, secondary]
-  }));
-});
-process.env.NODE_ENV !== "production" ? ListItemText.propTypes /* remove-proptypes */ = {
-  // ----------------------------- Warning --------------------------------
-  // | These PropTypes are generated from the TypeScript type definitions |
-  // |     To update them edit the d.ts file and run "yarn proptypes"     |
-  // ----------------------------------------------------------------------
-  /**
-   * Alias for the `primary` prop.
-   */
-  children: PropTypes.node,
-  /**
-   * Override or extend the styles applied to the component.
-   */
-  classes: PropTypes.object,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * If `true`, the children won't be wrapped by a Typography component.
-   * This can be useful to render an alternative Typography variant by wrapping
-   * the `children` (or `primary`) text, and optional `secondary` text
-   * with the Typography component.
-   * @default false
-   */
-  disableTypography: PropTypes.bool,
-  /**
-   * If `true`, the children are indented.
-   * This should be used if there is no left avatar or left icon.
-   * @default false
-   */
-  inset: PropTypes.bool,
-  /**
-   * The main content element.
-   */
-  primary: PropTypes.node,
-  /**
-   * These props will be forwarded to the primary typography component
-   * (as long as disableTypography is not `true`).
-   */
-  primaryTypographyProps: PropTypes.object,
-  /**
-   * The secondary content element.
-   */
-  secondary: PropTypes.node,
-  /**
-   * These props will be forwarded to the secondary typography component
-   * (as long as disableTypography is not `true`).
-   */
-  secondaryTypographyProps: PropTypes.object,
-  /**
-   * The system prop that allows defining system overrides as well as additional CSS styles.
-   */
-  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
-} : void 0;
-var ListItemText$1 = ListItemText;
 
 /** Detect free variable `global` from Node.js. */
 var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
@@ -15925,6 +13260,268 @@ const Sidebar = /*#__PURE__*/React__namespace.forwardRef(({
 //   );
 // }
 
+function getListSubheaderUtilityClass(slot) {
+  return generateUtilityClass('MuiListSubheader', slot);
+}
+generateUtilityClasses('MuiListSubheader', ['root', 'colorPrimary', 'colorInherit', 'gutters', 'inset', 'sticky']);
+
+const _excluded$9 = ["className", "color", "component", "disableGutters", "disableSticky", "inset"];
+const useUtilityClasses$8 = ownerState => {
+  const {
+    classes,
+    color,
+    disableGutters,
+    inset,
+    disableSticky
+  } = ownerState;
+  const slots = {
+    root: ['root', color !== 'default' && `color${capitalize(color)}`, !disableGutters && 'gutters', inset && 'inset', !disableSticky && 'sticky']
+  };
+  return composeClasses(slots, getListSubheaderUtilityClass, classes);
+};
+const ListSubheaderRoot = styled('li', {
+  name: 'MuiListSubheader',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.color !== 'default' && styles[`color${capitalize(ownerState.color)}`], !ownerState.disableGutters && styles.gutters, ownerState.inset && styles.inset, !ownerState.disableSticky && styles.sticky];
+  }
+})(({
+  theme,
+  ownerState
+}) => _extends({
+  boxSizing: 'border-box',
+  lineHeight: '48px',
+  listStyle: 'none',
+  color: (theme.vars || theme).palette.text.secondary,
+  fontFamily: theme.typography.fontFamily,
+  fontWeight: theme.typography.fontWeightMedium,
+  fontSize: theme.typography.pxToRem(14)
+}, ownerState.color === 'primary' && {
+  color: (theme.vars || theme).palette.primary.main
+}, ownerState.color === 'inherit' && {
+  color: 'inherit'
+}, !ownerState.disableGutters && {
+  paddingLeft: 16,
+  paddingRight: 16
+}, ownerState.inset && {
+  paddingLeft: 72
+}, !ownerState.disableSticky && {
+  position: 'sticky',
+  top: 0,
+  zIndex: 1,
+  backgroundColor: (theme.vars || theme).palette.background.paper
+}));
+const ListSubheader = /*#__PURE__*/React__namespace.forwardRef(function ListSubheader(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiListSubheader'
+  });
+  const {
+      className,
+      color = 'default',
+      component = 'li',
+      disableGutters = false,
+      disableSticky = false,
+      inset = false
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$9);
+  const ownerState = _extends({}, props, {
+    color,
+    component,
+    disableGutters,
+    disableSticky,
+    inset
+  });
+  const classes = useUtilityClasses$8(ownerState);
+  return /*#__PURE__*/require$$2.jsx(ListSubheaderRoot, _extends({
+    as: component,
+    className: clsx(classes.root, className),
+    ref: ref,
+    ownerState: ownerState
+  }, other));
+});
+ListSubheader.muiSkipListHighlight = true;
+process.env.NODE_ENV !== "production" ? ListSubheader.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * The content of the component.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   * @default 'default'
+   */
+  color: PropTypes.oneOf(['default', 'inherit', 'primary']),
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
+  /**
+   * If `true`, the List Subheader will not have gutters.
+   * @default false
+   */
+  disableGutters: PropTypes.bool,
+  /**
+   * If `true`, the List Subheader will not stick to the top during scroll.
+   * @default false
+   */
+  disableSticky: PropTypes.bool,
+  /**
+   * If `true`, the List Subheader is indented.
+   * @default false
+   */
+  inset: PropTypes.bool,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
+} : void 0;
+var ListSubheader$1 = ListSubheader;
+
+/**
+ * @ignore - internal component.
+ */
+const ListContext = /*#__PURE__*/React__namespace.createContext({});
+if (process.env.NODE_ENV !== 'production') {
+  ListContext.displayName = 'ListContext';
+}
+var ListContext$1 = ListContext;
+
+function getListUtilityClass(slot) {
+  return generateUtilityClass('MuiList', slot);
+}
+generateUtilityClasses('MuiList', ['root', 'padding', 'dense', 'subheader']);
+
+const _excluded$8 = ["children", "className", "component", "dense", "disablePadding", "subheader"];
+const useUtilityClasses$7 = ownerState => {
+  const {
+    classes,
+    disablePadding,
+    dense,
+    subheader
+  } = ownerState;
+  const slots = {
+    root: ['root', !disablePadding && 'padding', dense && 'dense', subheader && 'subheader']
+  };
+  return composeClasses(slots, getListUtilityClass, classes);
+};
+const ListRoot = styled('ul', {
+  name: 'MuiList',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, !ownerState.disablePadding && styles.padding, ownerState.dense && styles.dense, ownerState.subheader && styles.subheader];
+  }
+})(({
+  ownerState
+}) => _extends({
+  listStyle: 'none',
+  margin: 0,
+  padding: 0,
+  position: 'relative'
+}, !ownerState.disablePadding && {
+  paddingTop: 8,
+  paddingBottom: 8
+}, ownerState.subheader && {
+  paddingTop: 0
+}));
+const List = /*#__PURE__*/React__namespace.forwardRef(function List(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiList'
+  });
+  const {
+      children,
+      className,
+      component = 'ul',
+      dense = false,
+      disablePadding = false,
+      subheader
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$8);
+  const context = React__namespace.useMemo(() => ({
+    dense
+  }), [dense]);
+  const ownerState = _extends({}, props, {
+    component,
+    dense,
+    disablePadding
+  });
+  const classes = useUtilityClasses$7(ownerState);
+  return /*#__PURE__*/require$$2.jsx(ListContext$1.Provider, {
+    value: context,
+    children: /*#__PURE__*/require$$2.jsxs(ListRoot, _extends({
+      as: component,
+      className: clsx(classes.root, className),
+      ref: ref,
+      ownerState: ownerState
+    }, other, {
+      children: [subheader, children]
+    }))
+  });
+});
+process.env.NODE_ENV !== "production" ? List.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * The content of the component.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
+  /**
+   * If `true`, compact vertical padding designed for keyboard and mouse input is used for
+   * the list and list items.
+   * The prop is available to descendant components as the `dense` context.
+   * @default false
+   */
+  dense: PropTypes.bool,
+  /**
+   * If `true`, vertical padding is removed from the list.
+   * @default false
+   */
+  disablePadding: PropTypes.bool,
+  /**
+   * The content of the subheader, normally `ListSubheader`.
+   */
+  subheader: PropTypes.node,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
+} : void 0;
+var List$1 = List;
+
 const Menu = /*#__PURE__*/React__namespace.forwardRef(({
   children,
   backgroundColor = 'background.paper',
@@ -15951,6 +13548,1911 @@ const Menu = /*#__PURE__*/React__namespace.forwardRef(({
     }, subHeading)
   }, children);
 });
+
+function Ripple(props) {
+  const {
+    className,
+    classes,
+    pulsate = false,
+    rippleX,
+    rippleY,
+    rippleSize,
+    in: inProp,
+    onExited,
+    timeout
+  } = props;
+  const [leaving, setLeaving] = React__namespace.useState(false);
+  const rippleClassName = clsx(className, classes.ripple, classes.rippleVisible, pulsate && classes.ripplePulsate);
+  const rippleStyles = {
+    width: rippleSize,
+    height: rippleSize,
+    top: -(rippleSize / 2) + rippleY,
+    left: -(rippleSize / 2) + rippleX
+  };
+  const childClassName = clsx(classes.child, leaving && classes.childLeaving, pulsate && classes.childPulsate);
+  if (!inProp && !leaving) {
+    setLeaving(true);
+  }
+  React__namespace.useEffect(() => {
+    if (!inProp && onExited != null) {
+      // react-transition-group#onExited
+      const timeoutId = setTimeout(onExited, timeout);
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+    return undefined;
+  }, [onExited, inProp, timeout]);
+  return /*#__PURE__*/require$$2.jsx("span", {
+    className: rippleClassName,
+    style: rippleStyles,
+    children: /*#__PURE__*/require$$2.jsx("span", {
+      className: childClassName
+    })
+  });
+}
+process.env.NODE_ENV !== "production" ? Ripple.propTypes = {
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  /**
+   * @ignore - injected from TransitionGroup
+   */
+  in: PropTypes.bool,
+  /**
+   * @ignore - injected from TransitionGroup
+   */
+  onExited: PropTypes.func,
+  /**
+   * If `true`, the ripple pulsates, typically indicating the keyboard focus state of an element.
+   */
+  pulsate: PropTypes.bool,
+  /**
+   * Diameter of the ripple.
+   */
+  rippleSize: PropTypes.number,
+  /**
+   * Horizontal position of the ripple center.
+   */
+  rippleX: PropTypes.number,
+  /**
+   * Vertical position of the ripple center.
+   */
+  rippleY: PropTypes.number,
+  /**
+   * exit delay
+   */
+  timeout: PropTypes.number.isRequired
+} : void 0;
+
+const touchRippleClasses = generateUtilityClasses('MuiTouchRipple', ['root', 'ripple', 'rippleVisible', 'ripplePulsate', 'child', 'childLeaving', 'childPulsate']);
+
+const _excluded$7 = ["center", "classes", "className"];
+let _ = t => t,
+  _t,
+  _t2,
+  _t3,
+  _t4;
+const DURATION = 550;
+const DELAY_RIPPLE = 80;
+const enterKeyframe = keyframes(_t || (_t = _`
+  0% {
+    transform: scale(0);
+    opacity: 0.1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+`));
+const exitKeyframe = keyframes(_t2 || (_t2 = _`
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+`));
+const pulsateKeyframe = keyframes(_t3 || (_t3 = _`
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.92);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+`));
+const TouchRippleRoot = styled('span', {
+  name: 'MuiTouchRipple',
+  slot: 'Root'
+})({
+  overflow: 'hidden',
+  pointerEvents: 'none',
+  position: 'absolute',
+  zIndex: 0,
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  borderRadius: 'inherit'
+});
+
+// This `styled()` function invokes keyframes. `styled-components` only supports keyframes
+// in string templates. Do not convert these styles in JS object as it will break.
+const TouchRippleRipple = styled(Ripple, {
+  name: 'MuiTouchRipple',
+  slot: 'Ripple'
+})(_t4 || (_t4 = _`
+  opacity: 0;
+  position: absolute;
+
+  &.${0} {
+    opacity: 0.3;
+    transform: scale(1);
+    animation-name: ${0};
+    animation-duration: ${0}ms;
+    animation-timing-function: ${0};
+  }
+
+  &.${0} {
+    animation-duration: ${0}ms;
+  }
+
+  & .${0} {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+
+  & .${0} {
+    opacity: 0;
+    animation-name: ${0};
+    animation-duration: ${0}ms;
+    animation-timing-function: ${0};
+  }
+
+  & .${0} {
+    position: absolute;
+    /* @noflip */
+    left: 0px;
+    top: 0;
+    animation-name: ${0};
+    animation-duration: 2500ms;
+    animation-timing-function: ${0};
+    animation-iteration-count: infinite;
+    animation-delay: 200ms;
+  }
+`), touchRippleClasses.rippleVisible, enterKeyframe, DURATION, ({
+  theme
+}) => theme.transitions.easing.easeInOut, touchRippleClasses.ripplePulsate, ({
+  theme
+}) => theme.transitions.duration.shorter, touchRippleClasses.child, touchRippleClasses.childLeaving, exitKeyframe, DURATION, ({
+  theme
+}) => theme.transitions.easing.easeInOut, touchRippleClasses.childPulsate, pulsateKeyframe, ({
+  theme
+}) => theme.transitions.easing.easeInOut);
+
+/**
+ * @ignore - internal component.
+ *
+ * TODO v5: Make private
+ */
+const TouchRipple = /*#__PURE__*/React__namespace.forwardRef(function TouchRipple(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiTouchRipple'
+  });
+  const {
+      center: centerProp = false,
+      classes = {},
+      className
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$7);
+  const [ripples, setRipples] = React__namespace.useState([]);
+  const nextKey = React__namespace.useRef(0);
+  const rippleCallback = React__namespace.useRef(null);
+  React__namespace.useEffect(() => {
+    if (rippleCallback.current) {
+      rippleCallback.current();
+      rippleCallback.current = null;
+    }
+  }, [ripples]);
+
+  // Used to filter out mouse emulated events on mobile.
+  const ignoringMouseDown = React__namespace.useRef(false);
+  // We use a timer in order to only show the ripples for touch "click" like events.
+  // We don't want to display the ripple for touch scroll events.
+  const startTimer = React__namespace.useRef(0);
+
+  // This is the hook called once the previous timeout is ready.
+  const startTimerCommit = React__namespace.useRef(null);
+  const container = React__namespace.useRef(null);
+  React__namespace.useEffect(() => {
+    return () => {
+      if (startTimer.current) {
+        clearTimeout(startTimer.current);
+      }
+    };
+  }, []);
+  const startCommit = React__namespace.useCallback(params => {
+    const {
+      pulsate,
+      rippleX,
+      rippleY,
+      rippleSize,
+      cb
+    } = params;
+    setRipples(oldRipples => [...oldRipples, /*#__PURE__*/require$$2.jsx(TouchRippleRipple, {
+      classes: {
+        ripple: clsx(classes.ripple, touchRippleClasses.ripple),
+        rippleVisible: clsx(classes.rippleVisible, touchRippleClasses.rippleVisible),
+        ripplePulsate: clsx(classes.ripplePulsate, touchRippleClasses.ripplePulsate),
+        child: clsx(classes.child, touchRippleClasses.child),
+        childLeaving: clsx(classes.childLeaving, touchRippleClasses.childLeaving),
+        childPulsate: clsx(classes.childPulsate, touchRippleClasses.childPulsate)
+      },
+      timeout: DURATION,
+      pulsate: pulsate,
+      rippleX: rippleX,
+      rippleY: rippleY,
+      rippleSize: rippleSize
+    }, nextKey.current)]);
+    nextKey.current += 1;
+    rippleCallback.current = cb;
+  }, [classes]);
+  const start = React__namespace.useCallback((event = {}, options = {}, cb = () => {}) => {
+    const {
+      pulsate = false,
+      center = centerProp || options.pulsate,
+      fakeElement = false // For test purposes
+    } = options;
+    if ((event == null ? void 0 : event.type) === 'mousedown' && ignoringMouseDown.current) {
+      ignoringMouseDown.current = false;
+      return;
+    }
+    if ((event == null ? void 0 : event.type) === 'touchstart') {
+      ignoringMouseDown.current = true;
+    }
+    const element = fakeElement ? null : container.current;
+    const rect = element ? element.getBoundingClientRect() : {
+      width: 0,
+      height: 0,
+      left: 0,
+      top: 0
+    };
+
+    // Get the size of the ripple
+    let rippleX;
+    let rippleY;
+    let rippleSize;
+    if (center || event === undefined || event.clientX === 0 && event.clientY === 0 || !event.clientX && !event.touches) {
+      rippleX = Math.round(rect.width / 2);
+      rippleY = Math.round(rect.height / 2);
+    } else {
+      const {
+        clientX,
+        clientY
+      } = event.touches && event.touches.length > 0 ? event.touches[0] : event;
+      rippleX = Math.round(clientX - rect.left);
+      rippleY = Math.round(clientY - rect.top);
+    }
+    if (center) {
+      rippleSize = Math.sqrt((2 * rect.width ** 2 + rect.height ** 2) / 3);
+
+      // For some reason the animation is broken on Mobile Chrome if the size is even.
+      if (rippleSize % 2 === 0) {
+        rippleSize += 1;
+      }
+    } else {
+      const sizeX = Math.max(Math.abs((element ? element.clientWidth : 0) - rippleX), rippleX) * 2 + 2;
+      const sizeY = Math.max(Math.abs((element ? element.clientHeight : 0) - rippleY), rippleY) * 2 + 2;
+      rippleSize = Math.sqrt(sizeX ** 2 + sizeY ** 2);
+    }
+
+    // Touche devices
+    if (event != null && event.touches) {
+      // check that this isn't another touchstart due to multitouch
+      // otherwise we will only clear a single timer when unmounting while two
+      // are running
+      if (startTimerCommit.current === null) {
+        // Prepare the ripple effect.
+        startTimerCommit.current = () => {
+          startCommit({
+            pulsate,
+            rippleX,
+            rippleY,
+            rippleSize,
+            cb
+          });
+        };
+        // Delay the execution of the ripple effect.
+        startTimer.current = setTimeout(() => {
+          if (startTimerCommit.current) {
+            startTimerCommit.current();
+            startTimerCommit.current = null;
+          }
+        }, DELAY_RIPPLE); // We have to make a tradeoff with this value.
+      }
+    } else {
+      startCommit({
+        pulsate,
+        rippleX,
+        rippleY,
+        rippleSize,
+        cb
+      });
+    }
+  }, [centerProp, startCommit]);
+  const pulsate = React__namespace.useCallback(() => {
+    start({}, {
+      pulsate: true
+    });
+  }, [start]);
+  const stop = React__namespace.useCallback((event, cb) => {
+    clearTimeout(startTimer.current);
+
+    // The touch interaction occurs too quickly.
+    // We still want to show ripple effect.
+    if ((event == null ? void 0 : event.type) === 'touchend' && startTimerCommit.current) {
+      startTimerCommit.current();
+      startTimerCommit.current = null;
+      startTimer.current = setTimeout(() => {
+        stop(event, cb);
+      });
+      return;
+    }
+    startTimerCommit.current = null;
+    setRipples(oldRipples => {
+      if (oldRipples.length > 0) {
+        return oldRipples.slice(1);
+      }
+      return oldRipples;
+    });
+    rippleCallback.current = cb;
+  }, []);
+  React__namespace.useImperativeHandle(ref, () => ({
+    pulsate,
+    start,
+    stop
+  }), [pulsate, start, stop]);
+  return /*#__PURE__*/require$$2.jsx(TouchRippleRoot, _extends({
+    className: clsx(touchRippleClasses.root, classes.root, className),
+    ref: container
+  }, other, {
+    children: /*#__PURE__*/require$$2.jsx(TransitionGroup$1, {
+      component: null,
+      exit: true,
+      children: ripples
+    })
+  }));
+});
+process.env.NODE_ENV !== "production" ? TouchRipple.propTypes = {
+  /**
+   * If `true`, the ripple starts at the center of the component
+   * rather than at the point of interaction.
+   */
+  center: PropTypes.bool,
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string
+} : void 0;
+var TouchRipple$1 = TouchRipple;
+
+function getButtonBaseUtilityClass(slot) {
+  return generateUtilityClass('MuiButtonBase', slot);
+}
+const buttonBaseClasses = generateUtilityClasses('MuiButtonBase', ['root', 'disabled', 'focusVisible']);
+
+const _excluded$6 = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "touchRippleRef", "type"];
+const useUtilityClasses$6 = ownerState => {
+  const {
+    disabled,
+    focusVisible,
+    focusVisibleClassName,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root', disabled && 'disabled', focusVisible && 'focusVisible']
+  };
+  const composedClasses = composeClasses(slots, getButtonBaseUtilityClass, classes);
+  if (focusVisible && focusVisibleClassName) {
+    composedClasses.root += ` ${focusVisibleClassName}`;
+  }
+  return composedClasses;
+};
+const ButtonBaseRoot = styled('button', {
+  name: 'MuiButtonBase',
+  slot: 'Root',
+  overridesResolver: (props, styles) => styles.root
+})({
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'relative',
+  boxSizing: 'border-box',
+  WebkitTapHighlightColor: 'transparent',
+  backgroundColor: 'transparent',
+  // Reset default value
+  // We disable the focus ring for mouse, touch and keyboard users.
+  outline: 0,
+  border: 0,
+  margin: 0,
+  // Remove the margin in Safari
+  borderRadius: 0,
+  padding: 0,
+  // Remove the padding in Firefox
+  cursor: 'pointer',
+  userSelect: 'none',
+  verticalAlign: 'middle',
+  MozAppearance: 'none',
+  // Reset
+  WebkitAppearance: 'none',
+  // Reset
+  textDecoration: 'none',
+  // So we take precedent over the style of a native <a /> element.
+  color: 'inherit',
+  '&::-moz-focus-inner': {
+    borderStyle: 'none' // Remove Firefox dotted outline.
+  },
+  [`&.${buttonBaseClasses.disabled}`]: {
+    pointerEvents: 'none',
+    // Disable link interactions
+    cursor: 'default'
+  },
+  '@media print': {
+    colorAdjust: 'exact'
+  }
+});
+
+/**
+ * `ButtonBase` contains as few styles as possible.
+ * It aims to be a simple building block for creating a button.
+ * It contains a load of style reset and some focus/ripple logic.
+ */
+const ButtonBase = /*#__PURE__*/React__namespace.forwardRef(function ButtonBase(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiButtonBase'
+  });
+  const {
+      action,
+      centerRipple = false,
+      children,
+      className,
+      component = 'button',
+      disabled = false,
+      disableRipple = false,
+      disableTouchRipple = false,
+      focusRipple = false,
+      LinkComponent = 'a',
+      onBlur,
+      onClick,
+      onContextMenu,
+      onDragLeave,
+      onFocus,
+      onFocusVisible,
+      onKeyDown,
+      onKeyUp,
+      onMouseDown,
+      onMouseLeave,
+      onMouseUp,
+      onTouchEnd,
+      onTouchMove,
+      onTouchStart,
+      tabIndex = 0,
+      TouchRippleProps,
+      touchRippleRef,
+      type
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$6);
+  const buttonRef = React__namespace.useRef(null);
+  const rippleRef = React__namespace.useRef(null);
+  const handleRippleRef = useForkRef(rippleRef, touchRippleRef);
+  const {
+    isFocusVisibleRef,
+    onFocus: handleFocusVisible,
+    onBlur: handleBlurVisible,
+    ref: focusVisibleRef
+  } = useIsFocusVisible();
+  const [focusVisible, setFocusVisible] = React__namespace.useState(false);
+  if (disabled && focusVisible) {
+    setFocusVisible(false);
+  }
+  React__namespace.useImperativeHandle(action, () => ({
+    focusVisible: () => {
+      setFocusVisible(true);
+      buttonRef.current.focus();
+    }
+  }), []);
+  const [mountedState, setMountedState] = React__namespace.useState(false);
+  React__namespace.useEffect(() => {
+    setMountedState(true);
+  }, []);
+  const enableTouchRipple = mountedState && !disableRipple && !disabled;
+  React__namespace.useEffect(() => {
+    if (focusVisible && focusRipple && !disableRipple && mountedState) {
+      rippleRef.current.pulsate();
+    }
+  }, [disableRipple, focusRipple, focusVisible, mountedState]);
+  function useRippleHandler(rippleAction, eventCallback, skipRippleAction = disableTouchRipple) {
+    return useEventCallback(event => {
+      if (eventCallback) {
+        eventCallback(event);
+      }
+      const ignore = skipRippleAction;
+      if (!ignore && rippleRef.current) {
+        rippleRef.current[rippleAction](event);
+      }
+      return true;
+    });
+  }
+  const handleMouseDown = useRippleHandler('start', onMouseDown);
+  const handleContextMenu = useRippleHandler('stop', onContextMenu);
+  const handleDragLeave = useRippleHandler('stop', onDragLeave);
+  const handleMouseUp = useRippleHandler('stop', onMouseUp);
+  const handleMouseLeave = useRippleHandler('stop', event => {
+    if (focusVisible) {
+      event.preventDefault();
+    }
+    if (onMouseLeave) {
+      onMouseLeave(event);
+    }
+  });
+  const handleTouchStart = useRippleHandler('start', onTouchStart);
+  const handleTouchEnd = useRippleHandler('stop', onTouchEnd);
+  const handleTouchMove = useRippleHandler('stop', onTouchMove);
+  const handleBlur = useRippleHandler('stop', event => {
+    handleBlurVisible(event);
+    if (isFocusVisibleRef.current === false) {
+      setFocusVisible(false);
+    }
+    if (onBlur) {
+      onBlur(event);
+    }
+  }, false);
+  const handleFocus = useEventCallback(event => {
+    // Fix for https://github.com/facebook/react/issues/7769
+    if (!buttonRef.current) {
+      buttonRef.current = event.currentTarget;
+    }
+    handleFocusVisible(event);
+    if (isFocusVisibleRef.current === true) {
+      setFocusVisible(true);
+      if (onFocusVisible) {
+        onFocusVisible(event);
+      }
+    }
+    if (onFocus) {
+      onFocus(event);
+    }
+  });
+  const isNonNativeButton = () => {
+    const button = buttonRef.current;
+    return component && component !== 'button' && !(button.tagName === 'A' && button.href);
+  };
+
+  /**
+   * IE11 shim for https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/repeat
+   */
+  const keydownRef = React__namespace.useRef(false);
+  const handleKeyDown = useEventCallback(event => {
+    // Check if key is already down to avoid repeats being counted as multiple activations
+    if (focusRipple && !keydownRef.current && focusVisible && rippleRef.current && event.key === ' ') {
+      keydownRef.current = true;
+      rippleRef.current.stop(event, () => {
+        rippleRef.current.start(event);
+      });
+    }
+    if (event.target === event.currentTarget && isNonNativeButton() && event.key === ' ') {
+      event.preventDefault();
+    }
+    if (onKeyDown) {
+      onKeyDown(event);
+    }
+
+    // Keyboard accessibility for non interactive elements
+    if (event.target === event.currentTarget && isNonNativeButton() && event.key === 'Enter' && !disabled) {
+      event.preventDefault();
+      if (onClick) {
+        onClick(event);
+      }
+    }
+  });
+  const handleKeyUp = useEventCallback(event => {
+    // calling preventDefault in keyUp on a <button> will not dispatch a click event if Space is pressed
+    // https://codesandbox.io/p/sandbox/button-keyup-preventdefault-dn7f0
+    if (focusRipple && event.key === ' ' && rippleRef.current && focusVisible && !event.defaultPrevented) {
+      keydownRef.current = false;
+      rippleRef.current.stop(event, () => {
+        rippleRef.current.pulsate(event);
+      });
+    }
+    if (onKeyUp) {
+      onKeyUp(event);
+    }
+
+    // Keyboard accessibility for non interactive elements
+    if (onClick && event.target === event.currentTarget && isNonNativeButton() && event.key === ' ' && !event.defaultPrevented) {
+      onClick(event);
+    }
+  });
+  let ComponentProp = component;
+  if (ComponentProp === 'button' && (other.href || other.to)) {
+    ComponentProp = LinkComponent;
+  }
+  const buttonProps = {};
+  if (ComponentProp === 'button') {
+    buttonProps.type = type === undefined ? 'button' : type;
+    buttonProps.disabled = disabled;
+  } else {
+    if (!other.href && !other.to) {
+      buttonProps.role = 'button';
+    }
+    if (disabled) {
+      buttonProps['aria-disabled'] = disabled;
+    }
+  }
+  const handleRef = useForkRef(ref, focusVisibleRef, buttonRef);
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    React__namespace.useEffect(() => {
+      if (enableTouchRipple && !rippleRef.current) {
+        console.error(['MUI: The `component` prop provided to ButtonBase is invalid.', 'Please make sure the children prop is rendered in this custom component.'].join('\n'));
+      }
+    }, [enableTouchRipple]);
+  }
+  const ownerState = _extends({}, props, {
+    centerRipple,
+    component,
+    disabled,
+    disableRipple,
+    disableTouchRipple,
+    focusRipple,
+    tabIndex,
+    focusVisible
+  });
+  const classes = useUtilityClasses$6(ownerState);
+  return /*#__PURE__*/require$$2.jsxs(ButtonBaseRoot, _extends({
+    as: ComponentProp,
+    className: clsx(classes.root, className),
+    ownerState: ownerState,
+    onBlur: handleBlur,
+    onClick: onClick,
+    onContextMenu: handleContextMenu,
+    onFocus: handleFocus,
+    onKeyDown: handleKeyDown,
+    onKeyUp: handleKeyUp,
+    onMouseDown: handleMouseDown,
+    onMouseLeave: handleMouseLeave,
+    onMouseUp: handleMouseUp,
+    onDragLeave: handleDragLeave,
+    onTouchEnd: handleTouchEnd,
+    onTouchMove: handleTouchMove,
+    onTouchStart: handleTouchStart,
+    ref: handleRef,
+    tabIndex: disabled ? -1 : tabIndex,
+    type: type
+  }, buttonProps, other, {
+    children: [children, enableTouchRipple ?
+    
+    /* TouchRipple is only needed client-side, x2 boost on the server. */
+    require$$2.jsx(TouchRipple$1, _extends({
+      ref: handleRippleRef,
+      center: centerRipple
+    }, TouchRippleProps)) : null]
+  }));
+});
+process.env.NODE_ENV !== "production" ? ButtonBase.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * A ref for imperative actions.
+   * It currently only supports `focusVisible()` action.
+   */
+  action: refType$1,
+  /**
+   * If `true`, the ripples are centered.
+   * They won't start at the cursor interaction position.
+   * @default false
+   */
+  centerRipple: PropTypes.bool,
+  /**
+   * The content of the component.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: elementTypeAcceptingRef$1,
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   */
+  disabled: PropTypes.bool,
+  /**
+   * If `true`, the ripple effect is disabled.
+   *
+   * ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure
+   * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
+   * @default false
+   */
+  disableRipple: PropTypes.bool,
+  /**
+   * If `true`, the touch ripple effect is disabled.
+   * @default false
+   */
+  disableTouchRipple: PropTypes.bool,
+  /**
+   * If `true`, the base button will have a keyboard focus ripple.
+   * @default false
+   */
+  focusRipple: PropTypes.bool,
+  /**
+   * This prop can help identify which element has keyboard focus.
+   * The class name will be applied when the element gains the focus through keyboard interaction.
+   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
+   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/HEAD/explainer.md).
+   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
+   * if needed.
+   */
+  focusVisibleClassName: PropTypes.string,
+  /**
+   * @ignore
+   */
+  href: PropTypes /* @typescript-to-proptypes-ignore */.any,
+  /**
+   * The component used to render a link when the `href` prop is provided.
+   * @default 'a'
+   */
+  LinkComponent: PropTypes.elementType,
+  /**
+   * @ignore
+   */
+  onBlur: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onClick: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onContextMenu: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onDragLeave: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onFocus: PropTypes.func,
+  /**
+   * Callback fired when the component is focused with a keyboard.
+   * We trigger a `onFocus` callback too.
+   */
+  onFocusVisible: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onKeyDown: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onKeyUp: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onMouseDown: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onMouseLeave: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onMouseUp: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onTouchEnd: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onTouchMove: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onTouchStart: PropTypes.func,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
+  /**
+   * @default 0
+   */
+  tabIndex: PropTypes.number,
+  /**
+   * Props applied to the `TouchRipple` element.
+   */
+  TouchRippleProps: PropTypes.object,
+  /**
+   * A ref that points to the `TouchRipple` element.
+   */
+  touchRippleRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({
+    current: PropTypes.shape({
+      pulsate: PropTypes.func.isRequired,
+      start: PropTypes.func.isRequired,
+      stop: PropTypes.func.isRequired
+    })
+  })]),
+  /**
+   * @ignore
+   */
+  type: PropTypes.oneOfType([PropTypes.oneOf(['button', 'reset', 'submit']), PropTypes.string])
+} : void 0;
+var ButtonBase$1 = ButtonBase;
+
+function getListItemButtonUtilityClass(slot) {
+  return generateUtilityClass('MuiListItemButton', slot);
+}
+const listItemButtonClasses = generateUtilityClasses('MuiListItemButton', ['root', 'focusVisible', 'dense', 'alignItemsFlexStart', 'disabled', 'divider', 'gutters', 'selected']);
+var listItemButtonClasses$1 = listItemButtonClasses;
+
+const _excluded$5 = ["alignItems", "autoFocus", "component", "children", "dense", "disableGutters", "divider", "focusVisibleClassName", "selected", "className"];
+const overridesResolver = (props, styles) => {
+  const {
+    ownerState
+  } = props;
+  return [styles.root, ownerState.dense && styles.dense, ownerState.alignItems === 'flex-start' && styles.alignItemsFlexStart, ownerState.divider && styles.divider, !ownerState.disableGutters && styles.gutters];
+};
+const useUtilityClasses$5 = ownerState => {
+  const {
+    alignItems,
+    classes,
+    dense,
+    disabled,
+    disableGutters,
+    divider,
+    selected
+  } = ownerState;
+  const slots = {
+    root: ['root', dense && 'dense', !disableGutters && 'gutters', divider && 'divider', disabled && 'disabled', alignItems === 'flex-start' && 'alignItemsFlexStart', selected && 'selected']
+  };
+  const composedClasses = composeClasses(slots, getListItemButtonUtilityClass, classes);
+  return _extends({}, classes, composedClasses);
+};
+const ListItemButtonRoot = styled(ButtonBase$1, {
+  shouldForwardProp: prop => rootShouldForwardProp(prop) || prop === 'classes',
+  name: 'MuiListItemButton',
+  slot: 'Root',
+  overridesResolver
+})(({
+  theme,
+  ownerState
+}) => _extends({
+  display: 'flex',
+  flexGrow: 1,
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  position: 'relative',
+  textDecoration: 'none',
+  minWidth: 0,
+  boxSizing: 'border-box',
+  textAlign: 'left',
+  paddingTop: 8,
+  paddingBottom: 8,
+  transition: theme.transitions.create('background-color', {
+    duration: theme.transitions.duration.shortest
+  }),
+  '&:hover': {
+    textDecoration: 'none',
+    backgroundColor: (theme.vars || theme).palette.action.hover,
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: 'transparent'
+    }
+  },
+  [`&.${listItemButtonClasses$1.selected}`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+    [`&.${listItemButtonClasses$1.focusVisible}`]: {
+      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.focusOpacity}))` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity)
+    }
+  },
+  [`&.${listItemButtonClasses$1.selected}:hover`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.hoverOpacity}))` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.primary.mainChannel} / ${theme.vars.palette.action.selectedOpacity})` : alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity)
+    }
+  },
+  [`&.${listItemButtonClasses$1.focusVisible}`]: {
+    backgroundColor: (theme.vars || theme).palette.action.focus
+  },
+  [`&.${listItemButtonClasses$1.disabled}`]: {
+    opacity: (theme.vars || theme).palette.action.disabledOpacity
+  }
+}, ownerState.divider && {
+  borderBottom: `1px solid ${(theme.vars || theme).palette.divider}`,
+  backgroundClip: 'padding-box'
+}, ownerState.alignItems === 'flex-start' && {
+  alignItems: 'flex-start'
+}, !ownerState.disableGutters && {
+  paddingLeft: 16,
+  paddingRight: 16
+}, ownerState.dense && {
+  paddingTop: 4,
+  paddingBottom: 4
+}));
+const ListItemButton = /*#__PURE__*/React__namespace.forwardRef(function ListItemButton(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiListItemButton'
+  });
+  const {
+      alignItems = 'center',
+      autoFocus = false,
+      component = 'div',
+      children,
+      dense = false,
+      disableGutters = false,
+      divider = false,
+      focusVisibleClassName,
+      selected = false,
+      className
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$5);
+  const context = React__namespace.useContext(ListContext$1);
+  const childContext = React__namespace.useMemo(() => ({
+    dense: dense || context.dense || false,
+    alignItems,
+    disableGutters
+  }), [alignItems, context.dense, dense, disableGutters]);
+  const listItemRef = React__namespace.useRef(null);
+  useEnhancedEffect(() => {
+    if (autoFocus) {
+      if (listItemRef.current) {
+        listItemRef.current.focus();
+      } else if (process.env.NODE_ENV !== 'production') {
+        console.error('MUI: Unable to set focus to a ListItemButton whose component has not been rendered.');
+      }
+    }
+  }, [autoFocus]);
+  const ownerState = _extends({}, props, {
+    alignItems,
+    dense: childContext.dense,
+    disableGutters,
+    divider,
+    selected
+  });
+  const classes = useUtilityClasses$5(ownerState);
+  const handleRef = useForkRef(listItemRef, ref);
+  return /*#__PURE__*/require$$2.jsx(ListContext$1.Provider, {
+    value: childContext,
+    children: /*#__PURE__*/require$$2.jsx(ListItemButtonRoot, _extends({
+      ref: handleRef,
+      href: other.href || other.to
+      // `ButtonBase` processes `href` or `to` if `component` is set to 'button'
+      ,
+      component: (other.href || other.to) && component === 'div' ? 'button' : component,
+      focusVisibleClassName: clsx(classes.focusVisible, focusVisibleClassName),
+      ownerState: ownerState,
+      className: clsx(classes.root, className)
+    }, other, {
+      classes: classes,
+      children: children
+    }))
+  });
+});
+process.env.NODE_ENV !== "production" ? ListItemButton.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * Defines the `align-items` style property.
+   * @default 'center'
+   */
+  alignItems: PropTypes.oneOf(['center', 'flex-start']),
+  /**
+   * If `true`, the list item is focused during the first mount.
+   * Focus will also be triggered if the value changes from false to true.
+   * @default false
+   */
+  autoFocus: PropTypes.bool,
+  /**
+   * The content of the component if a `ListItemSecondaryAction` is used it must
+   * be the last child.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
+  /**
+   * If `true`, compact vertical padding designed for keyboard and mouse input is used.
+   * The prop defaults to the value inherited from the parent List component.
+   * @default false
+   */
+  dense: PropTypes.bool,
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   */
+  disabled: PropTypes.bool,
+  /**
+   * If `true`, the left and right padding is removed.
+   * @default false
+   */
+  disableGutters: PropTypes.bool,
+  /**
+   * If `true`, a 1px light border is added to the bottom of the list item.
+   * @default false
+   */
+  divider: PropTypes.bool,
+  /**
+   * This prop can help identify which element has keyboard focus.
+   * The class name will be applied when the element gains the focus through keyboard interaction.
+   * It's a polyfill for the [CSS :focus-visible selector](https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo).
+   * The rationale for using this feature [is explained here](https://github.com/WICG/focus-visible/blob/HEAD/explainer.md).
+   * A [polyfill can be used](https://github.com/WICG/focus-visible) to apply a `focus-visible` class to other components
+   * if needed.
+   */
+  focusVisibleClassName: PropTypes.string,
+  /**
+   * @ignore
+   */
+  href: PropTypes.string,
+  /**
+   * Use to apply selected styling.
+   * @default false
+   */
+  selected: PropTypes.bool,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
+} : void 0;
+var ListItemButton$1 = ListItemButton;
+
+function getListItemIconUtilityClass(slot) {
+  return generateUtilityClass('MuiListItemIcon', slot);
+}
+generateUtilityClasses('MuiListItemIcon', ['root', 'alignItemsFlexStart']);
+
+const _excluded$4 = ["className"];
+const useUtilityClasses$4 = ownerState => {
+  const {
+    alignItems,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root', alignItems === 'flex-start' && 'alignItemsFlexStart']
+  };
+  return composeClasses(slots, getListItemIconUtilityClass, classes);
+};
+const ListItemIconRoot = styled('div', {
+  name: 'MuiListItemIcon',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.alignItems === 'flex-start' && styles.alignItemsFlexStart];
+  }
+})(({
+  theme,
+  ownerState
+}) => _extends({
+  minWidth: 56,
+  color: (theme.vars || theme).palette.action.active,
+  flexShrink: 0,
+  display: 'inline-flex'
+}, ownerState.alignItems === 'flex-start' && {
+  marginTop: 8
+}));
+
+/**
+ * A simple wrapper to apply `List` styles to an `Icon` or `SvgIcon`.
+ */
+const ListItemIcon = /*#__PURE__*/React__namespace.forwardRef(function ListItemIcon(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiListItemIcon'
+  });
+  const {
+      className
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$4);
+  const context = React__namespace.useContext(ListContext$1);
+  const ownerState = _extends({}, props, {
+    alignItems: context.alignItems
+  });
+  const classes = useUtilityClasses$4(ownerState);
+  return /*#__PURE__*/require$$2.jsx(ListItemIconRoot, _extends({
+    className: clsx(classes.root, className),
+    ownerState: ownerState,
+    ref: ref
+  }, other));
+});
+process.env.NODE_ENV !== "production" ? ListItemIcon.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * The content of the component, normally `Icon`, `SvgIcon`,
+   * or a `@mui/icons-material` SVG icon element.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
+} : void 0;
+var ListItemIcon$1 = ListItemIcon;
+
+function getTypographyUtilityClass(slot) {
+  return generateUtilityClass('MuiTypography', slot);
+}
+generateUtilityClasses('MuiTypography', ['root', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'inherit', 'button', 'caption', 'overline', 'alignLeft', 'alignRight', 'alignCenter', 'alignJustify', 'noWrap', 'gutterBottom', 'paragraph']);
+
+const _excluded$3 = ["align", "className", "component", "gutterBottom", "noWrap", "paragraph", "variant", "variantMapping"];
+const useUtilityClasses$3 = ownerState => {
+  const {
+    align,
+    gutterBottom,
+    noWrap,
+    paragraph,
+    variant,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root', variant, ownerState.align !== 'inherit' && `align${capitalize(align)}`, gutterBottom && 'gutterBottom', noWrap && 'noWrap', paragraph && 'paragraph']
+  };
+  return composeClasses(slots, getTypographyUtilityClass, classes);
+};
+const TypographyRoot = styled('span', {
+  name: 'MuiTypography',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.variant && styles[ownerState.variant], ownerState.align !== 'inherit' && styles[`align${capitalize(ownerState.align)}`], ownerState.noWrap && styles.noWrap, ownerState.gutterBottom && styles.gutterBottom, ownerState.paragraph && styles.paragraph];
+  }
+})(({
+  theme,
+  ownerState
+}) => _extends({
+  margin: 0
+}, ownerState.variant === 'inherit' && {
+  // Some elements, like <button> on Chrome have default font that doesn't inherit, reset this.
+  font: 'inherit'
+}, ownerState.variant !== 'inherit' && theme.typography[ownerState.variant], ownerState.align !== 'inherit' && {
+  textAlign: ownerState.align
+}, ownerState.noWrap && {
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap'
+}, ownerState.gutterBottom && {
+  marginBottom: '0.35em'
+}, ownerState.paragraph && {
+  marginBottom: 16
+}));
+const defaultVariantMapping = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+  subtitle1: 'h6',
+  subtitle2: 'h6',
+  body1: 'p',
+  body2: 'p',
+  inherit: 'p'
+};
+
+// TODO v6: deprecate these color values in v5.x and remove the transformation in v6
+const colorTransformations = {
+  primary: 'primary.main',
+  textPrimary: 'text.primary',
+  secondary: 'secondary.main',
+  textSecondary: 'text.secondary',
+  error: 'error.main'
+};
+const transformDeprecatedColors = color => {
+  return colorTransformations[color] || color;
+};
+const Typography = /*#__PURE__*/React__namespace.forwardRef(function Typography(inProps, ref) {
+  const themeProps = useThemeProps({
+    props: inProps,
+    name: 'MuiTypography'
+  });
+  const color = transformDeprecatedColors(themeProps.color);
+  const props = extendSxProp(_extends({}, themeProps, {
+    color
+  }));
+  const {
+      align = 'inherit',
+      className,
+      component,
+      gutterBottom = false,
+      noWrap = false,
+      paragraph = false,
+      variant = 'body1',
+      variantMapping = defaultVariantMapping
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$3);
+  const ownerState = _extends({}, props, {
+    align,
+    color,
+    className,
+    component,
+    gutterBottom,
+    noWrap,
+    paragraph,
+    variant,
+    variantMapping
+  });
+  const Component = component || (paragraph ? 'p' : variantMapping[variant] || defaultVariantMapping[variant]) || 'span';
+  const classes = useUtilityClasses$3(ownerState);
+  return /*#__PURE__*/require$$2.jsx(TypographyRoot, _extends({
+    as: Component,
+    ref: ref,
+    ownerState: ownerState,
+    className: clsx(classes.root, className)
+  }, other));
+});
+process.env.NODE_ENV !== "production" ? Typography.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * Set the text-align on the component.
+   * @default 'inherit'
+   */
+  align: PropTypes.oneOf(['center', 'inherit', 'justify', 'left', 'right']),
+  /**
+   * The content of the component.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
+  /**
+   * If `true`, the text will have a bottom margin.
+   * @default false
+   */
+  gutterBottom: PropTypes.bool,
+  /**
+   * If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
+   *
+   * Note that text overflow can only happen with block or inline-block level elements
+   * (the element needs to have a width in order to overflow).
+   * @default false
+   */
+  noWrap: PropTypes.bool,
+  /**
+   * If `true`, the element will be a paragraph element.
+   * @default false
+   */
+  paragraph: PropTypes.bool,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
+  /**
+   * Applies the theme typography styles.
+   * @default 'body1'
+   */
+  variant: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['body1', 'body2', 'button', 'caption', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'inherit', 'overline', 'subtitle1', 'subtitle2']), PropTypes.string]),
+  /**
+   * The component maps the variant prop to a range of different HTML element types.
+   * For instance, subtitle1 to `<h6>`.
+   * If you wish to change that mapping, you can provide your own.
+   * Alternatively, you can use the `component` prop.
+   * @default {
+   *   h1: 'h1',
+   *   h2: 'h2',
+   *   h3: 'h3',
+   *   h4: 'h4',
+   *   h5: 'h5',
+   *   h6: 'h6',
+   *   subtitle1: 'h6',
+   *   subtitle2: 'h6',
+   *   body1: 'p',
+   *   body2: 'p',
+   *   inherit: 'p',
+   * }
+   */
+  variantMapping: PropTypes /* @typescript-to-proptypes-ignore */.object
+} : void 0;
+var Typography$1 = Typography;
+
+function getListItemTextUtilityClass(slot) {
+  return generateUtilityClass('MuiListItemText', slot);
+}
+const listItemTextClasses = generateUtilityClasses('MuiListItemText', ['root', 'multiline', 'dense', 'inset', 'primary', 'secondary']);
+var listItemTextClasses$1 = listItemTextClasses;
+
+const _excluded$2 = ["children", "className", "disableTypography", "inset", "primary", "primaryTypographyProps", "secondary", "secondaryTypographyProps"];
+const useUtilityClasses$2 = ownerState => {
+  const {
+    classes,
+    inset,
+    primary,
+    secondary,
+    dense
+  } = ownerState;
+  const slots = {
+    root: ['root', inset && 'inset', dense && 'dense', primary && secondary && 'multiline'],
+    primary: ['primary'],
+    secondary: ['secondary']
+  };
+  return composeClasses(slots, getListItemTextUtilityClass, classes);
+};
+const ListItemTextRoot = styled('div', {
+  name: 'MuiListItemText',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [{
+      [`& .${listItemTextClasses$1.primary}`]: styles.primary
+    }, {
+      [`& .${listItemTextClasses$1.secondary}`]: styles.secondary
+    }, styles.root, ownerState.inset && styles.inset, ownerState.primary && ownerState.secondary && styles.multiline, ownerState.dense && styles.dense];
+  }
+})(({
+  ownerState
+}) => _extends({
+  flex: '1 1 auto',
+  minWidth: 0,
+  marginTop: 4,
+  marginBottom: 4
+}, ownerState.primary && ownerState.secondary && {
+  marginTop: 6,
+  marginBottom: 6
+}, ownerState.inset && {
+  paddingLeft: 56
+}));
+const ListItemText = /*#__PURE__*/React__namespace.forwardRef(function ListItemText(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiListItemText'
+  });
+  const {
+      children,
+      className,
+      disableTypography = false,
+      inset = false,
+      primary: primaryProp,
+      primaryTypographyProps,
+      secondary: secondaryProp,
+      secondaryTypographyProps
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$2);
+  const {
+    dense
+  } = React__namespace.useContext(ListContext$1);
+  let primary = primaryProp != null ? primaryProp : children;
+  let secondary = secondaryProp;
+  const ownerState = _extends({}, props, {
+    disableTypography,
+    inset,
+    primary: !!primary,
+    secondary: !!secondary,
+    dense
+  });
+  const classes = useUtilityClasses$2(ownerState);
+  if (primary != null && primary.type !== Typography$1 && !disableTypography) {
+    primary = /*#__PURE__*/require$$2.jsx(Typography$1, _extends({
+      variant: dense ? 'body2' : 'body1',
+      className: classes.primary,
+      component: primaryTypographyProps != null && primaryTypographyProps.variant ? undefined : 'span',
+      display: "block"
+    }, primaryTypographyProps, {
+      children: primary
+    }));
+  }
+  if (secondary != null && secondary.type !== Typography$1 && !disableTypography) {
+    secondary = /*#__PURE__*/require$$2.jsx(Typography$1, _extends({
+      variant: "body2",
+      className: classes.secondary,
+      color: "text.secondary",
+      display: "block"
+    }, secondaryTypographyProps, {
+      children: secondary
+    }));
+  }
+  return /*#__PURE__*/require$$2.jsxs(ListItemTextRoot, _extends({
+    className: clsx(classes.root, className),
+    ownerState: ownerState,
+    ref: ref
+  }, other, {
+    children: [primary, secondary]
+  }));
+});
+process.env.NODE_ENV !== "production" ? ListItemText.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * Alias for the `primary` prop.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * If `true`, the children won't be wrapped by a Typography component.
+   * This can be useful to render an alternative Typography variant by wrapping
+   * the `children` (or `primary`) text, and optional `secondary` text
+   * with the Typography component.
+   * @default false
+   */
+  disableTypography: PropTypes.bool,
+  /**
+   * If `true`, the children are indented.
+   * This should be used if there is no left avatar or left icon.
+   * @default false
+   */
+  inset: PropTypes.bool,
+  /**
+   * The main content element.
+   */
+  primary: PropTypes.node,
+  /**
+   * These props will be forwarded to the primary typography component
+   * (as long as disableTypography is not `true`).
+   */
+  primaryTypographyProps: PropTypes.object,
+  /**
+   * The secondary content element.
+   */
+  secondary: PropTypes.node,
+  /**
+   * These props will be forwarded to the secondary typography component
+   * (as long as disableTypography is not `true`).
+   */
+  secondaryTypographyProps: PropTypes.object,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
+} : void 0;
+var ListItemText$1 = ListItemText;
+
+function getCollapseUtilityClass(slot) {
+  return generateUtilityClass('MuiCollapse', slot);
+}
+generateUtilityClasses('MuiCollapse', ['root', 'horizontal', 'vertical', 'entered', 'hidden', 'wrapper', 'wrapperInner']);
+
+const _excluded$1 = ["addEndListener", "children", "className", "collapsedSize", "component", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "orientation", "style", "timeout", "TransitionComponent"];
+const useUtilityClasses$1 = ownerState => {
+  const {
+    orientation,
+    classes
+  } = ownerState;
+  const slots = {
+    root: ['root', `${orientation}`],
+    entered: ['entered'],
+    hidden: ['hidden'],
+    wrapper: ['wrapper', `${orientation}`],
+    wrapperInner: ['wrapperInner', `${orientation}`]
+  };
+  return composeClasses(slots, getCollapseUtilityClass, classes);
+};
+const CollapseRoot = styled('div', {
+  name: 'MuiCollapse',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, styles[ownerState.orientation], ownerState.state === 'entered' && styles.entered, ownerState.state === 'exited' && !ownerState.in && ownerState.collapsedSize === '0px' && styles.hidden];
+  }
+})(({
+  theme,
+  ownerState
+}) => _extends({
+  height: 0,
+  overflow: 'hidden',
+  transition: theme.transitions.create('height')
+}, ownerState.orientation === 'horizontal' && {
+  height: 'auto',
+  width: 0,
+  transition: theme.transitions.create('width')
+}, ownerState.state === 'entered' && _extends({
+  height: 'auto',
+  overflow: 'visible'
+}, ownerState.orientation === 'horizontal' && {
+  width: 'auto'
+}), ownerState.state === 'exited' && !ownerState.in && ownerState.collapsedSize === '0px' && {
+  visibility: 'hidden'
+}));
+const CollapseWrapper = styled('div', {
+  name: 'MuiCollapse',
+  slot: 'Wrapper',
+  overridesResolver: (props, styles) => styles.wrapper
+})(({
+  ownerState
+}) => _extends({
+  // Hack to get children with a negative margin to not falsify the height computation.
+  display: 'flex',
+  width: '100%'
+}, ownerState.orientation === 'horizontal' && {
+  width: 'auto',
+  height: '100%'
+}));
+const CollapseWrapperInner = styled('div', {
+  name: 'MuiCollapse',
+  slot: 'WrapperInner',
+  overridesResolver: (props, styles) => styles.wrapperInner
+})(({
+  ownerState
+}) => _extends({
+  width: '100%'
+}, ownerState.orientation === 'horizontal' && {
+  width: 'auto',
+  height: '100%'
+}));
+
+/**
+ * The Collapse transition is used by the
+ * [Vertical Stepper](/material-ui/react-stepper/#vertical-stepper) StepContent component.
+ * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+ */
+const Collapse = /*#__PURE__*/React__namespace.forwardRef(function Collapse(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiCollapse'
+  });
+  const {
+      addEndListener,
+      children,
+      className,
+      collapsedSize: collapsedSizeProp = '0px',
+      component,
+      easing,
+      in: inProp,
+      onEnter,
+      onEntered,
+      onEntering,
+      onExit,
+      onExited,
+      onExiting,
+      orientation = 'vertical',
+      style,
+      timeout = duration.standard,
+      // eslint-disable-next-line react/prop-types
+      TransitionComponent = Transition$1
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$1);
+  const ownerState = _extends({}, props, {
+    orientation,
+    collapsedSize: collapsedSizeProp
+  });
+  const classes = useUtilityClasses$1(ownerState);
+  const theme = useTheme();
+  const timer = React__namespace.useRef();
+  const wrapperRef = React__namespace.useRef(null);
+  const autoTransitionDuration = React__namespace.useRef();
+  const collapsedSize = typeof collapsedSizeProp === 'number' ? `${collapsedSizeProp}px` : collapsedSizeProp;
+  const isHorizontal = orientation === 'horizontal';
+  const size = isHorizontal ? 'width' : 'height';
+  React__namespace.useEffect(() => {
+    return () => {
+      clearTimeout(timer.current);
+    };
+  }, []);
+  const nodeRef = React__namespace.useRef(null);
+  const handleRef = useForkRef(ref, nodeRef);
+  const normalizedTransitionCallback = callback => maybeIsAppearing => {
+    if (callback) {
+      const node = nodeRef.current;
+
+      // onEnterXxx and onExitXxx callbacks have a different arguments.length value.
+      if (maybeIsAppearing === undefined) {
+        callback(node);
+      } else {
+        callback(node, maybeIsAppearing);
+      }
+    }
+  };
+  const getWrapperSize = () => wrapperRef.current ? wrapperRef.current[isHorizontal ? 'clientWidth' : 'clientHeight'] : 0;
+  const handleEnter = normalizedTransitionCallback((node, isAppearing) => {
+    if (wrapperRef.current && isHorizontal) {
+      // Set absolute position to get the size of collapsed content
+      wrapperRef.current.style.position = 'absolute';
+    }
+    node.style[size] = collapsedSize;
+    if (onEnter) {
+      onEnter(node, isAppearing);
+    }
+  });
+  const handleEntering = normalizedTransitionCallback((node, isAppearing) => {
+    const wrapperSize = getWrapperSize();
+    if (wrapperRef.current && isHorizontal) {
+      // After the size is read reset the position back to default
+      wrapperRef.current.style.position = '';
+    }
+    const {
+      duration: transitionDuration,
+      easing: transitionTimingFunction
+    } = getTransitionProps({
+      style,
+      timeout,
+      easing
+    }, {
+      mode: 'enter'
+    });
+    if (timeout === 'auto') {
+      const duration2 = theme.transitions.getAutoHeightDuration(wrapperSize);
+      node.style.transitionDuration = `${duration2}ms`;
+      autoTransitionDuration.current = duration2;
+    } else {
+      node.style.transitionDuration = typeof transitionDuration === 'string' ? transitionDuration : `${transitionDuration}ms`;
+    }
+    node.style[size] = `${wrapperSize}px`;
+    node.style.transitionTimingFunction = transitionTimingFunction;
+    if (onEntering) {
+      onEntering(node, isAppearing);
+    }
+  });
+  const handleEntered = normalizedTransitionCallback((node, isAppearing) => {
+    node.style[size] = 'auto';
+    if (onEntered) {
+      onEntered(node, isAppearing);
+    }
+  });
+  const handleExit = normalizedTransitionCallback(node => {
+    node.style[size] = `${getWrapperSize()}px`;
+    if (onExit) {
+      onExit(node);
+    }
+  });
+  const handleExited = normalizedTransitionCallback(onExited);
+  const handleExiting = normalizedTransitionCallback(node => {
+    const wrapperSize = getWrapperSize();
+    const {
+      duration: transitionDuration,
+      easing: transitionTimingFunction
+    } = getTransitionProps({
+      style,
+      timeout,
+      easing
+    }, {
+      mode: 'exit'
+    });
+    if (timeout === 'auto') {
+      // TODO: rename getAutoHeightDuration to something more generic (width support)
+      // Actually it just calculates animation duration based on size
+      const duration2 = theme.transitions.getAutoHeightDuration(wrapperSize);
+      node.style.transitionDuration = `${duration2}ms`;
+      autoTransitionDuration.current = duration2;
+    } else {
+      node.style.transitionDuration = typeof transitionDuration === 'string' ? transitionDuration : `${transitionDuration}ms`;
+    }
+    node.style[size] = collapsedSize;
+    node.style.transitionTimingFunction = transitionTimingFunction;
+    if (onExiting) {
+      onExiting(node);
+    }
+  });
+  const handleAddEndListener = next => {
+    if (timeout === 'auto') {
+      timer.current = setTimeout(next, autoTransitionDuration.current || 0);
+    }
+    if (addEndListener) {
+      // Old call signature before `react-transition-group` implemented `nodeRef`
+      addEndListener(nodeRef.current, next);
+    }
+  };
+  return /*#__PURE__*/require$$2.jsx(TransitionComponent, _extends({
+    in: inProp,
+    onEnter: handleEnter,
+    onEntered: handleEntered,
+    onEntering: handleEntering,
+    onExit: handleExit,
+    onExited: handleExited,
+    onExiting: handleExiting,
+    addEndListener: handleAddEndListener,
+    nodeRef: nodeRef,
+    timeout: timeout === 'auto' ? null : timeout
+  }, other, {
+    children: (state, childProps) => /*#__PURE__*/require$$2.jsx(CollapseRoot, _extends({
+      as: component,
+      className: clsx(classes.root, className, {
+        'entered': classes.entered,
+        'exited': !inProp && collapsedSize === '0px' && classes.hidden
+      }[state]),
+      style: _extends({
+        [isHorizontal ? 'minWidth' : 'minHeight']: collapsedSize
+      }, style),
+      ownerState: _extends({}, ownerState, {
+        state
+      }),
+      ref: handleRef
+    }, childProps, {
+      children: /*#__PURE__*/require$$2.jsx(CollapseWrapper, {
+        ownerState: _extends({}, ownerState, {
+          state
+        }),
+        className: classes.wrapper,
+        ref: wrapperRef,
+        children: /*#__PURE__*/require$$2.jsx(CollapseWrapperInner, {
+          ownerState: _extends({}, ownerState, {
+            state
+          }),
+          className: classes.wrapperInner,
+          children: children
+        })
+      })
+    }))
+  }));
+});
+process.env.NODE_ENV !== "production" ? Collapse.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * Add a custom transition end trigger. Called with the transitioning DOM
+   * node and a done callback. Allows for more fine grained transition end
+   * logic. Note: Timeouts are still used as a fallback if provided.
+   */
+  addEndListener: PropTypes.func,
+  /**
+   * The content node to be collapsed.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The width (horizontal) or height (vertical) of the container when collapsed.
+   * @default '0px'
+   */
+  collapsedSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: elementTypeAcceptingRef$1,
+  /**
+   * The transition timing function.
+   * You may specify a single easing or a object containing enter and exit values.
+   */
+  easing: PropTypes.oneOfType([PropTypes.shape({
+    enter: PropTypes.string,
+    exit: PropTypes.string
+  }), PropTypes.string]),
+  /**
+   * If `true`, the component will transition in.
+   */
+  in: PropTypes.bool,
+  /**
+   * @ignore
+   */
+  onEnter: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onEntered: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onEntering: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onExit: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onExited: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onExiting: PropTypes.func,
+  /**
+   * The transition orientation.
+   * @default 'vertical'
+   */
+  orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+  /**
+   * @ignore
+   */
+  style: PropTypes.object,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   *
+   * Set to 'auto' to automatically calculate transition time based on height.
+   * @default duration.standard
+   */
+  timeout: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number, PropTypes.shape({
+    appear: PropTypes.number,
+    enter: PropTypes.number,
+    exit: PropTypes.number
+  })])
+} : void 0;
+Collapse.muiSupportAuto = true;
+var Collapse$1 = Collapse;
 
 var ExpandLess = {};
 
@@ -16102,6 +15604,504 @@ const Submenu = /*#__PURE__*/React__namespace.forwardRef(({
   }, children))));
 });
 
+var CancelIcon = createSvgIcon$1( /*#__PURE__*/require$$2.jsx("path", {
+  d: "M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+}), 'Cancel');
+
+function getChipUtilityClass(slot) {
+  return generateUtilityClass('MuiChip', slot);
+}
+const chipClasses = generateUtilityClasses('MuiChip', ['root', 'sizeSmall', 'sizeMedium', 'colorError', 'colorInfo', 'colorPrimary', 'colorSecondary', 'colorSuccess', 'colorWarning', 'disabled', 'clickable', 'clickableColorPrimary', 'clickableColorSecondary', 'deletable', 'deletableColorPrimary', 'deletableColorSecondary', 'outlined', 'filled', 'outlinedPrimary', 'outlinedSecondary', 'filledPrimary', 'filledSecondary', 'avatar', 'avatarSmall', 'avatarMedium', 'avatarColorPrimary', 'avatarColorSecondary', 'icon', 'iconSmall', 'iconMedium', 'iconColorPrimary', 'iconColorSecondary', 'label', 'labelSmall', 'labelMedium', 'deleteIcon', 'deleteIconSmall', 'deleteIconMedium', 'deleteIconColorPrimary', 'deleteIconColorSecondary', 'deleteIconOutlinedColorPrimary', 'deleteIconOutlinedColorSecondary', 'deleteIconFilledColorPrimary', 'deleteIconFilledColorSecondary', 'focusVisible']);
+var chipClasses$1 = chipClasses;
+
+const _excluded = ["avatar", "className", "clickable", "color", "component", "deleteIcon", "disabled", "icon", "label", "onClick", "onDelete", "onKeyDown", "onKeyUp", "size", "variant", "tabIndex", "skipFocusWhenDisabled"];
+const useUtilityClasses = ownerState => {
+  const {
+    classes,
+    disabled,
+    size,
+    color,
+    iconColor,
+    onDelete,
+    clickable,
+    variant
+  } = ownerState;
+  const slots = {
+    root: ['root', variant, disabled && 'disabled', `size${capitalize(size)}`, `color${capitalize(color)}`, clickable && 'clickable', clickable && `clickableColor${capitalize(color)}`, onDelete && 'deletable', onDelete && `deletableColor${capitalize(color)}`, `${variant}${capitalize(color)}`],
+    label: ['label', `label${capitalize(size)}`],
+    avatar: ['avatar', `avatar${capitalize(size)}`, `avatarColor${capitalize(color)}`],
+    icon: ['icon', `icon${capitalize(size)}`, `iconColor${capitalize(iconColor)}`],
+    deleteIcon: ['deleteIcon', `deleteIcon${capitalize(size)}`, `deleteIconColor${capitalize(color)}`, `deleteIcon${capitalize(variant)}Color${capitalize(color)}`]
+  };
+  return composeClasses(slots, getChipUtilityClass, classes);
+};
+const ChipRoot = styled('div', {
+  name: 'MuiChip',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    const {
+      color,
+      iconColor,
+      clickable,
+      onDelete,
+      size,
+      variant
+    } = ownerState;
+    return [{
+      [`& .${chipClasses$1.avatar}`]: styles.avatar
+    }, {
+      [`& .${chipClasses$1.avatar}`]: styles[`avatar${capitalize(size)}`]
+    }, {
+      [`& .${chipClasses$1.avatar}`]: styles[`avatarColor${capitalize(color)}`]
+    }, {
+      [`& .${chipClasses$1.icon}`]: styles.icon
+    }, {
+      [`& .${chipClasses$1.icon}`]: styles[`icon${capitalize(size)}`]
+    }, {
+      [`& .${chipClasses$1.icon}`]: styles[`iconColor${capitalize(iconColor)}`]
+    }, {
+      [`& .${chipClasses$1.deleteIcon}`]: styles.deleteIcon
+    }, {
+      [`& .${chipClasses$1.deleteIcon}`]: styles[`deleteIcon${capitalize(size)}`]
+    }, {
+      [`& .${chipClasses$1.deleteIcon}`]: styles[`deleteIconColor${capitalize(color)}`]
+    }, {
+      [`& .${chipClasses$1.deleteIcon}`]: styles[`deleteIcon${capitalize(variant)}Color${capitalize(color)}`]
+    }, styles.root, styles[`size${capitalize(size)}`], styles[`color${capitalize(color)}`], clickable && styles.clickable, clickable && color !== 'default' && styles[`clickableColor${capitalize(color)})`], onDelete && styles.deletable, onDelete && color !== 'default' && styles[`deletableColor${capitalize(color)}`], styles[variant], styles[`${variant}${capitalize(color)}`]];
+  }
+})(({
+  theme,
+  ownerState
+}) => {
+  const textColor = theme.palette.mode === 'light' ? theme.palette.grey[700] : theme.palette.grey[300];
+  return _extends({
+    maxWidth: '100%',
+    fontFamily: theme.typography.fontFamily,
+    fontSize: theme.typography.pxToRem(13),
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 32,
+    color: (theme.vars || theme).palette.text.primary,
+    backgroundColor: (theme.vars || theme).palette.action.selected,
+    borderRadius: 32 / 2,
+    whiteSpace: 'nowrap',
+    transition: theme.transitions.create(['background-color', 'box-shadow']),
+    // reset cursor explicitly in case ButtonBase is used
+    cursor: 'unset',
+    // We disable the focus ring for mouse, touch and keyboard users.
+    outline: 0,
+    textDecoration: 'none',
+    border: 0,
+    // Remove `button` border
+    padding: 0,
+    // Remove `button` padding
+    verticalAlign: 'middle',
+    boxSizing: 'border-box',
+    [`&.${chipClasses$1.disabled}`]: {
+      opacity: (theme.vars || theme).palette.action.disabledOpacity,
+      pointerEvents: 'none'
+    },
+    [`& .${chipClasses$1.avatar}`]: {
+      marginLeft: 5,
+      marginRight: -6,
+      width: 24,
+      height: 24,
+      color: theme.vars ? theme.vars.palette.Chip.defaultAvatarColor : textColor,
+      fontSize: theme.typography.pxToRem(12)
+    },
+    [`& .${chipClasses$1.avatarColorPrimary}`]: {
+      color: (theme.vars || theme).palette.primary.contrastText,
+      backgroundColor: (theme.vars || theme).palette.primary.dark
+    },
+    [`& .${chipClasses$1.avatarColorSecondary}`]: {
+      color: (theme.vars || theme).palette.secondary.contrastText,
+      backgroundColor: (theme.vars || theme).palette.secondary.dark
+    },
+    [`& .${chipClasses$1.avatarSmall}`]: {
+      marginLeft: 4,
+      marginRight: -4,
+      width: 18,
+      height: 18,
+      fontSize: theme.typography.pxToRem(10)
+    },
+    [`& .${chipClasses$1.icon}`]: _extends({
+      marginLeft: 5,
+      marginRight: -6
+    }, ownerState.size === 'small' && {
+      fontSize: 18,
+      marginLeft: 4,
+      marginRight: -4
+    }, ownerState.iconColor === ownerState.color && _extends({
+      color: theme.vars ? theme.vars.palette.Chip.defaultIconColor : textColor
+    }, ownerState.color !== 'default' && {
+      color: 'inherit'
+    })),
+    [`& .${chipClasses$1.deleteIcon}`]: _extends({
+      WebkitTapHighlightColor: 'transparent',
+      color: theme.vars ? `rgba(${theme.vars.palette.text.primaryChannel} / 0.26)` : alpha(theme.palette.text.primary, 0.26),
+      fontSize: 22,
+      cursor: 'pointer',
+      margin: '0 5px 0 -6px',
+      '&:hover': {
+        color: theme.vars ? `rgba(${theme.vars.palette.text.primaryChannel} / 0.4)` : alpha(theme.palette.text.primary, 0.4)
+      }
+    }, ownerState.size === 'small' && {
+      fontSize: 16,
+      marginRight: 4,
+      marginLeft: -4
+    }, ownerState.color !== 'default' && {
+      color: theme.vars ? `rgba(${theme.vars.palette[ownerState.color].contrastTextChannel} / 0.7)` : alpha(theme.palette[ownerState.color].contrastText, 0.7),
+      '&:hover, &:active': {
+        color: (theme.vars || theme).palette[ownerState.color].contrastText
+      }
+    })
+  }, ownerState.size === 'small' && {
+    height: 24
+  }, ownerState.color !== 'default' && {
+    backgroundColor: (theme.vars || theme).palette[ownerState.color].main,
+    color: (theme.vars || theme).palette[ownerState.color].contrastText
+  }, ownerState.onDelete && {
+    [`&.${chipClasses$1.focusVisible}`]: {
+      backgroundColor: theme.vars ? `rgba(${theme.vars.palette.action.selectedChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.focusOpacity}))` : alpha(theme.palette.action.selected, theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity)
+    }
+  }, ownerState.onDelete && ownerState.color !== 'default' && {
+    [`&.${chipClasses$1.focusVisible}`]: {
+      backgroundColor: (theme.vars || theme).palette[ownerState.color].dark
+    }
+  });
+}, ({
+  theme,
+  ownerState
+}) => _extends({}, ownerState.clickable && {
+  userSelect: 'none',
+  WebkitTapHighlightColor: 'transparent',
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.action.selectedChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.hoverOpacity}))` : alpha(theme.palette.action.selected, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity)
+  },
+  [`&.${chipClasses$1.focusVisible}`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.action.selectedChannel} / calc(${theme.vars.palette.action.selectedOpacity} + ${theme.vars.palette.action.focusOpacity}))` : alpha(theme.palette.action.selected, theme.palette.action.selectedOpacity + theme.palette.action.focusOpacity)
+  },
+  '&:active': {
+    boxShadow: (theme.vars || theme).shadows[1]
+  }
+}, ownerState.clickable && ownerState.color !== 'default' && {
+  [`&:hover, &.${chipClasses$1.focusVisible}`]: {
+    backgroundColor: (theme.vars || theme).palette[ownerState.color].dark
+  }
+}), ({
+  theme,
+  ownerState
+}) => _extends({}, ownerState.variant === 'outlined' && {
+  backgroundColor: 'transparent',
+  border: theme.vars ? `1px solid ${theme.vars.palette.Chip.defaultBorder}` : `1px solid ${theme.palette.mode === 'light' ? theme.palette.grey[400] : theme.palette.grey[700]}`,
+  [`&.${chipClasses$1.clickable}:hover`]: {
+    backgroundColor: (theme.vars || theme).palette.action.hover
+  },
+  [`&.${chipClasses$1.focusVisible}`]: {
+    backgroundColor: (theme.vars || theme).palette.action.focus
+  },
+  [`& .${chipClasses$1.avatar}`]: {
+    marginLeft: 4
+  },
+  [`& .${chipClasses$1.avatarSmall}`]: {
+    marginLeft: 2
+  },
+  [`& .${chipClasses$1.icon}`]: {
+    marginLeft: 4
+  },
+  [`& .${chipClasses$1.iconSmall}`]: {
+    marginLeft: 2
+  },
+  [`& .${chipClasses$1.deleteIcon}`]: {
+    marginRight: 5
+  },
+  [`& .${chipClasses$1.deleteIconSmall}`]: {
+    marginRight: 3
+  }
+}, ownerState.variant === 'outlined' && ownerState.color !== 'default' && {
+  color: (theme.vars || theme).palette[ownerState.color].main,
+  border: `1px solid ${theme.vars ? `rgba(${theme.vars.palette[ownerState.color].mainChannel} / 0.7)` : alpha(theme.palette[ownerState.color].main, 0.7)}`,
+  [`&.${chipClasses$1.clickable}:hover`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette[ownerState.color].mainChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette[ownerState.color].main, theme.palette.action.hoverOpacity)
+  },
+  [`&.${chipClasses$1.focusVisible}`]: {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette[ownerState.color].mainChannel} / ${theme.vars.palette.action.focusOpacity})` : alpha(theme.palette[ownerState.color].main, theme.palette.action.focusOpacity)
+  },
+  [`& .${chipClasses$1.deleteIcon}`]: {
+    color: theme.vars ? `rgba(${theme.vars.palette[ownerState.color].mainChannel} / 0.7)` : alpha(theme.palette[ownerState.color].main, 0.7),
+    '&:hover, &:active': {
+      color: (theme.vars || theme).palette[ownerState.color].main
+    }
+  }
+}));
+const ChipLabel = styled('span', {
+  name: 'MuiChip',
+  slot: 'Label',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    const {
+      size
+    } = ownerState;
+    return [styles.label, styles[`label${capitalize(size)}`]];
+  }
+})(({
+  ownerState
+}) => _extends({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  paddingLeft: 12,
+  paddingRight: 12,
+  whiteSpace: 'nowrap'
+}, ownerState.variant === 'outlined' && {
+  paddingLeft: 11,
+  paddingRight: 11
+}, ownerState.size === 'small' && {
+  paddingLeft: 8,
+  paddingRight: 8
+}, ownerState.size === 'small' && ownerState.variant === 'outlined' && {
+  paddingLeft: 7,
+  paddingRight: 7
+}));
+function isDeleteKeyboardEvent(keyboardEvent) {
+  return keyboardEvent.key === 'Backspace' || keyboardEvent.key === 'Delete';
+}
+
+/**
+ * Chips represent complex entities in small blocks, such as a contact.
+ */
+const Chip = /*#__PURE__*/React__namespace.forwardRef(function Chip(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiChip'
+  });
+  const {
+      avatar: avatarProp,
+      className,
+      clickable: clickableProp,
+      color = 'default',
+      component: ComponentProp,
+      deleteIcon: deleteIconProp,
+      disabled = false,
+      icon: iconProp,
+      label,
+      onClick,
+      onDelete,
+      onKeyDown,
+      onKeyUp,
+      size = 'medium',
+      variant = 'filled',
+      tabIndex,
+      skipFocusWhenDisabled = false // TODO v6: Rename to `focusableWhenDisabled`.
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded);
+  const chipRef = React__namespace.useRef(null);
+  const handleRef = useForkRef(chipRef, ref);
+  const handleDeleteIconClick = event => {
+    // Stop the event from bubbling up to the `Chip`
+    event.stopPropagation();
+    if (onDelete) {
+      onDelete(event);
+    }
+  };
+  const handleKeyDown = event => {
+    // Ignore events from children of `Chip`.
+    if (event.currentTarget === event.target && isDeleteKeyboardEvent(event)) {
+      // Will be handled in keyUp, otherwise some browsers
+      // might init navigation
+      event.preventDefault();
+    }
+    if (onKeyDown) {
+      onKeyDown(event);
+    }
+  };
+  const handleKeyUp = event => {
+    // Ignore events from children of `Chip`.
+    if (event.currentTarget === event.target) {
+      if (onDelete && isDeleteKeyboardEvent(event)) {
+        onDelete(event);
+      } else if (event.key === 'Escape' && chipRef.current) {
+        chipRef.current.blur();
+      }
+    }
+    if (onKeyUp) {
+      onKeyUp(event);
+    }
+  };
+  const clickable = clickableProp !== false && onClick ? true : clickableProp;
+  const component = clickable || onDelete ? ButtonBase$1 : ComponentProp || 'div';
+  const ownerState = _extends({}, props, {
+    component,
+    disabled,
+    size,
+    color,
+    iconColor: /*#__PURE__*/React__namespace.isValidElement(iconProp) ? iconProp.props.color || color : color,
+    onDelete: !!onDelete,
+    clickable,
+    variant
+  });
+  const classes = useUtilityClasses(ownerState);
+  const moreProps = component === ButtonBase$1 ? _extends({
+    component: ComponentProp || 'div',
+    focusVisibleClassName: classes.focusVisible
+  }, onDelete && {
+    disableRipple: true
+  }) : {};
+  let deleteIcon = null;
+  if (onDelete) {
+    deleteIcon = deleteIconProp && /*#__PURE__*/React__namespace.isValidElement(deleteIconProp) ? ( /*#__PURE__*/React__namespace.cloneElement(deleteIconProp, {
+      className: clsx(deleteIconProp.props.className, classes.deleteIcon),
+      onClick: handleDeleteIconClick
+    })) : /*#__PURE__*/require$$2.jsx(CancelIcon, {
+      className: clsx(classes.deleteIcon),
+      onClick: handleDeleteIconClick
+    });
+  }
+  let avatar = null;
+  if (avatarProp && /*#__PURE__*/React__namespace.isValidElement(avatarProp)) {
+    avatar = /*#__PURE__*/React__namespace.cloneElement(avatarProp, {
+      className: clsx(classes.avatar, avatarProp.props.className)
+    });
+  }
+  let icon = null;
+  if (iconProp && /*#__PURE__*/React__namespace.isValidElement(iconProp)) {
+    icon = /*#__PURE__*/React__namespace.cloneElement(iconProp, {
+      className: clsx(classes.icon, iconProp.props.className)
+    });
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    if (avatar && icon) {
+      console.error('MUI: The Chip component can not handle the avatar ' + 'and the icon prop at the same time. Pick one.');
+    }
+  }
+  return /*#__PURE__*/require$$2.jsxs(ChipRoot, _extends({
+    as: component,
+    className: clsx(classes.root, className),
+    disabled: clickable && disabled ? true : undefined,
+    onClick: onClick,
+    onKeyDown: handleKeyDown,
+    onKeyUp: handleKeyUp,
+    ref: handleRef,
+    tabIndex: skipFocusWhenDisabled && disabled ? -1 : tabIndex,
+    ownerState: ownerState
+  }, moreProps, other, {
+    children: [avatar || icon, /*#__PURE__*/require$$2.jsx(ChipLabel, {
+      className: clsx(classes.label),
+      ownerState: ownerState,
+      children: label
+    }), deleteIcon]
+  }));
+});
+process.env.NODE_ENV !== "production" ? Chip.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * The Avatar element to display.
+   */
+  avatar: PropTypes.element,
+  /**
+   * This prop isn't supported.
+   * Use the `component` prop if you need to change the children structure.
+   */
+  children: unsupportedProp,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * If `true`, the chip will appear clickable, and will raise when pressed,
+   * even if the onClick prop is not defined.
+   * If `false`, the chip will not appear clickable, even if onClick prop is defined.
+   * This can be used, for example,
+   * along with the component prop to indicate an anchor Chip is clickable.
+   * Note: this controls the UI and does not affect the onClick event.
+   */
+  clickable: PropTypes.bool,
+  /**
+   * The color of the component.
+   * It supports both default and custom theme colors, which can be added as shown in the
+   * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
+   * @default 'default'
+   */
+  color: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['default', 'primary', 'secondary', 'error', 'info', 'success', 'warning']), PropTypes.string]),
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
+  /**
+   * Override the default delete icon element. Shown only if `onDelete` is set.
+   */
+  deleteIcon: PropTypes.element,
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Icon element.
+   */
+  icon: PropTypes.element,
+  /**
+   * The content of the component.
+   */
+  label: PropTypes.node,
+  /**
+   * @ignore
+   */
+  onClick: PropTypes.func,
+  /**
+   * Callback fired when the delete icon is clicked.
+   * If set, the delete icon will be shown.
+   */
+  onDelete: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onKeyDown: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onKeyUp: PropTypes.func,
+  /**
+   * The size of the component.
+   * @default 'medium'
+   */
+  size: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['medium', 'small']), PropTypes.string]),
+  /**
+   * If `true`, allows the disabled chip to escape focus.
+   * If `false`, allows the disabled chip to receive focus.
+   * @default false
+   */
+  skipFocusWhenDisabled: PropTypes.bool,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
+  /**
+   * @ignore
+   */
+  tabIndex: PropTypes.number,
+  /**
+   * The variant to use.
+   * @default 'filled'
+   */
+  variant: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['filled', 'outlined']), PropTypes.string])
+} : void 0;
+var Chip$1 = Chip;
+
 const MenuItem = /*#__PURE__*/React__namespace.forwardRef(({
   children,
   icon,
@@ -16110,7 +16110,6 @@ const MenuItem = /*#__PURE__*/React__namespace.forwardRef(({
   badge = false,
   badgeColor = 'primary',
   badgeContent = "new",
-  disabled = false,
   textFontSize = "16px"
 }, ref) => {
   const ListItemStyled = styled(ListItemButton$1)(() => ({
