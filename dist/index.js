@@ -13149,10 +13149,12 @@ function styleInject(css, ref) {
 var css_248z = "[data-simplebar]{position:relative;flex-direction:column;flex-wrap:wrap;justify-content:flex-start;align-content:flex-start;align-items:flex-start}.simplebar-wrapper{overflow:hidden;width:inherit;height:inherit;max-width:inherit;max-height:inherit}.simplebar-mask{direction:inherit;position:absolute;overflow:hidden;padding:0;margin:0;left:0;top:0;bottom:0;right:0;width:auto!important;height:auto!important;z-index:0}.simplebar-offset{direction:inherit!important;box-sizing:inherit!important;resize:none!important;position:absolute;top:0;left:0;bottom:0;right:0;padding:0;margin:0;-webkit-overflow-scrolling:touch}.simplebar-content-wrapper{direction:inherit;box-sizing:border-box!important;position:relative;display:block;height:100%;width:auto;max-width:100%;max-height:100%;overflow:auto;scrollbar-width:none;-ms-overflow-style:none}.simplebar-content-wrapper::-webkit-scrollbar,.simplebar-hide-scrollbar::-webkit-scrollbar{display:none;width:0;height:0}.simplebar-content:after,.simplebar-content:before{content:' ';display:table}.simplebar-placeholder{max-height:100%;max-width:100%;width:100%;pointer-events:none}.simplebar-height-auto-observer-wrapper{box-sizing:inherit!important;height:100%;width:100%;max-width:1px;position:relative;float:left;max-height:1px;overflow:hidden;z-index:-1;padding:0;margin:0;pointer-events:none;flex-grow:inherit;flex-shrink:0;flex-basis:0}.simplebar-height-auto-observer{box-sizing:inherit;display:block;opacity:0;position:absolute;top:0;left:0;height:1000%;width:1000%;min-height:1px;min-width:1px;overflow:hidden;pointer-events:none;z-index:-1}.simplebar-track{z-index:1;position:absolute;right:0;bottom:0;pointer-events:none;overflow:hidden}[data-simplebar].simplebar-dragging{pointer-events:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}[data-simplebar].simplebar-dragging .simplebar-content{pointer-events:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}[data-simplebar].simplebar-dragging .simplebar-track{pointer-events:all}.simplebar-scrollbar{position:absolute;left:0;right:0;min-height:10px}.simplebar-scrollbar:before{position:absolute;content:'';background:#000;border-radius:7px;left:2px;right:2px;opacity:0;transition:opacity .2s .5s linear}.simplebar-scrollbar.simplebar-visible:before{opacity:.5;transition-delay:0s;transition-duration:0s}.simplebar-track.simplebar-vertical{top:0;width:11px}.simplebar-scrollbar:before{top:2px;bottom:2px;left:2px;right:2px}.simplebar-track.simplebar-horizontal{left:0;height:11px}.simplebar-track.simplebar-horizontal .simplebar-scrollbar{right:auto;left:0;top:0;bottom:0;min-height:0;min-width:10px;width:auto}[data-simplebar-direction=rtl] .simplebar-track.simplebar-vertical{right:auto;left:0}.simplebar-dummy-scrollbar-size{direction:rtl;position:fixed;opacity:0;visibility:hidden;height:500px;width:500px;overflow-y:hidden;overflow-x:scroll;-ms-overflow-style:scrollbar!important}.simplebar-dummy-scrollbar-size>div{width:200%;height:200%;margin:10px 0}.simplebar-hide-scrollbar{position:fixed;left:0;visibility:hidden;overflow-y:scroll;scrollbar-width:none;-ms-overflow-style:none}\n";
 styleInject(css_248z);
 
+const SidebarContext = /*#__PURE__*/React__namespace.createContext(0);
 const Sidebar = /*#__PURE__*/React__namespace.forwardRef(({
   children,
   width = '255px',
   backgroundColor = '#fff',
+  textColor = "#8D939D",
   logo = "https://adminmart.com/wp-content/uploads/2023/01/logo1.svg"
 }, ref) => {
   return /*#__PURE__*/React__namespace.createElement(Box$1, {
@@ -13187,78 +13189,13 @@ const Sidebar = /*#__PURE__*/React__namespace.forwardRef(({
       display: 'flex',
       alignItems: 'center'
     },
-    alt: "The house from the offer.",
     src: logo
   }), /*#__PURE__*/React__namespace.createElement(Box$1, {
     px: 3
-  }, children))))
-
-  // <Box 
-
-  // width={width}
-  // border={4}
-  // borderLeft={0}
-  // borderRight={2}
-  // borderTop={0}
-  // borderBottom={0}
-  // borderColor="#eee"
-  // height={'100%'}
-  // >
-  //    <SimpleBar style={{ maxHeight:'calc(100% - 190px)' }}>{children}</SimpleBar>
-  // </Box>
-  ;
+  }, /*#__PURE__*/React__namespace.createElement(SidebarContext.Provider, {
+    value: textColor
+  }, children)))));
 });
-
-// export const Sidebar = () => { 
-//   const [open, setOpen] = React.useState(true);
-
-//   const handleClick = () => {
-//     setOpen(!open);
-//   };
-
-//   return (
-//     <List 
-//       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-//       component="nav"
-//       aria-labelledby="nested-list-subheader"
-//       subheader={
-//         <ListSubheader component="div" id="nested-list-subheader">
-//           Nested List Items
-//         </ListSubheader>
-//       }
-//     >
-//       <ListItemButton>
-//         <ListItemIcon>
-//           <SendIcon />
-//         </ListItemIcon>
-//         <ListItemText primary="Sent mail" />
-//       </ListItemButton>
-//       <ListItemButton>
-//         <ListItemIcon>
-//           <DraftsIcon/>
-//         </ListItemIcon>
-//         <ListItemText primary="Drafts" />
-//       </ListItemButton>
-//       <ListItemButton onClick={handleClick}>
-//         <ListItemIcon>
-//           <InboxIcon />
-//         </ListItemIcon>
-//         <ListItemText primary="Inbox" />
-//         {open ? <ExpandLess /> : <ExpandMore />}
-//       </ListItemButton>
-//       <Collapse in={open} timeout="auto" unmountOnExit>
-//         <List component="div" disablePadding>
-//           <ListItemButton sx={{ pl: 4 }}>
-//             <ListItemIcon>
-//               <StarBorder />
-//             </ListItemIcon>
-//             <ListItemText primary="Starred" />
-//           </ListItemButton>
-//         </List>
-//       </Collapse>
-//     </List>
-//   );
-// }
 
 function getListSubheaderUtilityClass(slot) {
   return generateUtilityClass('MuiListSubheader', slot);
@@ -15541,20 +15478,22 @@ const Submenu = /*#__PURE__*/React__namespace.forwardRef(({
   children,
   title = "",
   icon,
-  subTextColor = '#8D939D',
+  subTextColor = "",
   subBackgroundColor = "#eee"
 }, ref) => {
   const [open, setOpen] = React__namespace.useState(false);
   const handleClick = () => {
     setOpen(!open);
   };
+  const textColorcontext = React__namespace.useContext(SidebarContext);
+  const maintextColor = !subTextColor ? textColorcontext : subTextColor;
   const ListItemStyled = styled(ListItemButton$1)(() => ({
     whiteSpace: 'nowrap',
     marginBottom: '2px',
     padding: '8px 20px',
     borderRadius: `10px`,
     backgroundColor: open ? subBackgroundColor : '#fff',
-    color: open ? subTextColor : '#fff',
+    color: open ? maintextColor : '#fff',
     '&:hover': {
       backgroundColor: '#eee',
       color: '#fff'
@@ -15569,26 +15508,26 @@ const Submenu = /*#__PURE__*/React__namespace.forwardRef(({
     sx: open ? {
       color: "#fff"
     } : {
-      color: subTextColor
+      color: maintextColor
     }
   }, icon ? icon : /*#__PURE__*/React__namespace.createElement(default_1, null)), /*#__PURE__*/React__namespace.createElement(ListItemText$1, {
     primary: title,
     sx: open ? {
       color: "#fff"
     } : {
-      color: subTextColor
+      color: maintextColor
     }
   }), open ? /*#__PURE__*/React__namespace.createElement(default_1$2, {
     sx: open ? {
       color: '#fff'
     } : {
-      color: subTextColor
+      color: maintextColor
     }
   }) : /*#__PURE__*/React__namespace.createElement(default_1$1, {
     sx: open ? {
       color: '#fff'
     } : {
-      color: subTextColor
+      color: maintextColor
     }
   })), /*#__PURE__*/React__namespace.createElement(Collapse$1, {
     in: open,
@@ -16106,19 +16045,21 @@ const MenuItem = /*#__PURE__*/React__namespace.forwardRef(({
   children,
   icon,
   link = "#",
-  textcolor = '#8D939D',
+  textcolor = "",
   badge = false,
   badgeColor = 'primary',
   badgeContent = "new",
   textFontSize = "16px"
 }, ref) => {
+  const textColorcontext = React__namespace.useContext(SidebarContext);
+  const maintextColor = !textcolor ? textColorcontext : textcolor;
   const ListItemStyled = styled(ListItemButton$1)(() => ({
     whiteSpace: 'nowrap',
     marginBottom: '2px',
     padding: '8px 20px',
     borderRadius: `10px`,
     backgroundColor: '#fff',
-    color: textcolor
+    color: maintextColor
   }));
   return /*#__PURE__*/React__namespace.createElement(ListItemStyled, {
     href: link
@@ -16126,11 +16067,11 @@ const MenuItem = /*#__PURE__*/React__namespace.forwardRef(({
     sx: {
       minWidth: '30px',
       p: '3px 0',
-      color: textcolor
+      color: maintextColor
     }
   }, icon ? icon : /*#__PURE__*/React__namespace.createElement(default_1, {
     sx: {
-      color: textcolor
+      color: maintextColor
     }
   })), /*#__PURE__*/React__namespace.createElement(ListItemText$1, null, /*#__PURE__*/React__namespace.createElement(Typography$1, {
     fontSize: textFontSize,
@@ -16145,4 +16086,5 @@ const MenuItem = /*#__PURE__*/React__namespace.forwardRef(({
 exports.Menu = Menu;
 exports.MenuItem = MenuItem;
 exports.Sidebar = Sidebar;
+exports.SidebarContext = SidebarContext;
 exports.Submenu = Submenu;
