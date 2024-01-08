@@ -11,7 +11,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import {styled}  from '@mui/material/styles';
 import Box from '@mui/material/Box';
-
+import { SidebarContext } from './Sidebar';
 
 
 
@@ -22,7 +22,7 @@ export const Submenu = React.forwardRef(({
     children,
     title="",
     icon,
-    subTextColor='#8D939D',
+    subTextColor="",
     subBackgroundColor="#eee"
     },ref)=>
     
@@ -32,13 +32,16 @@ export const Submenu = React.forwardRef(({
         setOpen(!open);
       };
 
+      const textColorcontext = React.useContext(SidebarContext);
+      const maintextColor = !subTextColor?textColorcontext:subTextColor;
+
  const ListItemStyled = styled(ListItemButton)(() => ({
   whiteSpace: 'nowrap',
   marginBottom: '2px',
   padding: '8px 20px',
   borderRadius: `10px`,
   backgroundColor:open?subBackgroundColor:'#fff',
-  color:open?subTextColor:'#fff',
+  color:open?maintextColor:'#fff',
    '&:hover': {
     backgroundColor: '#eee',
     color: '#fff',
@@ -52,13 +55,11 @@ export const Submenu = React.forwardRef(({
         onClick={handleClick} 
       >
 
-          <ListItemIcon style={{minWidth:'30px'}} sx={open?{color:"#fff"}:{color:subTextColor}}>
+          <ListItemIcon style={{minWidth:'30px'}} sx={open?{color:"#fff"}:{color:maintextColor}}>
             {icon?icon:<FiberManualRecordIcon/>}
           </ListItemIcon>
-          <ListItemText primary={title} sx={open?{color:"#fff"}:{color:subTextColor}}/>
-         
-       
-         {open ? <ExpandLess  sx={open?{color:'#fff'}:{color:subTextColor}}/> : <ExpandMore sx={open?{color:'#fff'}:{color:subTextColor}}/>}
+          <ListItemText primary={title} sx={open?{color:"#fff"}:{color:maintextColor}}/>
+          {open ? <ExpandLess  sx={open?{color:'#fff'}:{color:maintextColor}}/> : <ExpandMore sx={open?{color:'#fff'}:{color:maintextColor}}/>}
     
     </ListItemStyled>
 

@@ -8,7 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
-
+import { SidebarContext } from './Sidebar';
 
 
 
@@ -17,7 +17,7 @@ export const MenuItem = React.forwardRef(({
     children,
     icon,
     link="#",
-    textcolor='#8D939D',
+    textcolor="",
     badge=false,
     badgeColor='primary',
     badgeContent="new",
@@ -26,13 +26,16 @@ export const MenuItem = React.forwardRef(({
     
     {
 
+      const textColorcontext = React.useContext(SidebarContext);
+      const maintextColor = !textcolor?textColorcontext:textcolor;
+
       const ListItemStyled = styled(ListItemButton)(() => ({
         whiteSpace: 'nowrap',
         marginBottom: '2px',
         padding: '8px 20px',
         borderRadius: `10px`,
         backgroundColor:'#fff',
-        color:textcolor,
+        color:maintextColor,
        
       }));
  
@@ -46,10 +49,11 @@ export const MenuItem = React.forwardRef(({
           sx={{
             minWidth: '30px',
             p: '3px 0',
-            color:textcolor
+            color:maintextColor
           }}
+
         >
-          {icon?icon:<FiberManualRecordIcon sx={{color:textcolor}}/>}
+          {icon?icon:<FiberManualRecordIcon sx={{color:maintextColor}}/>}
         </ListItemIcon>
 
         <ListItemText>

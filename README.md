@@ -26,39 +26,49 @@ For any Issues, create new issue on https://github.com/adminmart/react-mui-sideb
 ## Usage/Examples
 
 ```javascript
-import React from 'react'
-
-import {Sidebar,Menu,MenuItem,Submenu} from 'react-mui-sidebar'
-
-
-const App = () => {
-  return (
-        <Sidebar width={'300px'}>
-          <Menu subHeading="NEEDS">
-               <MenuItem textcolor="#434E5F" link="/sdsa">Modern</MenuItem>
-               <MenuItem textcolor="#434E5F">eCommerce</MenuItem>
-           </Menu>
-           <Menu subHeading="HOME">
-               <MenuItem textcolor="#434E5F" link="/sdsa" badge="true">Modern</MenuItem>
-               <MenuItem textcolor="#434E5F">eCommerce</MenuItem>
-           </Menu>
-           <Menu subHeading="APPS">
-           <MenuItem textcolor="#434E5F">Contact</MenuItem>
-             <Submenu subBackgroundColor="#434E5F" subTextColor="#434E5F" title="Blog">
-                 <MenuItem textcolor="#434E5F">Post</MenuItem>
-                 <MenuItem textcolor="#434E5F">Details</MenuItem>
-                    <Submenu subBackgroundColor="#434E5F" subTextColor="#434E5F" title="Blog Inner">
-                       <MenuItem textcolor="#434E5F">new</MenuItem>
-                       <MenuItem textcolor="#434E5F">Hello</MenuItem>
-                    </Submenu>
-             </Submenu>
-             <MenuItem textcolor="#434E5F">Chats</MenuItem>
-           </Menu>
-        </Sidebar>
-  )
+import React from 'react';
+import { Sidebar } from '../components/Sidebar';
+import {MenuItem} from '../components/MenuItem';
+import { Menu } from '../components/Menu';
+import { Submenu } from '../components/Submenu';
+import SendIcon from '@mui/icons-material/Send';
+import MediationIcon from '@mui/icons-material/Mediation';
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+export default {
+  title: 'Sidebar',
+  component: Sidebar,
 }
 
-export default App
+
+export const Primary = ({ ...props }) => {
+ 
+  return (
+
+        <Sidebar {...props} width={'300px'}>
+            
+           <Menu subHeading="HOME">
+               <MenuItem link="/" badge="true" icon={<SendIcon/>}>Modern</MenuItem>
+               <MenuItem icon={<MediationIcon/>}>eCommerce</MenuItem>
+           </Menu>
+           <Menu subHeading="APPS">
+           <MenuItem textcolor="red" icon={<CallOutlinedIcon/>}>Contact</MenuItem>
+             <Submenu subBackgroundColor="#434E5F" subTextColor="#434E5F" title="Blog">
+                 <MenuItem>Post</MenuItem>
+                 <MenuItem>Details</MenuItem>
+                    <Submenu subBackgroundColor="#434E5F" subTextColor="#434E5F" title="Blog Inner">
+                       <MenuItem>new</MenuItem>
+                       <MenuItem>Hello</MenuItem>
+                    </Submenu>
+             </Submenu>
+             <MenuItem>Chats</MenuItem>
+           </Menu>
+
+           
+        </Sidebar>
+  )
+
+}
+  
 ```
 
 
@@ -73,6 +83,7 @@ export default App
 | Props             | Type          | Default                | Description  |
 | :--------         | :--------     | :------------------    |  -           |
 | `width`           |   `string`    |   `255px`              |   set the width of sidebar         |
+| `textColor`           |   `string`    |   `#8D939D`              |   set this color to all MenuItem and SubMenu of sidebar         |
 | `backgroundColor` |   `string`    |   `#fff`               |     set the background color of sidebar      |
 | `logo`            |   `string`    |   `adminmart svg cdn`  |   pass the logo cdnn link        |
 

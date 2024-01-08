@@ -19,20 +19,20 @@ export const Primary = ({ ...props }) => {
         <Sidebar {...props} width={'300px'}>
             
            <Menu subHeading="HOME">
-               <MenuItem textcolor="#434E5F" link="/sdsa" badge="true" icon={<SendIcon/>}>Modern</MenuItem>
-               <MenuItem textcolor="#434E5F" icon={<MediationIcon/>}>eCommerce</MenuItem>
+               <MenuItem link="/sdsa" badge="true" icon={<SendIcon/>}>Modern</MenuItem>
+               <MenuItem icon={<MediationIcon/>}>eCommerce</MenuItem>
            </Menu>
            <Menu subHeading="APPS">
-           <MenuItem icon={<CallOutlinedIcon/>} textcolor="#434E5F">Contact</MenuItem>
+           <MenuItem textcolor="red" icon={<CallOutlinedIcon/>}>Contact</MenuItem>
              <Submenu subBackgroundColor="#434E5F" subTextColor="#434E5F" title="Blog">
-                 <MenuItem textcolor="#434E5F">Post</MenuItem>
-                 <MenuItem textcolor="#434E5F">Details</MenuItem>
+                 <MenuItem>Post</MenuItem>
+                 <MenuItem>Details</MenuItem>
                     <Submenu subBackgroundColor="#434E5F" subTextColor="#434E5F" title="Blog Inner">
-                       <MenuItem textcolor="#434E5F">new</MenuItem>
-                       <MenuItem textcolor="#434E5F">Hello</MenuItem>
+                       <MenuItem>new</MenuItem>
+                       <MenuItem>Hello</MenuItem>
                     </Submenu>
              </Submenu>
-             <MenuItem textcolor="#434E5F">Chats</MenuItem>
+             <MenuItem>Chats</MenuItem>
            </Menu>
 
            

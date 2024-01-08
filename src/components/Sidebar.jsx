@@ -6,20 +6,19 @@ import Drawer from '@mui/material/Drawer';
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 
+export const SidebarContext = React.createContext(0);
 
 export const Sidebar = React.forwardRef(({
     children,
     width = '255px',
     backgroundColor = '#fff',
+    textColor="#8D939D",
     logo="https://adminmart.com/wp-content/uploads/2023/01/logo1.svg"
     },ref)=>
     
     {
 
-        
   return (
-
-
 
     <Box
       sx={{
@@ -48,7 +47,6 @@ export const Sidebar = React.forwardRef(({
              <SimpleBar style={{ maxHeight:'calc(100% - 90px)' }}>
              <Box
                 component="img"
-               
                 sx={{
                   height: 70,
                   width: 174,
@@ -56,11 +54,13 @@ export const Sidebar = React.forwardRef(({
                   display:'flex',
                   alignItems:'center'
                 }}
-                alt="The house from the offer."
                 src={logo}
               />
               <Box px={3}>
-                 {children}
+                <SidebarContext.Provider value={textColor}>
+                      {children}
+                </SidebarContext.Provider>
+                 
               </Box>
               
               </SimpleBar>
@@ -69,99 +69,7 @@ export const Sidebar = React.forwardRef(({
         </Drawer>
 
     </Box>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-      // <Box 
-      
-      // width={width}
-      // border={4}
-      // borderLeft={0}
-      // borderRight={2}
-      // borderTop={0}
-      // borderBottom={0}
-      // borderColor="#eee"
-      // height={'100%'}
-      // >
-      //    <SimpleBar style={{ maxHeight:'calc(100% - 190px)' }}>{children}</SimpleBar>
-      // </Box>
     
   );
 
     });
-
-
-
-
-
-
-
-
-
-
-// export const Sidebar = () => { 
-//   const [open, setOpen] = React.useState(true);
-
-//   const handleClick = () => {
-//     setOpen(!open);
-//   };
-
-//   return (
-//     <List 
-//       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-//       component="nav"
-//       aria-labelledby="nested-list-subheader"
-//       subheader={
-//         <ListSubheader component="div" id="nested-list-subheader">
-//           Nested List Items
-//         </ListSubheader>
-//       }
-//     >
-//       <ListItemButton>
-//         <ListItemIcon>
-//           <SendIcon />
-//         </ListItemIcon>
-//         <ListItemText primary="Sent mail" />
-//       </ListItemButton>
-//       <ListItemButton>
-//         <ListItemIcon>
-//           <DraftsIcon/>
-//         </ListItemIcon>
-//         <ListItemText primary="Drafts" />
-//       </ListItemButton>
-//       <ListItemButton onClick={handleClick}>
-//         <ListItemIcon>
-//           <InboxIcon />
-//         </ListItemIcon>
-//         <ListItemText primary="Inbox" />
-//         {open ? <ExpandLess /> : <ExpandMore />}
-//       </ListItemButton>
-//       <Collapse in={open} timeout="auto" unmountOnExit>
-//         <List component="div" disablePadding>
-//           <ListItemButton sx={{ pl: 4 }}>
-//             <ListItemIcon>
-//               <StarBorder />
-//             </ListItemIcon>
-//             <ListItemText primary="Starred" />
-//           </ListItemButton>
-//         </List>
-//       </Collapse>
-//     </List>
-//   );
-// }
