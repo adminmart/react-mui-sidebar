@@ -2,6 +2,8 @@ import * as React from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 
+import { MenuContext } from './Sidebar';  
+
 export const Menu = React.forwardRef(({
     children,
     backgroundColor = 'background.paper',
@@ -9,6 +11,8 @@ export const Menu = React.forwardRef(({
     },ref)=>
     
     {
+
+      const minisidebar = React.useContext(MenuContext);
  
   return (
 
@@ -18,8 +22,8 @@ export const Menu = React.forwardRef(({
             component="nav"
             aria-labelledby="nested-list-subheader"
             subheader={
-              <ListSubheader component="div" sx={{paddingLeft:'2px',lineHeight:'26px',fontWeight:'bold'}} id="nested-list-subheader">
-                {subHeading}
+              <ListSubheader component="div" sx={{paddingY:'3px',paddingX:"0px",lineHeight:'26px',fontWeight:'bold',fontSize:"12px",color:"#5A6A85"}} id="nested-list-subheader">
+                {!minisidebar?subHeading:'...'}
               </ListSubheader>
             }
           >

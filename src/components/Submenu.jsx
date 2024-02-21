@@ -12,9 +12,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import {styled}  from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { SidebarContext } from './Sidebar';
-
-
-
+import { MenuContext } from './Sidebar';
 
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
@@ -25,8 +23,11 @@ export const Submenu = React.forwardRef(({
     subTextColor="",
     subBackgroundColor="#eee"
     },ref)=>
+
+    
     
     {
+      const minisidebar = React.useContext(MenuContext);
       const [open, setOpen] = React.useState(false);
       const handleClick = () => {
         setOpen(!open);
@@ -49,27 +50,55 @@ export const Submenu = React.forwardRef(({
 }));
 
 
+const ListIConStyled = styled(ListItemIcon)(() => ({
+  display:'flex',
+  justifyContent:'center',
+  alignItems:'center',
+  gap:'10px',
+  marginBottom: '10px',
+  padding: '5px 5px',
+  minWidth:'30px',
+  cursor:'pointer',
+  marginLeft:'-10px',
+  borderRadius: `10px`,
+  color:open?maintextColor:'#fff',
+   '&:hover': {
+    backgroundColor: '#eee',
+    color: '#fff',
+  }
+}));
+
+
   return (
-  <Box>
-      <ListItemStyled 
-        onClick={handleClick} 
-      >
 
-          <ListItemIcon style={{minWidth:'30px'}} sx={open?{color:"#fff"}:{color:maintextColor}}>
-            {icon?icon:<FiberManualRecordIcon/>}
-          </ListItemIcon>
-          <ListItemText primary={title} sx={open?{color:"#fff"}:{color:maintextColor}}/>
-          {open ? <ExpandLess  sx={open?{color:'#fff'}:{color:maintextColor}}/> : <ExpandMore sx={open?{color:'#fff'}:{color:maintextColor}}/>}
     
-    </ListItemStyled>
+  <Box>
+      {!minisidebar?
+  <Box>
+<ListItemStyled 
+onClick={handleClick} 
+>
+  <ListItemIcon style={{minWidth:'30px'}} sx={open?{color:"#fff"}:{color:maintextColor}}>
+    {icon?icon:<FiberManualRecordIcon/>}
+  </ListItemIcon>
+  <ListItemText primary={title} sx={open?{color:"#fff"}:{color:maintextColor}}/>
+  { open ? <ExpandLess  sx={open?{color:'#fff'}:{color:maintextColor}}/> : <ExpandMore sx={open?{color:'#fff'}:{color:maintextColor}}/>}
 
-    <Collapse in={open} timeout="auto" unmountOnExit>   
-      <List component="div" disablePadding>
-          <Box sx={{ pl: 2 }}>
-            {children}
-          </Box>
-      </List>
-    </Collapse>
+</ListItemStyled>
+
+<Collapse in={open} timeout="auto" unmountOnExit>   
+<List component="div" disablePadding>
+  <Box sx={{ pl: 2 }}>
+    {children}
+  </Box>
+</List>
+</Collapse>
+</Box>
+:
+ <ListIConStyled>
+      {icon?icon:<FiberManualRecordIcon sx={{color:maintextColor}}/>}
+ </ListIConStyled>
+}
 </Box>
   );
 

@@ -1,17 +1,14 @@
 import * as React from 'react';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
- 
-
 import ListItemIcon from '@mui/material/ListItemIcon';
 import {styled}  from '@mui/material/styles';
 import ListItemText from '@mui/material/ListItemText';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import ListItemButton from '@mui/material/ListItemButton';
 import { SidebarContext } from './Sidebar';
-
-
-
+import { MenuContext } from './Sidebar';
 
 export const MenuItem = React.forwardRef(({
     children,
@@ -21,12 +18,15 @@ export const MenuItem = React.forwardRef(({
     badge=false,
     badgeColor='primary',
     badgeContent="new",
-    textFontSize="16px"
+    textFontSize="16px",
+    disabled=false
     },ref)=>
     
     {
 
       const textColorcontext = React.useContext(SidebarContext);
+      const minisidebar = React.useContext(MenuContext);
+
       const maintextColor = !textcolor?textColorcontext:textcolor;
 
       const ListItemStyled = styled(ListItemButton)(() => ({
@@ -35,20 +35,41 @@ export const MenuItem = React.forwardRef(({
         padding: '8px 20px',
         borderRadius: `10px`,
         backgroundColor:'#fff',
-        color:maintextColor,
-       
+        color:maintextColor, 
+        cursor:disabled?"default":"pointer",
+        opacity:disabled?"0.6":"1"
+      }));
+
+
+      const ListIConStyled = styled(ListItemIcon)(() => ({
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
+        gap:'10px',
+        marginBottom: '10px',
+        padding: '5px 5px',
+        minWidth:'30px',
+        cursor:'pointer',
+        marginLeft:'-10px',
+        borderRadius: `10px`,
+        color:open?maintextColor:'#fff',
+         '&:hover': {
+          backgroundColor: '#eee',
+          color: '#fff',
+        }
       }));
  
  
   return (
+    <Box>
+    {!minisidebar?
     <ListItemStyled
       href={link}
-  >
-
+    >
         <ListItemIcon
           sx={{
             minWidth: '30px',
-            p: '3px 0',
+            p: '0px 0',
             color:maintextColor
           }}
 
@@ -56,7 +77,7 @@ export const MenuItem = React.forwardRef(({
           {icon?icon:<FiberManualRecordIcon sx={{color:maintextColor}}/>}
         </ListItemIcon>
 
-        <ListItemText>
+        <ListItemText sx={{my:0}}>
            
             <Typography fontSize={textFontSize} variant="caption">{children}</Typography>
            
@@ -64,7 +85,16 @@ export const MenuItem = React.forwardRef(({
 
         {badge?<Chip label={badgeContent} color={badgeColor} size="small" />:''}
 
-  </ListItemStyled>
+  </ListItemStyled>:
+   <ListIConStyled
+  >
+     {icon?icon:<FiberManualRecordIcon sx={{color:maintextColor}}/>}
+  </ListIConStyled>
+}
+
+</Box>
+
+
   );
 
     });
