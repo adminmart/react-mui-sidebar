@@ -1,6 +1,6 @@
 import * as React from "react";
 import Drawer from "@mui/material/Drawer";
-import { Box} from "@mui/material";
+import { Box } from "@mui/material";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
 import { useTheme } from "@mui/material";
@@ -28,7 +28,7 @@ export const Sidebar = React.forwardRef(
       direction = "ltr",
       userName = "Mathew",
       designation = "Designer",
-      showProfile=true,
+      showProfile = true,
       userimg = "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"
     },
     ref
@@ -37,6 +37,7 @@ export const Sidebar = React.forwardRef(
     const toggleWidth = isCollapse && !isSidebarHover ? collapsewidth : width;
     const theme = useTheme();
     const myTheme = createTheme({
+      direction: direction,
       palette: {
         mode: mode,
         primary: {
@@ -62,12 +63,13 @@ export const Sidebar = React.forwardRef(
             width: toggleWidth,
             flexShrink: 0,
             fontFamily: 'inherit',
-            color: textColor
+            color: textColor,
+
           }}
 
         >
           <Drawer
-            anchor="left"
+            anchor={direction == "ltr" ? 'left' : 'right'}
             open
 
             variant="permanent"
@@ -78,15 +80,16 @@ export const Sidebar = React.forwardRef(
                 }),
                 width: toggleWidth,
                 boxSizing: "border-box",
+
               },
             }}
           >
-            <SimpleBar style={{ height: showProfile?"calc(100vh - 140px)":"calc(100vh - 50px)" }}>
+            <SimpleBar style={{ height: showProfile ? "calc(100vh - 140px)" : "calc(100vh - 50px)" }}>
               <SidebarContext.Provider value={{ textColor, isCollapse, width, collapsewidth, themeColor }}>
                 {children}
               </SidebarContext.Provider>
             </SimpleBar>
-           {showProfile?<Profile userName={userName} designation={designation} userimg={userimg} isCollapse={isCollapse} />:""} 
+            {showProfile ? <Profile userName={userName} designation={designation} userimg={userimg} isCollapse={isCollapse} /> : ""}
           </Drawer>
         </Box>
       </ThemeProvider>

@@ -19925,6 +19925,7 @@ const Sidebar = /*#__PURE__*/React__namespace.forwardRef(({
   const toggleWidth = isCollapse && !isSidebarHover ? collapsewidth : width;
   const theme = useTheme();
   const myTheme = createTheme({
+    direction: direction,
     palette: {
       mode: mode,
       primary: {
@@ -19950,7 +19951,7 @@ const Sidebar = /*#__PURE__*/React__namespace.forwardRef(({
       color: textColor
     }
   }, /*#__PURE__*/React__namespace.createElement(Drawer$1, {
-    anchor: "left",
+    anchor: direction == "ltr" ? 'left' : 'right',
     open: true,
     variant: "permanent",
     PaperProps: {
@@ -20139,10 +20140,12 @@ const MenuItem = /*#__PURE__*/React__namespace.forwardRef(({
   target = ""
 }, ref) => {
   const customizer = React__namespace.useContext(SidebarContext);
+  const theme = useTheme();
   const ListItemStyled = styled(ListItemButton$1)(() => ({
     whiteSpace: "nowrap",
     marginBottom: "2px",
     padding: "10px 12px",
+    textAlign: theme.direction === 'ltr' ? 'left' : 'right',
     borderRadius: borderRadius,
     color: customizer.textColor,
     cursor: disabled ? "default" : "pointer",

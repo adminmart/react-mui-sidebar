@@ -1,7 +1,7 @@
 import * as React from "react";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import ListItemText from "@mui/material/ListItemText";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
@@ -28,10 +28,12 @@ export const MenuItem = React.forwardRef(
   ) => {
 
     const customizer = React.useContext(SidebarContext);
+    const theme = useTheme()
     const ListItemStyled = styled(ListItemButton)(() => ({
       whiteSpace: "nowrap",
       marginBottom: "2px",
       padding: "10px 12px",
+      textAlign: theme.direction === 'ltr' ? 'left' : 'right',
       borderRadius: borderRadius,
       color: customizer.textColor,
       cursor: disabled ? "default" : "pointer",

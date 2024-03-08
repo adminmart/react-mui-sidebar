@@ -38,7 +38,7 @@ import { Sidebar, Menu, MenuItem, Submenu, Logo } from "react-mui-sidebar";
 const App = () => {
   return (
     <Sidebar width={"270px"}>
-      <Logo img="https://www.wrappixel.com/wp-content/uploads/2023/07/logo-wrappixel.svg">
+      <Logo img="https://adminmart.com/wp-content/uploads/2024/03/logo-admin-mart-news.png">
         AdminMart
       </Logo>
       <Menu subHeading="HOME">
