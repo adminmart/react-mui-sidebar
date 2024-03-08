@@ -1790,7 +1790,7 @@ function createChainedFunction(...funcs) {
 
 // Corresponds to 10 frames at 60 Hz.
 // A few bytes payload overhead when lodash/debounce is ~3 kB and debounce ~300 B.
-function debounce$1(func, wait = 166) {
+function debounce$2(func, wait = 166) {
   let timeout;
   function debounced(...args) {
     const later = () => {
@@ -2351,6 +2351,30 @@ function appendOwnerState(elementType, otherProps, ownerState) {
   });
 }
 
+const defaultContextValue = {
+  disableDefaultClasses: false
+};
+const ClassNameConfiguratorContext = /*#__PURE__*/React__namespace.createContext(defaultContextValue);
+/**
+ * @ignore - internal hook.
+ *
+ * Wraps the `generateUtilityClass` function and controls how the classes are generated.
+ * Currently it only affects whether the classes are applied or not.
+ *
+ * @returns Function to be called with the `generateUtilityClass` function specific to a component to generate the classes.
+ */
+function useClassNamesOverride(generateUtilityClass) {
+  const {
+    disableDefaultClasses
+  } = React__namespace.useContext(ClassNameConfiguratorContext);
+  return slot => {
+    if (disableDefaultClasses) {
+      return '';
+    }
+    return generateUtilityClass(slot);
+  };
+}
+
 /**
  * Extracts event handlers from a given object.
  * A prop is considered an event handler if it is a function and its name starts with `on`.
@@ -2464,7 +2488,7 @@ function mergeSlotProps(parameters) {
   };
 }
 
-const _excluded$r = ["elementType", "externalSlotProps", "ownerState", "skipResolvingSlotProps"];
+const _excluded$y = ["elementType", "externalSlotProps", "ownerState", "skipResolvingSlotProps"];
 /**
  * @ignore - do not document.
  * Builds the props to be passed into the slot of an unstyled component.
@@ -2481,7 +2505,7 @@ function useSlotProps(parameters) {
       ownerState,
       skipResolvingSlotProps = false
     } = parameters,
-    rest = _objectWithoutPropertiesLoose(parameters, _excluded$r);
+    rest = _objectWithoutPropertiesLoose(parameters, _excluded$y);
   const resolvedComponentsProps = skipResolvingSlotProps ? {} : resolveComponentProps(externalSlotProps, ownerState);
   const {
     props: mergedProps,
@@ -3229,6 +3253,1797 @@ if (process.env.NODE_ENV !== 'production') {
   FocusTrap['propTypes' + ''] = exactProp(FocusTrap.propTypes);
 }
 
+var top = 'top';
+var bottom = 'bottom';
+var right = 'right';
+var left = 'left';
+var auto = 'auto';
+var basePlacements = [top, bottom, right, left];
+var start = 'start';
+var end = 'end';
+var clippingParents = 'clippingParents';
+var viewport = 'viewport';
+var popper = 'popper';
+var reference = 'reference';
+var variationPlacements = /*#__PURE__*/basePlacements.reduce(function (acc, placement) {
+  return acc.concat([placement + "-" + start, placement + "-" + end]);
+}, []);
+var placements = /*#__PURE__*/[].concat(basePlacements, [auto]).reduce(function (acc, placement) {
+  return acc.concat([placement, placement + "-" + start, placement + "-" + end]);
+}, []); // modifiers that need to read the DOM
+
+var beforeRead = 'beforeRead';
+var read = 'read';
+var afterRead = 'afterRead'; // pure-logic modifiers
+
+var beforeMain = 'beforeMain';
+var main = 'main';
+var afterMain = 'afterMain'; // modifier with the purpose to write to the DOM (or write into a framework state)
+
+var beforeWrite = 'beforeWrite';
+var write = 'write';
+var afterWrite = 'afterWrite';
+var modifierPhases = [beforeRead, read, afterRead, beforeMain, main, afterMain, beforeWrite, write, afterWrite];
+
+function getNodeName(element) {
+  return element ? (element.nodeName || '').toLowerCase() : null;
+}
+
+function getWindow(node) {
+  if (node == null) {
+    return window;
+  }
+
+  if (node.toString() !== '[object Window]') {
+    var ownerDocument = node.ownerDocument;
+    return ownerDocument ? ownerDocument.defaultView || window : window;
+  }
+
+  return node;
+}
+
+function isElement(node) {
+  var OwnElement = getWindow(node).Element;
+  return node instanceof OwnElement || node instanceof Element;
+}
+
+function isHTMLElement$1(node) {
+  var OwnElement = getWindow(node).HTMLElement;
+  return node instanceof OwnElement || node instanceof HTMLElement;
+}
+
+function isShadowRoot(node) {
+  // IE 11 has no ShadowRoot
+  if (typeof ShadowRoot === 'undefined') {
+    return false;
+  }
+
+  var OwnElement = getWindow(node).ShadowRoot;
+  return node instanceof OwnElement || node instanceof ShadowRoot;
+}
+
+// and applies them to the HTMLElements such as popper and arrow
+
+function applyStyles(_ref) {
+  var state = _ref.state;
+  Object.keys(state.elements).forEach(function (name) {
+    var style = state.styles[name] || {};
+    var attributes = state.attributes[name] || {};
+    var element = state.elements[name]; // arrow is optional + virtual elements
+
+    if (!isHTMLElement$1(element) || !getNodeName(element)) {
+      return;
+    } // Flow doesn't support to extend this property, but it's the most
+    // effective way to apply styles to an HTMLElement
+    // $FlowFixMe[cannot-write]
+
+
+    Object.assign(element.style, style);
+    Object.keys(attributes).forEach(function (name) {
+      var value = attributes[name];
+
+      if (value === false) {
+        element.removeAttribute(name);
+      } else {
+        element.setAttribute(name, value === true ? '' : value);
+      }
+    });
+  });
+}
+
+function effect$2(_ref2) {
+  var state = _ref2.state;
+  var initialStyles = {
+    popper: {
+      position: state.options.strategy,
+      left: '0',
+      top: '0',
+      margin: '0'
+    },
+    arrow: {
+      position: 'absolute'
+    },
+    reference: {}
+  };
+  Object.assign(state.elements.popper.style, initialStyles.popper);
+  state.styles = initialStyles;
+
+  if (state.elements.arrow) {
+    Object.assign(state.elements.arrow.style, initialStyles.arrow);
+  }
+
+  return function () {
+    Object.keys(state.elements).forEach(function (name) {
+      var element = state.elements[name];
+      var attributes = state.attributes[name] || {};
+      var styleProperties = Object.keys(state.styles.hasOwnProperty(name) ? state.styles[name] : initialStyles[name]); // Set all values to an empty string to unset them
+
+      var style = styleProperties.reduce(function (style, property) {
+        style[property] = '';
+        return style;
+      }, {}); // arrow is optional + virtual elements
+
+      if (!isHTMLElement$1(element) || !getNodeName(element)) {
+        return;
+      }
+
+      Object.assign(element.style, style);
+      Object.keys(attributes).forEach(function (attribute) {
+        element.removeAttribute(attribute);
+      });
+    });
+  };
+} // eslint-disable-next-line import/no-unused-modules
+
+
+var applyStyles$1 = {
+  name: 'applyStyles',
+  enabled: true,
+  phase: 'write',
+  fn: applyStyles,
+  effect: effect$2,
+  requires: ['computeStyles']
+};
+
+function getBasePlacement(placement) {
+  return placement.split('-')[0];
+}
+
+var max = Math.max;
+var min = Math.min;
+var round$2 = Math.round;
+
+function getUAString() {
+  var uaData = navigator.userAgentData;
+
+  if (uaData != null && uaData.brands && Array.isArray(uaData.brands)) {
+    return uaData.brands.map(function (item) {
+      return item.brand + "/" + item.version;
+    }).join(' ');
+  }
+
+  return navigator.userAgent;
+}
+
+function isLayoutViewport() {
+  return !/^((?!chrome|android).)*safari/i.test(getUAString());
+}
+
+function getBoundingClientRect(element, includeScale, isFixedStrategy) {
+  if (includeScale === void 0) {
+    includeScale = false;
+  }
+
+  if (isFixedStrategy === void 0) {
+    isFixedStrategy = false;
+  }
+
+  var clientRect = element.getBoundingClientRect();
+  var scaleX = 1;
+  var scaleY = 1;
+
+  if (includeScale && isHTMLElement$1(element)) {
+    scaleX = element.offsetWidth > 0 ? round$2(clientRect.width) / element.offsetWidth || 1 : 1;
+    scaleY = element.offsetHeight > 0 ? round$2(clientRect.height) / element.offsetHeight || 1 : 1;
+  }
+
+  var _ref = isElement(element) ? getWindow(element) : window,
+      visualViewport = _ref.visualViewport;
+
+  var addVisualOffsets = !isLayoutViewport() && isFixedStrategy;
+  var x = (clientRect.left + (addVisualOffsets && visualViewport ? visualViewport.offsetLeft : 0)) / scaleX;
+  var y = (clientRect.top + (addVisualOffsets && visualViewport ? visualViewport.offsetTop : 0)) / scaleY;
+  var width = clientRect.width / scaleX;
+  var height = clientRect.height / scaleY;
+  return {
+    width: width,
+    height: height,
+    top: y,
+    right: x + width,
+    bottom: y + height,
+    left: x,
+    x: x,
+    y: y
+  };
+}
+
+// means it doesn't take into account transforms.
+
+function getLayoutRect(element) {
+  var clientRect = getBoundingClientRect(element); // Use the clientRect sizes if it's not been transformed.
+  // Fixes https://github.com/popperjs/popper-core/issues/1223
+
+  var width = element.offsetWidth;
+  var height = element.offsetHeight;
+
+  if (Math.abs(clientRect.width - width) <= 1) {
+    width = clientRect.width;
+  }
+
+  if (Math.abs(clientRect.height - height) <= 1) {
+    height = clientRect.height;
+  }
+
+  return {
+    x: element.offsetLeft,
+    y: element.offsetTop,
+    width: width,
+    height: height
+  };
+}
+
+function contains(parent, child) {
+  var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
+
+  if (parent.contains(child)) {
+    return true;
+  } // then fallback to custom implementation with Shadow DOM support
+  else if (rootNode && isShadowRoot(rootNode)) {
+      var next = child;
+
+      do {
+        if (next && parent.isSameNode(next)) {
+          return true;
+        } // $FlowFixMe[prop-missing]: need a better way to handle this...
+
+
+        next = next.parentNode || next.host;
+      } while (next);
+    } // Give up, the result is false
+
+
+  return false;
+}
+
+function getComputedStyle$1(element) {
+  return getWindow(element).getComputedStyle(element);
+}
+
+function isTableElement(element) {
+  return ['table', 'td', 'th'].indexOf(getNodeName(element)) >= 0;
+}
+
+function getDocumentElement(element) {
+  // $FlowFixMe[incompatible-return]: assume body is always available
+  return ((isElement(element) ? element.ownerDocument : // $FlowFixMe[prop-missing]
+  element.document) || window.document).documentElement;
+}
+
+function getParentNode(element) {
+  if (getNodeName(element) === 'html') {
+    return element;
+  }
+
+  return (// this is a quicker (but less type safe) way to save quite some bytes from the bundle
+    // $FlowFixMe[incompatible-return]
+    // $FlowFixMe[prop-missing]
+    element.assignedSlot || // step into the shadow DOM of the parent of a slotted node
+    element.parentNode || ( // DOM Element detected
+    isShadowRoot(element) ? element.host : null) || // ShadowRoot detected
+    // $FlowFixMe[incompatible-call]: HTMLElement is a Node
+    getDocumentElement(element) // fallback
+
+  );
+}
+
+function getTrueOffsetParent(element) {
+  if (!isHTMLElement$1(element) || // https://github.com/popperjs/popper-core/issues/837
+  getComputedStyle$1(element).position === 'fixed') {
+    return null;
+  }
+
+  return element.offsetParent;
+} // `.offsetParent` reports `null` for fixed elements, while absolute elements
+// return the containing block
+
+
+function getContainingBlock(element) {
+  var isFirefox = /firefox/i.test(getUAString());
+  var isIE = /Trident/i.test(getUAString());
+
+  if (isIE && isHTMLElement$1(element)) {
+    // In IE 9, 10 and 11 fixed elements containing block is always established by the viewport
+    var elementCss = getComputedStyle$1(element);
+
+    if (elementCss.position === 'fixed') {
+      return null;
+    }
+  }
+
+  var currentNode = getParentNode(element);
+
+  if (isShadowRoot(currentNode)) {
+    currentNode = currentNode.host;
+  }
+
+  while (isHTMLElement$1(currentNode) && ['html', 'body'].indexOf(getNodeName(currentNode)) < 0) {
+    var css = getComputedStyle$1(currentNode); // This is non-exhaustive but covers the most common CSS properties that
+    // create a containing block.
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
+
+    if (css.transform !== 'none' || css.perspective !== 'none' || css.contain === 'paint' || ['transform', 'perspective'].indexOf(css.willChange) !== -1 || isFirefox && css.willChange === 'filter' || isFirefox && css.filter && css.filter !== 'none') {
+      return currentNode;
+    } else {
+      currentNode = currentNode.parentNode;
+    }
+  }
+
+  return null;
+} // Gets the closest ancestor positioned element. Handles some edge cases,
+// such as table ancestors and cross browser bugs.
+
+
+function getOffsetParent(element) {
+  var window = getWindow(element);
+  var offsetParent = getTrueOffsetParent(element);
+
+  while (offsetParent && isTableElement(offsetParent) && getComputedStyle$1(offsetParent).position === 'static') {
+    offsetParent = getTrueOffsetParent(offsetParent);
+  }
+
+  if (offsetParent && (getNodeName(offsetParent) === 'html' || getNodeName(offsetParent) === 'body' && getComputedStyle$1(offsetParent).position === 'static')) {
+    return window;
+  }
+
+  return offsetParent || getContainingBlock(element) || window;
+}
+
+function getMainAxisFromPlacement(placement) {
+  return ['top', 'bottom'].indexOf(placement) >= 0 ? 'x' : 'y';
+}
+
+function within(min$1, value, max$1) {
+  return max(min$1, min(value, max$1));
+}
+function withinMaxClamp(min, value, max) {
+  var v = within(min, value, max);
+  return v > max ? max : v;
+}
+
+function getFreshSideObject() {
+  return {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  };
+}
+
+function mergePaddingObject(paddingObject) {
+  return Object.assign({}, getFreshSideObject(), paddingObject);
+}
+
+function expandToHashMap(value, keys) {
+  return keys.reduce(function (hashMap, key) {
+    hashMap[key] = value;
+    return hashMap;
+  }, {});
+}
+
+var toPaddingObject = function toPaddingObject(padding, state) {
+  padding = typeof padding === 'function' ? padding(Object.assign({}, state.rects, {
+    placement: state.placement
+  })) : padding;
+  return mergePaddingObject(typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements));
+};
+
+function arrow(_ref) {
+  var _state$modifiersData$;
+
+  var state = _ref.state,
+      name = _ref.name,
+      options = _ref.options;
+  var arrowElement = state.elements.arrow;
+  var popperOffsets = state.modifiersData.popperOffsets;
+  var basePlacement = getBasePlacement(state.placement);
+  var axis = getMainAxisFromPlacement(basePlacement);
+  var isVertical = [left, right].indexOf(basePlacement) >= 0;
+  var len = isVertical ? 'height' : 'width';
+
+  if (!arrowElement || !popperOffsets) {
+    return;
+  }
+
+  var paddingObject = toPaddingObject(options.padding, state);
+  var arrowRect = getLayoutRect(arrowElement);
+  var minProp = axis === 'y' ? top : left;
+  var maxProp = axis === 'y' ? bottom : right;
+  var endDiff = state.rects.reference[len] + state.rects.reference[axis] - popperOffsets[axis] - state.rects.popper[len];
+  var startDiff = popperOffsets[axis] - state.rects.reference[axis];
+  var arrowOffsetParent = getOffsetParent(arrowElement);
+  var clientSize = arrowOffsetParent ? axis === 'y' ? arrowOffsetParent.clientHeight || 0 : arrowOffsetParent.clientWidth || 0 : 0;
+  var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't overflow the popper if the center point is
+  // outside of the popper bounds
+
+  var min = paddingObject[minProp];
+  var max = clientSize - arrowRect[len] - paddingObject[maxProp];
+  var center = clientSize / 2 - arrowRect[len] / 2 + centerToReference;
+  var offset = within(min, center, max); // Prevents breaking syntax highlighting...
+
+  var axisProp = axis;
+  state.modifiersData[name] = (_state$modifiersData$ = {}, _state$modifiersData$[axisProp] = offset, _state$modifiersData$.centerOffset = offset - center, _state$modifiersData$);
+}
+
+function effect$1(_ref2) {
+  var state = _ref2.state,
+      options = _ref2.options;
+  var _options$element = options.element,
+      arrowElement = _options$element === void 0 ? '[data-popper-arrow]' : _options$element;
+
+  if (arrowElement == null) {
+    return;
+  } // CSS selector
+
+
+  if (typeof arrowElement === 'string') {
+    arrowElement = state.elements.popper.querySelector(arrowElement);
+
+    if (!arrowElement) {
+      return;
+    }
+  }
+
+  if (!contains(state.elements.popper, arrowElement)) {
+    return;
+  }
+
+  state.elements.arrow = arrowElement;
+} // eslint-disable-next-line import/no-unused-modules
+
+
+var arrow$1 = {
+  name: 'arrow',
+  enabled: true,
+  phase: 'main',
+  fn: arrow,
+  effect: effect$1,
+  requires: ['popperOffsets'],
+  requiresIfExists: ['preventOverflow']
+};
+
+function getVariation(placement) {
+  return placement.split('-')[1];
+}
+
+var unsetSides = {
+  top: 'auto',
+  right: 'auto',
+  bottom: 'auto',
+  left: 'auto'
+}; // Round the offsets to the nearest suitable subpixel based on the DPR.
+// Zooming can change the DPR, but it seems to report a value that will
+// cleanly divide the values into the appropriate subpixels.
+
+function roundOffsetsByDPR(_ref, win) {
+  var x = _ref.x,
+      y = _ref.y;
+  var dpr = win.devicePixelRatio || 1;
+  return {
+    x: round$2(x * dpr) / dpr || 0,
+    y: round$2(y * dpr) / dpr || 0
+  };
+}
+
+function mapToStyles(_ref2) {
+  var _Object$assign2;
+
+  var popper = _ref2.popper,
+      popperRect = _ref2.popperRect,
+      placement = _ref2.placement,
+      variation = _ref2.variation,
+      offsets = _ref2.offsets,
+      position = _ref2.position,
+      gpuAcceleration = _ref2.gpuAcceleration,
+      adaptive = _ref2.adaptive,
+      roundOffsets = _ref2.roundOffsets,
+      isFixed = _ref2.isFixed;
+  var _offsets$x = offsets.x,
+      x = _offsets$x === void 0 ? 0 : _offsets$x,
+      _offsets$y = offsets.y,
+      y = _offsets$y === void 0 ? 0 : _offsets$y;
+
+  var _ref3 = typeof roundOffsets === 'function' ? roundOffsets({
+    x: x,
+    y: y
+  }) : {
+    x: x,
+    y: y
+  };
+
+  x = _ref3.x;
+  y = _ref3.y;
+  var hasX = offsets.hasOwnProperty('x');
+  var hasY = offsets.hasOwnProperty('y');
+  var sideX = left;
+  var sideY = top;
+  var win = window;
+
+  if (adaptive) {
+    var offsetParent = getOffsetParent(popper);
+    var heightProp = 'clientHeight';
+    var widthProp = 'clientWidth';
+
+    if (offsetParent === getWindow(popper)) {
+      offsetParent = getDocumentElement(popper);
+
+      if (getComputedStyle$1(offsetParent).position !== 'static' && position === 'absolute') {
+        heightProp = 'scrollHeight';
+        widthProp = 'scrollWidth';
+      }
+    } // $FlowFixMe[incompatible-cast]: force type refinement, we compare offsetParent with window above, but Flow doesn't detect it
+
+
+    offsetParent = offsetParent;
+
+    if (placement === top || (placement === left || placement === right) && variation === end) {
+      sideY = bottom;
+      var offsetY = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.height : // $FlowFixMe[prop-missing]
+      offsetParent[heightProp];
+      y -= offsetY - popperRect.height;
+      y *= gpuAcceleration ? 1 : -1;
+    }
+
+    if (placement === left || (placement === top || placement === bottom) && variation === end) {
+      sideX = right;
+      var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : // $FlowFixMe[prop-missing]
+      offsetParent[widthProp];
+      x -= offsetX - popperRect.width;
+      x *= gpuAcceleration ? 1 : -1;
+    }
+  }
+
+  var commonStyles = Object.assign({
+    position: position
+  }, adaptive && unsetSides);
+
+  var _ref4 = roundOffsets === true ? roundOffsetsByDPR({
+    x: x,
+    y: y
+  }, getWindow(popper)) : {
+    x: x,
+    y: y
+  };
+
+  x = _ref4.x;
+  y = _ref4.y;
+
+  if (gpuAcceleration) {
+    var _Object$assign;
+
+    return Object.assign({}, commonStyles, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) <= 1 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
+  }
+
+  return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : '', _Object$assign2[sideX] = hasX ? x + "px" : '', _Object$assign2.transform = '', _Object$assign2));
+}
+
+function computeStyles(_ref5) {
+  var state = _ref5.state,
+      options = _ref5.options;
+  var _options$gpuAccelerat = options.gpuAcceleration,
+      gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat,
+      _options$adaptive = options.adaptive,
+      adaptive = _options$adaptive === void 0 ? true : _options$adaptive,
+      _options$roundOffsets = options.roundOffsets,
+      roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
+  var commonStyles = {
+    placement: getBasePlacement(state.placement),
+    variation: getVariation(state.placement),
+    popper: state.elements.popper,
+    popperRect: state.rects.popper,
+    gpuAcceleration: gpuAcceleration,
+    isFixed: state.options.strategy === 'fixed'
+  };
+
+  if (state.modifiersData.popperOffsets != null) {
+    state.styles.popper = Object.assign({}, state.styles.popper, mapToStyles(Object.assign({}, commonStyles, {
+      offsets: state.modifiersData.popperOffsets,
+      position: state.options.strategy,
+      adaptive: adaptive,
+      roundOffsets: roundOffsets
+    })));
+  }
+
+  if (state.modifiersData.arrow != null) {
+    state.styles.arrow = Object.assign({}, state.styles.arrow, mapToStyles(Object.assign({}, commonStyles, {
+      offsets: state.modifiersData.arrow,
+      position: 'absolute',
+      adaptive: false,
+      roundOffsets: roundOffsets
+    })));
+  }
+
+  state.attributes.popper = Object.assign({}, state.attributes.popper, {
+    'data-popper-placement': state.placement
+  });
+} // eslint-disable-next-line import/no-unused-modules
+
+
+var computeStyles$1 = {
+  name: 'computeStyles',
+  enabled: true,
+  phase: 'beforeWrite',
+  fn: computeStyles,
+  data: {}
+};
+
+var passive = {
+  passive: true
+};
+
+function effect(_ref) {
+  var state = _ref.state,
+      instance = _ref.instance,
+      options = _ref.options;
+  var _options$scroll = options.scroll,
+      scroll = _options$scroll === void 0 ? true : _options$scroll,
+      _options$resize = options.resize,
+      resize = _options$resize === void 0 ? true : _options$resize;
+  var window = getWindow(state.elements.popper);
+  var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
+
+  if (scroll) {
+    scrollParents.forEach(function (scrollParent) {
+      scrollParent.addEventListener('scroll', instance.update, passive);
+    });
+  }
+
+  if (resize) {
+    window.addEventListener('resize', instance.update, passive);
+  }
+
+  return function () {
+    if (scroll) {
+      scrollParents.forEach(function (scrollParent) {
+        scrollParent.removeEventListener('scroll', instance.update, passive);
+      });
+    }
+
+    if (resize) {
+      window.removeEventListener('resize', instance.update, passive);
+    }
+  };
+} // eslint-disable-next-line import/no-unused-modules
+
+
+var eventListeners = {
+  name: 'eventListeners',
+  enabled: true,
+  phase: 'write',
+  fn: function fn() {},
+  effect: effect,
+  data: {}
+};
+
+var hash$2 = {
+  left: 'right',
+  right: 'left',
+  bottom: 'top',
+  top: 'bottom'
+};
+function getOppositePlacement(placement) {
+  return placement.replace(/left|right|bottom|top/g, function (matched) {
+    return hash$2[matched];
+  });
+}
+
+var hash$1 = {
+  start: 'end',
+  end: 'start'
+};
+function getOppositeVariationPlacement(placement) {
+  return placement.replace(/start|end/g, function (matched) {
+    return hash$1[matched];
+  });
+}
+
+function getWindowScroll(node) {
+  var win = getWindow(node);
+  var scrollLeft = win.pageXOffset;
+  var scrollTop = win.pageYOffset;
+  return {
+    scrollLeft: scrollLeft,
+    scrollTop: scrollTop
+  };
+}
+
+function getWindowScrollBarX(element) {
+  // If <html> has a CSS width greater than the viewport, then this will be
+  // incorrect for RTL.
+  // Popper 1 is broken in this case and never had a bug report so let's assume
+  // it's not an issue. I don't think anyone ever specifies width on <html>
+  // anyway.
+  // Browsers where the left scrollbar doesn't cause an issue report `0` for
+  // this (e.g. Edge 2019, IE11, Safari)
+  return getBoundingClientRect(getDocumentElement(element)).left + getWindowScroll(element).scrollLeft;
+}
+
+function getViewportRect(element, strategy) {
+  var win = getWindow(element);
+  var html = getDocumentElement(element);
+  var visualViewport = win.visualViewport;
+  var width = html.clientWidth;
+  var height = html.clientHeight;
+  var x = 0;
+  var y = 0;
+
+  if (visualViewport) {
+    width = visualViewport.width;
+    height = visualViewport.height;
+    var layoutViewport = isLayoutViewport();
+
+    if (layoutViewport || !layoutViewport && strategy === 'fixed') {
+      x = visualViewport.offsetLeft;
+      y = visualViewport.offsetTop;
+    }
+  }
+
+  return {
+    width: width,
+    height: height,
+    x: x + getWindowScrollBarX(element),
+    y: y
+  };
+}
+
+// of the `<html>` and `<body>` rect bounds if horizontally scrollable
+
+function getDocumentRect(element) {
+  var _element$ownerDocumen;
+
+  var html = getDocumentElement(element);
+  var winScroll = getWindowScroll(element);
+  var body = (_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body;
+  var width = max(html.scrollWidth, html.clientWidth, body ? body.scrollWidth : 0, body ? body.clientWidth : 0);
+  var height = max(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
+  var x = -winScroll.scrollLeft + getWindowScrollBarX(element);
+  var y = -winScroll.scrollTop;
+
+  if (getComputedStyle$1(body || html).direction === 'rtl') {
+    x += max(html.clientWidth, body ? body.clientWidth : 0) - width;
+  }
+
+  return {
+    width: width,
+    height: height,
+    x: x,
+    y: y
+  };
+}
+
+function isScrollParent(element) {
+  // Firefox wants us to check `-x` and `-y` variations as well
+  var _getComputedStyle = getComputedStyle$1(element),
+      overflow = _getComputedStyle.overflow,
+      overflowX = _getComputedStyle.overflowX,
+      overflowY = _getComputedStyle.overflowY;
+
+  return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
+}
+
+function getScrollParent(node) {
+  if (['html', 'body', '#document'].indexOf(getNodeName(node)) >= 0) {
+    // $FlowFixMe[incompatible-return]: assume body is always available
+    return node.ownerDocument.body;
+  }
+
+  if (isHTMLElement$1(node) && isScrollParent(node)) {
+    return node;
+  }
+
+  return getScrollParent(getParentNode(node));
+}
+
+/*
+given a DOM element, return the list of all scroll parents, up the list of ancesors
+until we get to the top window object. This list is what we attach scroll listeners
+to, because if any of these parent elements scroll, we'll need to re-calculate the
+reference element's position.
+*/
+
+function listScrollParents(element, list) {
+  var _element$ownerDocumen;
+
+  if (list === void 0) {
+    list = [];
+  }
+
+  var scrollParent = getScrollParent(element);
+  var isBody = scrollParent === ((_element$ownerDocumen = element.ownerDocument) == null ? void 0 : _element$ownerDocumen.body);
+  var win = getWindow(scrollParent);
+  var target = isBody ? [win].concat(win.visualViewport || [], isScrollParent(scrollParent) ? scrollParent : []) : scrollParent;
+  var updatedList = list.concat(target);
+  return isBody ? updatedList : // $FlowFixMe[incompatible-call]: isBody tells us target will be an HTMLElement here
+  updatedList.concat(listScrollParents(getParentNode(target)));
+}
+
+function rectToClientRect(rect) {
+  return Object.assign({}, rect, {
+    left: rect.x,
+    top: rect.y,
+    right: rect.x + rect.width,
+    bottom: rect.y + rect.height
+  });
+}
+
+function getInnerBoundingClientRect(element, strategy) {
+  var rect = getBoundingClientRect(element, false, strategy === 'fixed');
+  rect.top = rect.top + element.clientTop;
+  rect.left = rect.left + element.clientLeft;
+  rect.bottom = rect.top + element.clientHeight;
+  rect.right = rect.left + element.clientWidth;
+  rect.width = element.clientWidth;
+  rect.height = element.clientHeight;
+  rect.x = rect.left;
+  rect.y = rect.top;
+  return rect;
+}
+
+function getClientRectFromMixedType(element, clippingParent, strategy) {
+  return clippingParent === viewport ? rectToClientRect(getViewportRect(element, strategy)) : isElement(clippingParent) ? getInnerBoundingClientRect(clippingParent, strategy) : rectToClientRect(getDocumentRect(getDocumentElement(element)));
+} // A "clipping parent" is an overflowable container with the characteristic of
+// clipping (or hiding) overflowing elements with a position different from
+// `initial`
+
+
+function getClippingParents(element) {
+  var clippingParents = listScrollParents(getParentNode(element));
+  var canEscapeClipping = ['absolute', 'fixed'].indexOf(getComputedStyle$1(element).position) >= 0;
+  var clipperElement = canEscapeClipping && isHTMLElement$1(element) ? getOffsetParent(element) : element;
+
+  if (!isElement(clipperElement)) {
+    return [];
+  } // $FlowFixMe[incompatible-return]: https://github.com/facebook/flow/issues/1414
+
+
+  return clippingParents.filter(function (clippingParent) {
+    return isElement(clippingParent) && contains(clippingParent, clipperElement) && getNodeName(clippingParent) !== 'body';
+  });
+} // Gets the maximum area that the element is visible in due to any number of
+// clipping parents
+
+
+function getClippingRect(element, boundary, rootBoundary, strategy) {
+  var mainClippingParents = boundary === 'clippingParents' ? getClippingParents(element) : [].concat(boundary);
+  var clippingParents = [].concat(mainClippingParents, [rootBoundary]);
+  var firstClippingParent = clippingParents[0];
+  var clippingRect = clippingParents.reduce(function (accRect, clippingParent) {
+    var rect = getClientRectFromMixedType(element, clippingParent, strategy);
+    accRect.top = max(rect.top, accRect.top);
+    accRect.right = min(rect.right, accRect.right);
+    accRect.bottom = min(rect.bottom, accRect.bottom);
+    accRect.left = max(rect.left, accRect.left);
+    return accRect;
+  }, getClientRectFromMixedType(element, firstClippingParent, strategy));
+  clippingRect.width = clippingRect.right - clippingRect.left;
+  clippingRect.height = clippingRect.bottom - clippingRect.top;
+  clippingRect.x = clippingRect.left;
+  clippingRect.y = clippingRect.top;
+  return clippingRect;
+}
+
+function computeOffsets(_ref) {
+  var reference = _ref.reference,
+      element = _ref.element,
+      placement = _ref.placement;
+  var basePlacement = placement ? getBasePlacement(placement) : null;
+  var variation = placement ? getVariation(placement) : null;
+  var commonX = reference.x + reference.width / 2 - element.width / 2;
+  var commonY = reference.y + reference.height / 2 - element.height / 2;
+  var offsets;
+
+  switch (basePlacement) {
+    case top:
+      offsets = {
+        x: commonX,
+        y: reference.y - element.height
+      };
+      break;
+
+    case bottom:
+      offsets = {
+        x: commonX,
+        y: reference.y + reference.height
+      };
+      break;
+
+    case right:
+      offsets = {
+        x: reference.x + reference.width,
+        y: commonY
+      };
+      break;
+
+    case left:
+      offsets = {
+        x: reference.x - element.width,
+        y: commonY
+      };
+      break;
+
+    default:
+      offsets = {
+        x: reference.x,
+        y: reference.y
+      };
+  }
+
+  var mainAxis = basePlacement ? getMainAxisFromPlacement(basePlacement) : null;
+
+  if (mainAxis != null) {
+    var len = mainAxis === 'y' ? 'height' : 'width';
+
+    switch (variation) {
+      case start:
+        offsets[mainAxis] = offsets[mainAxis] - (reference[len] / 2 - element[len] / 2);
+        break;
+
+      case end:
+        offsets[mainAxis] = offsets[mainAxis] + (reference[len] / 2 - element[len] / 2);
+        break;
+    }
+  }
+
+  return offsets;
+}
+
+function detectOverflow(state, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var _options = options,
+      _options$placement = _options.placement,
+      placement = _options$placement === void 0 ? state.placement : _options$placement,
+      _options$strategy = _options.strategy,
+      strategy = _options$strategy === void 0 ? state.strategy : _options$strategy,
+      _options$boundary = _options.boundary,
+      boundary = _options$boundary === void 0 ? clippingParents : _options$boundary,
+      _options$rootBoundary = _options.rootBoundary,
+      rootBoundary = _options$rootBoundary === void 0 ? viewport : _options$rootBoundary,
+      _options$elementConte = _options.elementContext,
+      elementContext = _options$elementConte === void 0 ? popper : _options$elementConte,
+      _options$altBoundary = _options.altBoundary,
+      altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary,
+      _options$padding = _options.padding,
+      padding = _options$padding === void 0 ? 0 : _options$padding;
+  var paddingObject = mergePaddingObject(typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements));
+  var altContext = elementContext === popper ? reference : popper;
+  var popperRect = state.rects.popper;
+  var element = state.elements[altBoundary ? altContext : elementContext];
+  var clippingClientRect = getClippingRect(isElement(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary, strategy);
+  var referenceClientRect = getBoundingClientRect(state.elements.reference);
+  var popperOffsets = computeOffsets({
+    reference: referenceClientRect,
+    element: popperRect,
+    strategy: 'absolute',
+    placement: placement
+  });
+  var popperClientRect = rectToClientRect(Object.assign({}, popperRect, popperOffsets));
+  var elementClientRect = elementContext === popper ? popperClientRect : referenceClientRect; // positive = overflowing the clipping rect
+  // 0 or negative = within the clipping rect
+
+  var overflowOffsets = {
+    top: clippingClientRect.top - elementClientRect.top + paddingObject.top,
+    bottom: elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom,
+    left: clippingClientRect.left - elementClientRect.left + paddingObject.left,
+    right: elementClientRect.right - clippingClientRect.right + paddingObject.right
+  };
+  var offsetData = state.modifiersData.offset; // Offsets can be applied only to the popper element
+
+  if (elementContext === popper && offsetData) {
+    var offset = offsetData[placement];
+    Object.keys(overflowOffsets).forEach(function (key) {
+      var multiply = [right, bottom].indexOf(key) >= 0 ? 1 : -1;
+      var axis = [top, bottom].indexOf(key) >= 0 ? 'y' : 'x';
+      overflowOffsets[key] += offset[axis] * multiply;
+    });
+  }
+
+  return overflowOffsets;
+}
+
+function computeAutoPlacement(state, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var _options = options,
+      placement = _options.placement,
+      boundary = _options.boundary,
+      rootBoundary = _options.rootBoundary,
+      padding = _options.padding,
+      flipVariations = _options.flipVariations,
+      _options$allowedAutoP = _options.allowedAutoPlacements,
+      allowedAutoPlacements = _options$allowedAutoP === void 0 ? placements : _options$allowedAutoP;
+  var variation = getVariation(placement);
+  var placements$1 = variation ? flipVariations ? variationPlacements : variationPlacements.filter(function (placement) {
+    return getVariation(placement) === variation;
+  }) : basePlacements;
+  var allowedPlacements = placements$1.filter(function (placement) {
+    return allowedAutoPlacements.indexOf(placement) >= 0;
+  });
+
+  if (allowedPlacements.length === 0) {
+    allowedPlacements = placements$1;
+  } // $FlowFixMe[incompatible-type]: Flow seems to have problems with two array unions...
+
+
+  var overflows = allowedPlacements.reduce(function (acc, placement) {
+    acc[placement] = detectOverflow(state, {
+      placement: placement,
+      boundary: boundary,
+      rootBoundary: rootBoundary,
+      padding: padding
+    })[getBasePlacement(placement)];
+    return acc;
+  }, {});
+  return Object.keys(overflows).sort(function (a, b) {
+    return overflows[a] - overflows[b];
+  });
+}
+
+function getExpandedFallbackPlacements(placement) {
+  if (getBasePlacement(placement) === auto) {
+    return [];
+  }
+
+  var oppositePlacement = getOppositePlacement(placement);
+  return [getOppositeVariationPlacement(placement), oppositePlacement, getOppositeVariationPlacement(oppositePlacement)];
+}
+
+function flip(_ref) {
+  var state = _ref.state,
+      options = _ref.options,
+      name = _ref.name;
+
+  if (state.modifiersData[name]._skip) {
+    return;
+  }
+
+  var _options$mainAxis = options.mainAxis,
+      checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
+      _options$altAxis = options.altAxis,
+      checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis,
+      specifiedFallbackPlacements = options.fallbackPlacements,
+      padding = options.padding,
+      boundary = options.boundary,
+      rootBoundary = options.rootBoundary,
+      altBoundary = options.altBoundary,
+      _options$flipVariatio = options.flipVariations,
+      flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio,
+      allowedAutoPlacements = options.allowedAutoPlacements;
+  var preferredPlacement = state.options.placement;
+  var basePlacement = getBasePlacement(preferredPlacement);
+  var isBasePlacement = basePlacement === preferredPlacement;
+  var fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipVariations ? [getOppositePlacement(preferredPlacement)] : getExpandedFallbackPlacements(preferredPlacement));
+  var placements = [preferredPlacement].concat(fallbackPlacements).reduce(function (acc, placement) {
+    return acc.concat(getBasePlacement(placement) === auto ? computeAutoPlacement(state, {
+      placement: placement,
+      boundary: boundary,
+      rootBoundary: rootBoundary,
+      padding: padding,
+      flipVariations: flipVariations,
+      allowedAutoPlacements: allowedAutoPlacements
+    }) : placement);
+  }, []);
+  var referenceRect = state.rects.reference;
+  var popperRect = state.rects.popper;
+  var checksMap = new Map();
+  var makeFallbackChecks = true;
+  var firstFittingPlacement = placements[0];
+
+  for (var i = 0; i < placements.length; i++) {
+    var placement = placements[i];
+
+    var _basePlacement = getBasePlacement(placement);
+
+    var isStartVariation = getVariation(placement) === start;
+    var isVertical = [top, bottom].indexOf(_basePlacement) >= 0;
+    var len = isVertical ? 'width' : 'height';
+    var overflow = detectOverflow(state, {
+      placement: placement,
+      boundary: boundary,
+      rootBoundary: rootBoundary,
+      altBoundary: altBoundary,
+      padding: padding
+    });
+    var mainVariationSide = isVertical ? isStartVariation ? right : left : isStartVariation ? bottom : top;
+
+    if (referenceRect[len] > popperRect[len]) {
+      mainVariationSide = getOppositePlacement(mainVariationSide);
+    }
+
+    var altVariationSide = getOppositePlacement(mainVariationSide);
+    var checks = [];
+
+    if (checkMainAxis) {
+      checks.push(overflow[_basePlacement] <= 0);
+    }
+
+    if (checkAltAxis) {
+      checks.push(overflow[mainVariationSide] <= 0, overflow[altVariationSide] <= 0);
+    }
+
+    if (checks.every(function (check) {
+      return check;
+    })) {
+      firstFittingPlacement = placement;
+      makeFallbackChecks = false;
+      break;
+    }
+
+    checksMap.set(placement, checks);
+  }
+
+  if (makeFallbackChecks) {
+    // `2` may be desired in some cases – research later
+    var numberOfChecks = flipVariations ? 3 : 1;
+
+    var _loop = function _loop(_i) {
+      var fittingPlacement = placements.find(function (placement) {
+        var checks = checksMap.get(placement);
+
+        if (checks) {
+          return checks.slice(0, _i).every(function (check) {
+            return check;
+          });
+        }
+      });
+
+      if (fittingPlacement) {
+        firstFittingPlacement = fittingPlacement;
+        return "break";
+      }
+    };
+
+    for (var _i = numberOfChecks; _i > 0; _i--) {
+      var _ret = _loop(_i);
+
+      if (_ret === "break") break;
+    }
+  }
+
+  if (state.placement !== firstFittingPlacement) {
+    state.modifiersData[name]._skip = true;
+    state.placement = firstFittingPlacement;
+    state.reset = true;
+  }
+} // eslint-disable-next-line import/no-unused-modules
+
+
+var flip$1 = {
+  name: 'flip',
+  enabled: true,
+  phase: 'main',
+  fn: flip,
+  requiresIfExists: ['offset'],
+  data: {
+    _skip: false
+  }
+};
+
+function getSideOffsets(overflow, rect, preventedOffsets) {
+  if (preventedOffsets === void 0) {
+    preventedOffsets = {
+      x: 0,
+      y: 0
+    };
+  }
+
+  return {
+    top: overflow.top - rect.height - preventedOffsets.y,
+    right: overflow.right - rect.width + preventedOffsets.x,
+    bottom: overflow.bottom - rect.height + preventedOffsets.y,
+    left: overflow.left - rect.width - preventedOffsets.x
+  };
+}
+
+function isAnySideFullyClipped(overflow) {
+  return [top, right, bottom, left].some(function (side) {
+    return overflow[side] >= 0;
+  });
+}
+
+function hide(_ref) {
+  var state = _ref.state,
+      name = _ref.name;
+  var referenceRect = state.rects.reference;
+  var popperRect = state.rects.popper;
+  var preventedOffsets = state.modifiersData.preventOverflow;
+  var referenceOverflow = detectOverflow(state, {
+    elementContext: 'reference'
+  });
+  var popperAltOverflow = detectOverflow(state, {
+    altBoundary: true
+  });
+  var referenceClippingOffsets = getSideOffsets(referenceOverflow, referenceRect);
+  var popperEscapeOffsets = getSideOffsets(popperAltOverflow, popperRect, preventedOffsets);
+  var isReferenceHidden = isAnySideFullyClipped(referenceClippingOffsets);
+  var hasPopperEscaped = isAnySideFullyClipped(popperEscapeOffsets);
+  state.modifiersData[name] = {
+    referenceClippingOffsets: referenceClippingOffsets,
+    popperEscapeOffsets: popperEscapeOffsets,
+    isReferenceHidden: isReferenceHidden,
+    hasPopperEscaped: hasPopperEscaped
+  };
+  state.attributes.popper = Object.assign({}, state.attributes.popper, {
+    'data-popper-reference-hidden': isReferenceHidden,
+    'data-popper-escaped': hasPopperEscaped
+  });
+} // eslint-disable-next-line import/no-unused-modules
+
+
+var hide$1 = {
+  name: 'hide',
+  enabled: true,
+  phase: 'main',
+  requiresIfExists: ['preventOverflow'],
+  fn: hide
+};
+
+function distanceAndSkiddingToXY(placement, rects, offset) {
+  var basePlacement = getBasePlacement(placement);
+  var invertDistance = [left, top].indexOf(basePlacement) >= 0 ? -1 : 1;
+
+  var _ref = typeof offset === 'function' ? offset(Object.assign({}, rects, {
+    placement: placement
+  })) : offset,
+      skidding = _ref[0],
+      distance = _ref[1];
+
+  skidding = skidding || 0;
+  distance = (distance || 0) * invertDistance;
+  return [left, right].indexOf(basePlacement) >= 0 ? {
+    x: distance,
+    y: skidding
+  } : {
+    x: skidding,
+    y: distance
+  };
+}
+
+function offset(_ref2) {
+  var state = _ref2.state,
+      options = _ref2.options,
+      name = _ref2.name;
+  var _options$offset = options.offset,
+      offset = _options$offset === void 0 ? [0, 0] : _options$offset;
+  var data = placements.reduce(function (acc, placement) {
+    acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset);
+    return acc;
+  }, {});
+  var _data$state$placement = data[state.placement],
+      x = _data$state$placement.x,
+      y = _data$state$placement.y;
+
+  if (state.modifiersData.popperOffsets != null) {
+    state.modifiersData.popperOffsets.x += x;
+    state.modifiersData.popperOffsets.y += y;
+  }
+
+  state.modifiersData[name] = data;
+} // eslint-disable-next-line import/no-unused-modules
+
+
+var offset$1 = {
+  name: 'offset',
+  enabled: true,
+  phase: 'main',
+  requires: ['popperOffsets'],
+  fn: offset
+};
+
+function popperOffsets(_ref) {
+  var state = _ref.state,
+      name = _ref.name;
+  // Offsets are the actual position the popper needs to have to be
+  // properly positioned near its reference element
+  // This is the most basic placement, and will be adjusted by
+  // the modifiers in the next step
+  state.modifiersData[name] = computeOffsets({
+    reference: state.rects.reference,
+    element: state.rects.popper,
+    strategy: 'absolute',
+    placement: state.placement
+  });
+} // eslint-disable-next-line import/no-unused-modules
+
+
+var popperOffsets$1 = {
+  name: 'popperOffsets',
+  enabled: true,
+  phase: 'read',
+  fn: popperOffsets,
+  data: {}
+};
+
+function getAltAxis(axis) {
+  return axis === 'x' ? 'y' : 'x';
+}
+
+function preventOverflow(_ref) {
+  var state = _ref.state,
+      options = _ref.options,
+      name = _ref.name;
+  var _options$mainAxis = options.mainAxis,
+      checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
+      _options$altAxis = options.altAxis,
+      checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis,
+      boundary = options.boundary,
+      rootBoundary = options.rootBoundary,
+      altBoundary = options.altBoundary,
+      padding = options.padding,
+      _options$tether = options.tether,
+      tether = _options$tether === void 0 ? true : _options$tether,
+      _options$tetherOffset = options.tetherOffset,
+      tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
+  var overflow = detectOverflow(state, {
+    boundary: boundary,
+    rootBoundary: rootBoundary,
+    padding: padding,
+    altBoundary: altBoundary
+  });
+  var basePlacement = getBasePlacement(state.placement);
+  var variation = getVariation(state.placement);
+  var isBasePlacement = !variation;
+  var mainAxis = getMainAxisFromPlacement(basePlacement);
+  var altAxis = getAltAxis(mainAxis);
+  var popperOffsets = state.modifiersData.popperOffsets;
+  var referenceRect = state.rects.reference;
+  var popperRect = state.rects.popper;
+  var tetherOffsetValue = typeof tetherOffset === 'function' ? tetherOffset(Object.assign({}, state.rects, {
+    placement: state.placement
+  })) : tetherOffset;
+  var normalizedTetherOffsetValue = typeof tetherOffsetValue === 'number' ? {
+    mainAxis: tetherOffsetValue,
+    altAxis: tetherOffsetValue
+  } : Object.assign({
+    mainAxis: 0,
+    altAxis: 0
+  }, tetherOffsetValue);
+  var offsetModifierState = state.modifiersData.offset ? state.modifiersData.offset[state.placement] : null;
+  var data = {
+    x: 0,
+    y: 0
+  };
+
+  if (!popperOffsets) {
+    return;
+  }
+
+  if (checkMainAxis) {
+    var _offsetModifierState$;
+
+    var mainSide = mainAxis === 'y' ? top : left;
+    var altSide = mainAxis === 'y' ? bottom : right;
+    var len = mainAxis === 'y' ? 'height' : 'width';
+    var offset = popperOffsets[mainAxis];
+    var min$1 = offset + overflow[mainSide];
+    var max$1 = offset - overflow[altSide];
+    var additive = tether ? -popperRect[len] / 2 : 0;
+    var minLen = variation === start ? referenceRect[len] : popperRect[len];
+    var maxLen = variation === start ? -popperRect[len] : -referenceRect[len]; // We need to include the arrow in the calculation so the arrow doesn't go
+    // outside the reference bounds
+
+    var arrowElement = state.elements.arrow;
+    var arrowRect = tether && arrowElement ? getLayoutRect(arrowElement) : {
+      width: 0,
+      height: 0
+    };
+    var arrowPaddingObject = state.modifiersData['arrow#persistent'] ? state.modifiersData['arrow#persistent'].padding : getFreshSideObject();
+    var arrowPaddingMin = arrowPaddingObject[mainSide];
+    var arrowPaddingMax = arrowPaddingObject[altSide]; // If the reference length is smaller than the arrow length, we don't want
+    // to include its full size in the calculation. If the reference is small
+    // and near the edge of a boundary, the popper can overflow even if the
+    // reference is not overflowing as well (e.g. virtual elements with no
+    // width or height)
+
+    var arrowLen = within(0, referenceRect[len], arrowRect[len]);
+    var minOffset = isBasePlacement ? referenceRect[len] / 2 - additive - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis : minLen - arrowLen - arrowPaddingMin - normalizedTetherOffsetValue.mainAxis;
+    var maxOffset = isBasePlacement ? -referenceRect[len] / 2 + additive + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis : maxLen + arrowLen + arrowPaddingMax + normalizedTetherOffsetValue.mainAxis;
+    var arrowOffsetParent = state.elements.arrow && getOffsetParent(state.elements.arrow);
+    var clientOffset = arrowOffsetParent ? mainAxis === 'y' ? arrowOffsetParent.clientTop || 0 : arrowOffsetParent.clientLeft || 0 : 0;
+    var offsetModifierValue = (_offsetModifierState$ = offsetModifierState == null ? void 0 : offsetModifierState[mainAxis]) != null ? _offsetModifierState$ : 0;
+    var tetherMin = offset + minOffset - offsetModifierValue - clientOffset;
+    var tetherMax = offset + maxOffset - offsetModifierValue;
+    var preventedOffset = within(tether ? min(min$1, tetherMin) : min$1, offset, tether ? max(max$1, tetherMax) : max$1);
+    popperOffsets[mainAxis] = preventedOffset;
+    data[mainAxis] = preventedOffset - offset;
+  }
+
+  if (checkAltAxis) {
+    var _offsetModifierState$2;
+
+    var _mainSide = mainAxis === 'x' ? top : left;
+
+    var _altSide = mainAxis === 'x' ? bottom : right;
+
+    var _offset = popperOffsets[altAxis];
+
+    var _len = altAxis === 'y' ? 'height' : 'width';
+
+    var _min = _offset + overflow[_mainSide];
+
+    var _max = _offset - overflow[_altSide];
+
+    var isOriginSide = [top, left].indexOf(basePlacement) !== -1;
+
+    var _offsetModifierValue = (_offsetModifierState$2 = offsetModifierState == null ? void 0 : offsetModifierState[altAxis]) != null ? _offsetModifierState$2 : 0;
+
+    var _tetherMin = isOriginSide ? _min : _offset - referenceRect[_len] - popperRect[_len] - _offsetModifierValue + normalizedTetherOffsetValue.altAxis;
+
+    var _tetherMax = isOriginSide ? _offset + referenceRect[_len] + popperRect[_len] - _offsetModifierValue - normalizedTetherOffsetValue.altAxis : _max;
+
+    var _preventedOffset = tether && isOriginSide ? withinMaxClamp(_tetherMin, _offset, _tetherMax) : within(tether ? _tetherMin : _min, _offset, tether ? _tetherMax : _max);
+
+    popperOffsets[altAxis] = _preventedOffset;
+    data[altAxis] = _preventedOffset - _offset;
+  }
+
+  state.modifiersData[name] = data;
+} // eslint-disable-next-line import/no-unused-modules
+
+
+var preventOverflow$1 = {
+  name: 'preventOverflow',
+  enabled: true,
+  phase: 'main',
+  fn: preventOverflow,
+  requiresIfExists: ['offset']
+};
+
+function getHTMLElementScroll(element) {
+  return {
+    scrollLeft: element.scrollLeft,
+    scrollTop: element.scrollTop
+  };
+}
+
+function getNodeScroll(node) {
+  if (node === getWindow(node) || !isHTMLElement$1(node)) {
+    return getWindowScroll(node);
+  } else {
+    return getHTMLElementScroll(node);
+  }
+}
+
+function isElementScaled(element) {
+  var rect = element.getBoundingClientRect();
+  var scaleX = round$2(rect.width) / element.offsetWidth || 1;
+  var scaleY = round$2(rect.height) / element.offsetHeight || 1;
+  return scaleX !== 1 || scaleY !== 1;
+} // Returns the composite rect of an element relative to its offsetParent.
+// Composite means it takes into account transforms as well as layout.
+
+
+function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
+  if (isFixed === void 0) {
+    isFixed = false;
+  }
+
+  var isOffsetParentAnElement = isHTMLElement$1(offsetParent);
+  var offsetParentIsScaled = isHTMLElement$1(offsetParent) && isElementScaled(offsetParent);
+  var documentElement = getDocumentElement(offsetParent);
+  var rect = getBoundingClientRect(elementOrVirtualElement, offsetParentIsScaled, isFixed);
+  var scroll = {
+    scrollLeft: 0,
+    scrollTop: 0
+  };
+  var offsets = {
+    x: 0,
+    y: 0
+  };
+
+  if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
+    if (getNodeName(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
+    isScrollParent(documentElement)) {
+      scroll = getNodeScroll(offsetParent);
+    }
+
+    if (isHTMLElement$1(offsetParent)) {
+      offsets = getBoundingClientRect(offsetParent, true);
+      offsets.x += offsetParent.clientLeft;
+      offsets.y += offsetParent.clientTop;
+    } else if (documentElement) {
+      offsets.x = getWindowScrollBarX(documentElement);
+    }
+  }
+
+  return {
+    x: rect.left + scroll.scrollLeft - offsets.x,
+    y: rect.top + scroll.scrollTop - offsets.y,
+    width: rect.width,
+    height: rect.height
+  };
+}
+
+function order(modifiers) {
+  var map = new Map();
+  var visited = new Set();
+  var result = [];
+  modifiers.forEach(function (modifier) {
+    map.set(modifier.name, modifier);
+  }); // On visiting object, check for its dependencies and visit them recursively
+
+  function sort(modifier) {
+    visited.add(modifier.name);
+    var requires = [].concat(modifier.requires || [], modifier.requiresIfExists || []);
+    requires.forEach(function (dep) {
+      if (!visited.has(dep)) {
+        var depModifier = map.get(dep);
+
+        if (depModifier) {
+          sort(depModifier);
+        }
+      }
+    });
+    result.push(modifier);
+  }
+
+  modifiers.forEach(function (modifier) {
+    if (!visited.has(modifier.name)) {
+      // check for visited object
+      sort(modifier);
+    }
+  });
+  return result;
+}
+
+function orderModifiers(modifiers) {
+  // order based on dependencies
+  var orderedModifiers = order(modifiers); // order based on phase
+
+  return modifierPhases.reduce(function (acc, phase) {
+    return acc.concat(orderedModifiers.filter(function (modifier) {
+      return modifier.phase === phase;
+    }));
+  }, []);
+}
+
+function debounce$1(fn) {
+  var pending;
+  return function () {
+    if (!pending) {
+      pending = new Promise(function (resolve) {
+        Promise.resolve().then(function () {
+          pending = undefined;
+          resolve(fn());
+        });
+      });
+    }
+
+    return pending;
+  };
+}
+
+function mergeByName(modifiers) {
+  var merged = modifiers.reduce(function (merged, current) {
+    var existing = merged[current.name];
+    merged[current.name] = existing ? Object.assign({}, existing, current, {
+      options: Object.assign({}, existing.options, current.options),
+      data: Object.assign({}, existing.data, current.data)
+    }) : current;
+    return merged;
+  }, {}); // IE11 does not support Object.values
+
+  return Object.keys(merged).map(function (key) {
+    return merged[key];
+  });
+}
+
+var DEFAULT_OPTIONS = {
+  placement: 'bottom',
+  modifiers: [],
+  strategy: 'absolute'
+};
+
+function areValidElements() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return !args.some(function (element) {
+    return !(element && typeof element.getBoundingClientRect === 'function');
+  });
+}
+
+function popperGenerator(generatorOptions) {
+  if (generatorOptions === void 0) {
+    generatorOptions = {};
+  }
+
+  var _generatorOptions = generatorOptions,
+      _generatorOptions$def = _generatorOptions.defaultModifiers,
+      defaultModifiers = _generatorOptions$def === void 0 ? [] : _generatorOptions$def,
+      _generatorOptions$def2 = _generatorOptions.defaultOptions,
+      defaultOptions = _generatorOptions$def2 === void 0 ? DEFAULT_OPTIONS : _generatorOptions$def2;
+  return function createPopper(reference, popper, options) {
+    if (options === void 0) {
+      options = defaultOptions;
+    }
+
+    var state = {
+      placement: 'bottom',
+      orderedModifiers: [],
+      options: Object.assign({}, DEFAULT_OPTIONS, defaultOptions),
+      modifiersData: {},
+      elements: {
+        reference: reference,
+        popper: popper
+      },
+      attributes: {},
+      styles: {}
+    };
+    var effectCleanupFns = [];
+    var isDestroyed = false;
+    var instance = {
+      state: state,
+      setOptions: function setOptions(setOptionsAction) {
+        var options = typeof setOptionsAction === 'function' ? setOptionsAction(state.options) : setOptionsAction;
+        cleanupModifierEffects();
+        state.options = Object.assign({}, defaultOptions, state.options, options);
+        state.scrollParents = {
+          reference: isElement(reference) ? listScrollParents(reference) : reference.contextElement ? listScrollParents(reference.contextElement) : [],
+          popper: listScrollParents(popper)
+        }; // Orders the modifiers based on their dependencies and `phase`
+        // properties
+
+        var orderedModifiers = orderModifiers(mergeByName([].concat(defaultModifiers, state.options.modifiers))); // Strip out disabled modifiers
+
+        state.orderedModifiers = orderedModifiers.filter(function (m) {
+          return m.enabled;
+        });
+        runModifierEffects();
+        return instance.update();
+      },
+      // Sync update – it will always be executed, even if not necessary. This
+      // is useful for low frequency updates where sync behavior simplifies the
+      // logic.
+      // For high frequency updates (e.g. `resize` and `scroll` events), always
+      // prefer the async Popper#update method
+      forceUpdate: function forceUpdate() {
+        if (isDestroyed) {
+          return;
+        }
+
+        var _state$elements = state.elements,
+            reference = _state$elements.reference,
+            popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
+        // anymore
+
+        if (!areValidElements(reference, popper)) {
+          return;
+        } // Store the reference and popper rects to be read by modifiers
+
+
+        state.rects = {
+          reference: getCompositeRect(reference, getOffsetParent(popper), state.options.strategy === 'fixed'),
+          popper: getLayoutRect(popper)
+        }; // Modifiers have the ability to reset the current update cycle. The
+        // most common use case for this is the `flip` modifier changing the
+        // placement, which then needs to re-run all the modifiers, because the
+        // logic was previously ran for the previous placement and is therefore
+        // stale/incorrect
+
+        state.reset = false;
+        state.placement = state.options.placement; // On each update cycle, the `modifiersData` property for each modifier
+        // is filled with the initial data specified by the modifier. This means
+        // it doesn't persist and is fresh on each update.
+        // To ensure persistent data, use `${name}#persistent`
+
+        state.orderedModifiers.forEach(function (modifier) {
+          return state.modifiersData[modifier.name] = Object.assign({}, modifier.data);
+        });
+
+        for (var index = 0; index < state.orderedModifiers.length; index++) {
+          if (state.reset === true) {
+            state.reset = false;
+            index = -1;
+            continue;
+          }
+
+          var _state$orderedModifie = state.orderedModifiers[index],
+              fn = _state$orderedModifie.fn,
+              _state$orderedModifie2 = _state$orderedModifie.options,
+              _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2,
+              name = _state$orderedModifie.name;
+
+          if (typeof fn === 'function') {
+            state = fn({
+              state: state,
+              options: _options,
+              name: name,
+              instance: instance
+            }) || state;
+          }
+        }
+      },
+      // Async and optimistically optimized update – it will not be executed if
+      // not necessary (debounced to run at most once-per-tick)
+      update: debounce$1(function () {
+        return new Promise(function (resolve) {
+          instance.forceUpdate();
+          resolve(state);
+        });
+      }),
+      destroy: function destroy() {
+        cleanupModifierEffects();
+        isDestroyed = true;
+      }
+    };
+
+    if (!areValidElements(reference, popper)) {
+      return instance;
+    }
+
+    instance.setOptions(options).then(function (state) {
+      if (!isDestroyed && options.onFirstUpdate) {
+        options.onFirstUpdate(state);
+      }
+    }); // Modifiers have the ability to execute arbitrary code before the first
+    // update cycle runs. They will be executed in the same order as the update
+    // cycle. This is useful when a modifier adds some persistent data that
+    // other modifiers need to use, but the modifier is run after the dependent
+    // one.
+
+    function runModifierEffects() {
+      state.orderedModifiers.forEach(function (_ref) {
+        var name = _ref.name,
+            _ref$options = _ref.options,
+            options = _ref$options === void 0 ? {} : _ref$options,
+            effect = _ref.effect;
+
+        if (typeof effect === 'function') {
+          var cleanupFn = effect({
+            state: state,
+            name: name,
+            instance: instance,
+            options: options
+          });
+
+          var noopFn = function noopFn() {};
+
+          effectCleanupFns.push(cleanupFn || noopFn);
+        }
+      });
+    }
+
+    function cleanupModifierEffects() {
+      effectCleanupFns.forEach(function (fn) {
+        return fn();
+      });
+      effectCleanupFns = [];
+    }
+
+    return instance;
+  };
+}
+
+var defaultModifiers = [eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hide$1];
+var createPopper = /*#__PURE__*/popperGenerator({
+  defaultModifiers: defaultModifiers
+}); // eslint-disable-next-line import/no-unused-modules
+
 function getContainer(container) {
   return typeof container === 'function' ? container() : container;
 }
@@ -3313,6 +5128,375 @@ if (process.env.NODE_ENV !== 'production') {
   // eslint-disable-next-line
   Portal['propTypes' + ''] = exactProp(Portal.propTypes);
 }
+
+function getPopperUtilityClass(slot) {
+  return generateUtilityClass('MuiPopper', slot);
+}
+generateUtilityClasses('MuiPopper', ['root']);
+
+const _excluded$x = ["anchorEl", "children", "direction", "disablePortal", "modifiers", "open", "placement", "popperOptions", "popperRef", "slotProps", "slots", "TransitionProps", "ownerState"],
+  _excluded2$1 = ["anchorEl", "children", "container", "direction", "disablePortal", "keepMounted", "modifiers", "open", "placement", "popperOptions", "popperRef", "style", "transition", "slotProps", "slots"];
+function flipPlacement(placement, direction) {
+  if (direction === 'ltr') {
+    return placement;
+  }
+  switch (placement) {
+    case 'bottom-end':
+      return 'bottom-start';
+    case 'bottom-start':
+      return 'bottom-end';
+    case 'top-end':
+      return 'top-start';
+    case 'top-start':
+      return 'top-end';
+    default:
+      return placement;
+  }
+}
+function resolveAnchorEl(anchorEl) {
+  return typeof anchorEl === 'function' ? anchorEl() : anchorEl;
+}
+function isHTMLElement(element) {
+  return element.nodeType !== undefined;
+}
+function isVirtualElement(element) {
+  return !isHTMLElement(element);
+}
+const useUtilityClasses$h = () => {
+  const slots = {
+    root: ['root']
+  };
+  return composeClasses(slots, useClassNamesOverride(getPopperUtilityClass));
+};
+const defaultPopperOptions = {};
+const PopperTooltip = /*#__PURE__*/React__namespace.forwardRef(function PopperTooltip(props, forwardedRef) {
+  var _slots$root;
+  const {
+      anchorEl,
+      children,
+      direction,
+      disablePortal,
+      modifiers,
+      open,
+      placement: initialPlacement,
+      popperOptions,
+      popperRef: popperRefProp,
+      slotProps = {},
+      slots = {},
+      TransitionProps
+      // @ts-ignore internal logic
+      // prevent from spreading to DOM, it can come from the parent component e.g. Select.
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$x);
+  const tooltipRef = React__namespace.useRef(null);
+  const ownRef = useForkRef(tooltipRef, forwardedRef);
+  const popperRef = React__namespace.useRef(null);
+  const handlePopperRef = useForkRef(popperRef, popperRefProp);
+  const handlePopperRefRef = React__namespace.useRef(handlePopperRef);
+  useEnhancedEffect(() => {
+    handlePopperRefRef.current = handlePopperRef;
+  }, [handlePopperRef]);
+  React__namespace.useImperativeHandle(popperRefProp, () => popperRef.current, []);
+  const rtlPlacement = flipPlacement(initialPlacement, direction);
+  /**
+   * placement initialized from prop but can change during lifetime if modifiers.flip.
+   * modifiers.flip is essentially a flip for controlled/uncontrolled behavior
+   */
+  const [placement, setPlacement] = React__namespace.useState(rtlPlacement);
+  const [resolvedAnchorElement, setResolvedAnchorElement] = React__namespace.useState(resolveAnchorEl(anchorEl));
+  React__namespace.useEffect(() => {
+    if (popperRef.current) {
+      popperRef.current.forceUpdate();
+    }
+  });
+  React__namespace.useEffect(() => {
+    if (anchorEl) {
+      setResolvedAnchorElement(resolveAnchorEl(anchorEl));
+    }
+  }, [anchorEl]);
+  useEnhancedEffect(() => {
+    if (!resolvedAnchorElement || !open) {
+      return undefined;
+    }
+    const handlePopperUpdate = data => {
+      setPlacement(data.placement);
+    };
+    if (process.env.NODE_ENV !== 'production') {
+      if (resolvedAnchorElement && isHTMLElement(resolvedAnchorElement) && resolvedAnchorElement.nodeType === 1) {
+        const box = resolvedAnchorElement.getBoundingClientRect();
+        if (process.env.NODE_ENV !== 'test' && box.top === 0 && box.left === 0 && box.right === 0 && box.bottom === 0) {
+          console.warn(['MUI: The `anchorEl` prop provided to the component is invalid.', 'The anchor element should be part of the document layout.', "Make sure the element is present in the document or that it's not display none."].join('\n'));
+        }
+      }
+    }
+    let popperModifiers = [{
+      name: 'preventOverflow',
+      options: {
+        altBoundary: disablePortal
+      }
+    }, {
+      name: 'flip',
+      options: {
+        altBoundary: disablePortal
+      }
+    }, {
+      name: 'onUpdate',
+      enabled: true,
+      phase: 'afterWrite',
+      fn: ({
+        state
+      }) => {
+        handlePopperUpdate(state);
+      }
+    }];
+    if (modifiers != null) {
+      popperModifiers = popperModifiers.concat(modifiers);
+    }
+    if (popperOptions && popperOptions.modifiers != null) {
+      popperModifiers = popperModifiers.concat(popperOptions.modifiers);
+    }
+    const popper = createPopper(resolvedAnchorElement, tooltipRef.current, _extends({
+      placement: rtlPlacement
+    }, popperOptions, {
+      modifiers: popperModifiers
+    }));
+    handlePopperRefRef.current(popper);
+    return () => {
+      popper.destroy();
+      handlePopperRefRef.current(null);
+    };
+  }, [resolvedAnchorElement, disablePortal, modifiers, open, popperOptions, rtlPlacement]);
+  const childProps = {
+    placement: placement
+  };
+  if (TransitionProps !== null) {
+    childProps.TransitionProps = TransitionProps;
+  }
+  const classes = useUtilityClasses$h();
+  const Root = (_slots$root = slots.root) != null ? _slots$root : 'div';
+  const rootProps = useSlotProps({
+    elementType: Root,
+    externalSlotProps: slotProps.root,
+    externalForwardedProps: other,
+    additionalProps: {
+      role: 'tooltip',
+      ref: ownRef
+    },
+    ownerState: props,
+    className: classes.root
+  });
+  return /*#__PURE__*/require$$2.jsx(Root, _extends({}, rootProps, {
+    children: typeof children === 'function' ? children(childProps) : children
+  }));
+});
+
+/**
+ * Poppers rely on the 3rd party library [Popper.js](https://popper.js.org/docs/v2/) for positioning.
+ *
+ * Demos:
+ *
+ * - [Popper](https://mui.com/base-ui/react-popper/)
+ *
+ * API:
+ *
+ * - [Popper API](https://mui.com/base-ui/react-popper/components-api/#popper)
+ */
+const Popper$2 = /*#__PURE__*/React__namespace.forwardRef(function Popper(props, forwardedRef) {
+  const {
+      anchorEl,
+      children,
+      container: containerProp,
+      direction = 'ltr',
+      disablePortal = false,
+      keepMounted = false,
+      modifiers,
+      open,
+      placement = 'bottom',
+      popperOptions = defaultPopperOptions,
+      popperRef,
+      style,
+      transition = false,
+      slotProps = {},
+      slots = {}
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded2$1);
+  const [exited, setExited] = React__namespace.useState(true);
+  const handleEnter = () => {
+    setExited(false);
+  };
+  const handleExited = () => {
+    setExited(true);
+  };
+  if (!keepMounted && !open && (!transition || exited)) {
+    return null;
+  }
+
+  // If the container prop is provided, use that
+  // If the anchorEl prop is provided, use its parent body element as the container
+  // If neither are provided let the Modal take care of choosing the container
+  let container;
+  if (containerProp) {
+    container = containerProp;
+  } else if (anchorEl) {
+    const resolvedAnchorEl = resolveAnchorEl(anchorEl);
+    container = resolvedAnchorEl && isHTMLElement(resolvedAnchorEl) ? ownerDocument(resolvedAnchorEl).body : ownerDocument(null).body;
+  }
+  const display = !open && keepMounted && (!transition || exited) ? 'none' : undefined;
+  const transitionProps = transition ? {
+    in: open,
+    onEnter: handleEnter,
+    onExited: handleExited
+  } : undefined;
+  return /*#__PURE__*/require$$2.jsx(Portal, {
+    disablePortal: disablePortal,
+    container: container,
+    children: /*#__PURE__*/require$$2.jsx(PopperTooltip, _extends({
+      anchorEl: anchorEl,
+      direction: direction,
+      disablePortal: disablePortal,
+      modifiers: modifiers,
+      ref: forwardedRef,
+      open: transition ? !exited : open,
+      placement: placement,
+      popperOptions: popperOptions,
+      popperRef: popperRef,
+      slotProps: slotProps,
+      slots: slots
+    }, other, {
+      style: _extends({
+        // Prevents scroll issue, waiting for Popper.js to add this style once initiated.
+        position: 'fixed',
+        // Fix Popper.js display issue
+        top: 0,
+        left: 0,
+        display
+      }, style),
+      TransitionProps: transitionProps,
+      children: children
+    }))
+  });
+});
+process.env.NODE_ENV !== "production" ? Popper$2.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit TypeScript types and run "yarn proptypes"  |
+  // ----------------------------------------------------------------------
+  /**
+   * An HTML element, [virtualElement](https://popper.js.org/docs/v2/virtual-elements/),
+   * or a function that returns either.
+   * It's used to set the position of the popper.
+   * The return value will passed as the reference object of the Popper instance.
+   */
+  anchorEl: chainPropTypes(PropTypes.oneOfType([HTMLElementType, PropTypes.object, PropTypes.func]), props => {
+    if (props.open) {
+      const resolvedAnchorEl = resolveAnchorEl(props.anchorEl);
+      if (resolvedAnchorEl && isHTMLElement(resolvedAnchorEl) && resolvedAnchorEl.nodeType === 1) {
+        const box = resolvedAnchorEl.getBoundingClientRect();
+        if (process.env.NODE_ENV !== 'test' && box.top === 0 && box.left === 0 && box.right === 0 && box.bottom === 0) {
+          return new Error(['MUI: The `anchorEl` prop provided to the component is invalid.', 'The anchor element should be part of the document layout.', "Make sure the element is present in the document or that it's not display none."].join('\n'));
+        }
+      } else if (!resolvedAnchorEl || typeof resolvedAnchorEl.getBoundingClientRect !== 'function' || isVirtualElement(resolvedAnchorEl) && resolvedAnchorEl.contextElement != null && resolvedAnchorEl.contextElement.nodeType !== 1) {
+        return new Error(['MUI: The `anchorEl` prop provided to the component is invalid.', 'It should be an HTML element instance or a virtualElement ', '(https://popper.js.org/docs/v2/virtual-elements/).'].join('\n'));
+      }
+    }
+    return null;
+  }),
+  /**
+   * Popper render function or node.
+   */
+  children: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.node, PropTypes.func]),
+  /**
+   * An HTML element or function that returns one.
+   * The `container` will have the portal children appended to it.
+   *
+   * You can also provide a callback, which is called in a React layout effect.
+   * This lets you set the container from a ref, and also makes server-side rendering possible.
+   *
+   * By default, it uses the body of the top-level document object,
+   * so it's simply `document.body` most of the time.
+   */
+  container: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([HTMLElementType, PropTypes.func]),
+  /**
+   * Direction of the text.
+   * @default 'ltr'
+   */
+  direction: PropTypes.oneOf(['ltr', 'rtl']),
+  /**
+   * The `children` will be under the DOM hierarchy of the parent component.
+   * @default false
+   */
+  disablePortal: PropTypes.bool,
+  /**
+   * Always keep the children in the DOM.
+   * This prop can be useful in SEO situation or
+   * when you want to maximize the responsiveness of the Popper.
+   * @default false
+   */
+  keepMounted: PropTypes.bool,
+  /**
+   * Popper.js is based on a "plugin-like" architecture,
+   * most of its features are fully encapsulated "modifiers".
+   *
+   * A modifier is a function that is called each time Popper.js needs to
+   * compute the position of the popper.
+   * For this reason, modifiers should be very performant to avoid bottlenecks.
+   * To learn how to create a modifier, [read the modifiers documentation](https://popper.js.org/docs/v2/modifiers/).
+   */
+  modifiers: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.object,
+    effect: PropTypes.func,
+    enabled: PropTypes.bool,
+    fn: PropTypes.func,
+    name: PropTypes.any,
+    options: PropTypes.object,
+    phase: PropTypes.oneOf(['afterMain', 'afterRead', 'afterWrite', 'beforeMain', 'beforeRead', 'beforeWrite', 'main', 'read', 'write']),
+    requires: PropTypes.arrayOf(PropTypes.string),
+    requiresIfExists: PropTypes.arrayOf(PropTypes.string)
+  })),
+  /**
+   * If `true`, the component is shown.
+   */
+  open: PropTypes.bool.isRequired,
+  /**
+   * Popper placement.
+   * @default 'bottom'
+   */
+  placement: PropTypes.oneOf(['auto-end', 'auto-start', 'auto', 'bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
+  /**
+   * Options provided to the [`Popper.js`](https://popper.js.org/docs/v2/constructors/#options) instance.
+   * @default {}
+   */
+  popperOptions: PropTypes.shape({
+    modifiers: PropTypes.array,
+    onFirstUpdate: PropTypes.func,
+    placement: PropTypes.oneOf(['auto-end', 'auto-start', 'auto', 'bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
+    strategy: PropTypes.oneOf(['absolute', 'fixed'])
+  }),
+  /**
+   * A ref that points to the used popper instance.
+   */
+  popperRef: refType$1,
+  /**
+   * The props used for each slot inside the Popper.
+   * @default {}
+   */
+  slotProps: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  }),
+  /**
+   * The components used for each slot inside the Popper.
+   * Either a string to use a HTML element or a component.
+   * @default {}
+   */
+  slots: PropTypes.shape({
+    root: PropTypes.elementType
+  }),
+  /**
+   * Help supporting a react-transition-group/Transition component.
+   * @default false
+   */
+  transition: PropTypes.bool
+} : void 0;
 
 function memoize$1(fn) {
   var cache = Object.create(null);
@@ -5515,10 +7699,10 @@ if (!isBrowser$2) {
   };
 }
 
-var ThemeContext = /* #__PURE__ */React__namespace.createContext({});
+var ThemeContext$2 = /* #__PURE__ */React__namespace.createContext({});
 
 if (process.env.NODE_ENV !== 'production') {
-  ThemeContext.displayName = 'EmotionThemeContext';
+  ThemeContext$2.displayName = 'EmotionThemeContext';
 }
 
 var typePropName = '__EMOTION_TYPE_PLEASE_DO_NOT_USE__';
@@ -5571,7 +7755,7 @@ var Emotion = /* #__PURE__ */withEmotionCache(function (props, cache, ref) {
     className = props.className + " ";
   }
 
-  var serialized = serializeStyles(registeredStyles, undefined, React__namespace.useContext(ThemeContext));
+  var serialized = serializeStyles(registeredStyles, undefined, React__namespace.useContext(ThemeContext$2));
 
   if (process.env.NODE_ENV !== 'production' && serialized.name.indexOf('-') === -1) {
     var labelFromStack = props[labelPropName];
@@ -5750,7 +7934,7 @@ var Global = /* #__PURE__ */withEmotionCache(function (props, cache) {
   }
 
   var styles = props.styles;
-  var serialized = serializeStyles([styles], undefined, React__namespace.useContext(ThemeContext));
+  var serialized = serializeStyles([styles], undefined, React__namespace.useContext(ThemeContext$2));
 
   if (!isBrowser$2) {
     var _ref;
@@ -5996,7 +8180,7 @@ var ClassNames = /* #__PURE__ */withEmotionCache(function (props, cache) {
   var content = {
     css: css,
     cx: cx,
-    theme: React__namespace.useContext(ThemeContext)
+    theme: React__namespace.useContext(ThemeContext$2)
   };
   var ele = props.children(content);
   hasRendered = true;
@@ -6152,7 +8336,7 @@ var createStyled$1 = function createStyled(tag, options) {
           mergedProps[key] = props[key];
         }
 
-        mergedProps.theme = React__namespace.useContext(ThemeContext);
+        mergedProps.theme = React__namespace.useContext(ThemeContext$2);
       }
 
       if (typeof props.className === 'string') {
@@ -6256,7 +8440,7 @@ const internal_processStyles = (tag, processor) => {
   }
 };
 
-const _excluded$q = ["values", "unit", "step"];
+const _excluded$w = ["values", "unit", "step"];
 const sortBreakpointsValues = values => {
   const breakpointsAsArray = Object.keys(values).map(key => ({
     key,
@@ -6290,7 +8474,7 @@ function createBreakpoints(breakpoints) {
       unit = 'px',
       step = 5
     } = breakpoints,
-    other = _objectWithoutPropertiesLoose(breakpoints, _excluded$q);
+    other = _objectWithoutPropertiesLoose(breakpoints, _excluded$w);
   const sortedValues = sortBreakpointsValues(values);
   const keys = Object.keys(sortedValues);
   function up(key) {
@@ -7306,9 +9490,8 @@ function unstable_createStyleFunctionSx() {
 }
 const styleFunctionSx = unstable_createStyleFunctionSx();
 styleFunctionSx.filterProps = ['sx'];
-var styleFunctionSx$1 = styleFunctionSx;
 
-const _excluded$p = ["breakpoints", "palette", "spacing", "shape"];
+const _excluded$v = ["breakpoints", "palette", "spacing", "shape"];
 function createTheme$1(options = {}, ...args) {
   const {
       breakpoints: breakpointsInput = {},
@@ -7316,7 +9499,7 @@ function createTheme$1(options = {}, ...args) {
       spacing: spacingInput,
       shape: shapeInput = {}
     } = options,
-    other = _objectWithoutPropertiesLoose(options, _excluded$p);
+    other = _objectWithoutPropertiesLoose(options, _excluded$v);
   const breakpoints = createBreakpoints(breakpointsInput);
   const spacing = createSpacing(spacingInput);
   let muiTheme = deepmerge({
@@ -7333,7 +9516,7 @@ function createTheme$1(options = {}, ...args) {
   muiTheme = args.reduce((acc, argument) => deepmerge(acc, argument), muiTheme);
   muiTheme.unstable_sxConfig = _extends({}, defaultSxConfig$1, other == null ? void 0 : other.unstable_sxConfig);
   muiTheme.unstable_sx = function sx(props) {
-    return styleFunctionSx$1({
+    return styleFunctionSx({
       sx: props,
       theme: this
     });
@@ -7344,17 +9527,17 @@ function createTheme$1(options = {}, ...args) {
 function isObjectEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
-function useTheme$2(defaultTheme = null) {
-  const contextTheme = React__namespace.useContext(ThemeContext);
+function useTheme$3(defaultTheme = null) {
+  const contextTheme = React__namespace.useContext(ThemeContext$2);
   return !contextTheme || isObjectEmpty(contextTheme) ? defaultTheme : contextTheme;
 }
 
 const systemDefaultTheme$1 = createTheme$1();
-function useTheme$1(defaultTheme = systemDefaultTheme$1) {
-  return useTheme$2(defaultTheme);
+function useTheme$2(defaultTheme = systemDefaultTheme$1) {
+  return useTheme$3(defaultTheme);
 }
 
-const _excluded$o = ["sx"];
+const _excluded$u = ["sx"];
 const splitProps = props => {
   var _props$theme$unstable, _props$theme;
   const result = {
@@ -7375,7 +9558,7 @@ function extendSxProp(props) {
   const {
       sx: inSx
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$o);
+    other = _objectWithoutPropertiesLoose(props, _excluded$u);
   const {
     systemProps,
     otherProps
@@ -7399,7 +9582,7 @@ function extendSxProp(props) {
   });
 }
 
-const _excluded$n = ["className", "component"];
+const _excluded$t = ["className", "component"];
 function createBox(options = {}) {
   const {
     themeId,
@@ -7409,15 +9592,15 @@ function createBox(options = {}) {
   } = options;
   const BoxRoot = styled$1('div', {
     shouldForwardProp: prop => prop !== 'theme' && prop !== 'sx' && prop !== 'as'
-  })(styleFunctionSx$1);
+  })(styleFunctionSx);
   const Box = /*#__PURE__*/React__namespace.forwardRef(function Box(inProps, ref) {
-    const theme = useTheme$1(defaultTheme);
+    const theme = useTheme$2(defaultTheme);
     const _extendSxProp = extendSxProp(inProps),
       {
         className,
         component = 'div'
       } = _extendSxProp,
-      other = _objectWithoutPropertiesLoose(_extendSxProp, _excluded$n);
+      other = _objectWithoutPropertiesLoose(_extendSxProp, _excluded$t);
     return /*#__PURE__*/require$$2.jsx(BoxRoot, _extends({
       as: component,
       ref: ref,
@@ -7428,7 +9611,7 @@ function createBox(options = {}) {
   return Box;
 }
 
-const _excluded$m = ["variant"];
+const _excluded$s = ["variant"];
 function isEmpty$1(string) {
   return string.length === 0;
 }
@@ -7442,7 +9625,7 @@ function propsToClassKey(props) {
   const {
       variant
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$m);
+    other = _objectWithoutPropertiesLoose(props, _excluded$s);
   let classKey = variant || '';
   Object.keys(other).sort().forEach(key => {
     if (key === 'color') {
@@ -7454,7 +9637,7 @@ function propsToClassKey(props) {
   return classKey;
 }
 
-const _excluded$l = ["name", "slot", "skipVariantsResolver", "skipSx", "overridesResolver"];
+const _excluded$r = ["name", "slot", "skipVariantsResolver", "skipSx", "overridesResolver"];
 function isEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
@@ -7591,7 +9774,7 @@ function createStyled(input = {}) {
     slotShouldForwardProp = shouldForwardProp
   } = input;
   const systemSx = props => {
-    return styleFunctionSx$1(_extends({}, props, {
+    return styleFunctionSx(_extends({}, props, {
       theme: resolveTheme(_extends({}, props, {
         defaultTheme,
         themeId
@@ -7611,7 +9794,7 @@ function createStyled(input = {}) {
         // For more details: https://github.com/mui/material-ui/pull/37908
         overridesResolver = defaultOverridesResolver(lowercaseFirstLetter(componentSlot))
       } = inputOptions,
-      options = _objectWithoutPropertiesLoose(inputOptions, _excluded$l);
+      options = _objectWithoutPropertiesLoose(inputOptions, _excluded$r);
 
     // if skipVariantsResolver option is defined, take the value, otherwise, true for root and false for other slots.
     const skipVariantsResolver = inputSkipVariantsResolver !== undefined ? inputSkipVariantsResolver :
@@ -7783,7 +9966,7 @@ function useThemeProps$1({
   defaultTheme,
   themeId
 }) {
-  let theme = useTheme$1(defaultTheme);
+  let theme = useTheme$2(defaultTheme);
   if (themeId) {
     theme = theme[themeId] || theme;
   }
@@ -8028,6 +10211,153 @@ function lighten(color, coefficient) {
   return recomposeColor(color);
 }
 
+const ThemeContext = /*#__PURE__*/React__namespace.createContext(null);
+if (process.env.NODE_ENV !== 'production') {
+  ThemeContext.displayName = 'ThemeContext';
+}
+var ThemeContext$1 = ThemeContext;
+
+function useTheme$1() {
+  const theme = React__namespace.useContext(ThemeContext$1);
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    React__namespace.useDebugValue(theme);
+  }
+  return theme;
+}
+
+const hasSymbol = typeof Symbol === 'function' && Symbol.for;
+var nested = hasSymbol ? Symbol.for('mui.nested') : '__THEME_NESTED__';
+
+function mergeOuterLocalTheme(outerTheme, localTheme) {
+  if (typeof localTheme === 'function') {
+    const mergedTheme = localTheme(outerTheme);
+    if (process.env.NODE_ENV !== 'production') {
+      if (!mergedTheme) {
+        console.error(['MUI: You should return an object from your theme function, i.e.', '<ThemeProvider theme={() => ({})} />'].join('\n'));
+      }
+    }
+    return mergedTheme;
+  }
+  return _extends({}, outerTheme, localTheme);
+}
+
+/**
+ * This component takes a `theme` prop.
+ * It makes the `theme` available down the React tree thanks to React context.
+ * This component should preferably be used at **the root of your component tree**.
+ */
+function ThemeProvider$2(props) {
+  const {
+    children,
+    theme: localTheme
+  } = props;
+  const outerTheme = useTheme$1();
+  if (process.env.NODE_ENV !== 'production') {
+    if (outerTheme === null && typeof localTheme === 'function') {
+      console.error(['MUI: You are providing a theme function prop to the ThemeProvider component:', '<ThemeProvider theme={outerTheme => outerTheme} />', '', 'However, no outer theme is present.', 'Make sure a theme is already injected higher in the React tree ' + 'or provide a theme object.'].join('\n'));
+    }
+  }
+  const theme = React__namespace.useMemo(() => {
+    const output = outerTheme === null ? localTheme : mergeOuterLocalTheme(outerTheme, localTheme);
+    if (output != null) {
+      output[nested] = outerTheme !== null;
+    }
+    return output;
+  }, [localTheme, outerTheme]);
+  return /*#__PURE__*/require$$2.jsx(ThemeContext$1.Provider, {
+    value: theme,
+    children: children
+  });
+}
+process.env.NODE_ENV !== "production" ? ThemeProvider$2.propTypes = {
+  /**
+   * Your component tree.
+   */
+  children: PropTypes.node,
+  /**
+   * A theme object. You can provide a function to extend the outer theme.
+   */
+  theme: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired
+} : void 0;
+if (process.env.NODE_ENV !== 'production') {
+  process.env.NODE_ENV !== "production" ? ThemeProvider$2.propTypes = exactProp(ThemeProvider$2.propTypes) : void 0;
+}
+
+const EMPTY_THEME = {};
+function useThemeScoping(themeId, upperTheme, localTheme, isPrivate = false) {
+  return React__namespace.useMemo(() => {
+    const resolvedTheme = themeId ? upperTheme[themeId] || upperTheme : upperTheme;
+    if (typeof localTheme === 'function') {
+      const mergedTheme = localTheme(resolvedTheme);
+      const result = themeId ? _extends({}, upperTheme, {
+        [themeId]: mergedTheme
+      }) : mergedTheme;
+      // must return a function for the private theme to NOT merge with the upper theme.
+      // see the test case "use provided theme from a callback" in ThemeProvider.test.js
+      if (isPrivate) {
+        return () => result;
+      }
+      return result;
+    }
+    return themeId ? _extends({}, upperTheme, {
+      [themeId]: localTheme
+    }) : _extends({}, upperTheme, localTheme);
+  }, [themeId, upperTheme, localTheme, isPrivate]);
+}
+
+/**
+ * This component makes the `theme` available down the React tree.
+ * It should preferably be used at **the root of your component tree**.
+ *
+ * <ThemeProvider theme={theme}> // existing use case
+ * <ThemeProvider theme={{ id: theme }}> // theme scoping
+ */
+function ThemeProvider$1(props) {
+  const {
+    children,
+    theme: localTheme,
+    themeId
+  } = props;
+  const upperTheme = useTheme$3(EMPTY_THEME);
+  const upperPrivateTheme = useTheme$1() || EMPTY_THEME;
+  if (process.env.NODE_ENV !== 'production') {
+    if (upperTheme === null && typeof localTheme === 'function' || themeId && upperTheme && !upperTheme[themeId] && typeof localTheme === 'function') {
+      console.error(['MUI: You are providing a theme function prop to the ThemeProvider component:', '<ThemeProvider theme={outerTheme => outerTheme} />', '', 'However, no outer theme is present.', 'Make sure a theme is already injected higher in the React tree ' + 'or provide a theme object.'].join('\n'));
+    }
+  }
+  const engineTheme = useThemeScoping(themeId, upperTheme, localTheme);
+  const privateTheme = useThemeScoping(themeId, upperPrivateTheme, localTheme, true);
+  return /*#__PURE__*/require$$2.jsx(ThemeProvider$2, {
+    theme: privateTheme,
+    children: /*#__PURE__*/require$$2.jsx(ThemeContext$2.Provider, {
+      value: engineTheme,
+      children: children
+    })
+  });
+}
+process.env.NODE_ENV !== "production" ? ThemeProvider$1.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * Your component tree.
+   */
+  children: PropTypes.node,
+  /**
+   * A theme object. You can provide a function to extend the outer theme.
+   */
+  theme: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  /**
+   * The design system's unique id for getting the corresponded theme when there are multiple design systems.
+   */
+  themeId: PropTypes.string
+} : void 0;
+if (process.env.NODE_ENV !== 'production') {
+  process.env.NODE_ENV !== "production" ? ThemeProvider$1.propTypes = exactProp(ThemeProvider$1.propTypes) : void 0;
+}
+
 function createMixins(breakpoints, mixins) {
   return _extends({
     toolbar: {
@@ -8176,7 +10506,7 @@ const green = {
 };
 var green$1 = green;
 
-const _excluded$k = ["mode", "contrastThreshold", "tonalOffset"];
+const _excluded$q = ["mode", "contrastThreshold", "tonalOffset"];
 const light = {
   // The colors used to style the text.
   text: {
@@ -8345,7 +10675,7 @@ function createPalette(palette) {
       contrastThreshold = 3,
       tonalOffset = 0.2
     } = palette,
-    other = _objectWithoutPropertiesLoose(palette, _excluded$k);
+    other = _objectWithoutPropertiesLoose(palette, _excluded$q);
   const primary = palette.primary || getDefaultPrimary(mode);
   const secondary = palette.secondary || getDefaultSecondary(mode);
   const error = palette.error || getDefaultError(mode);
@@ -8469,8 +10799,8 @@ const theme2 = createTheme({ palette: {
   return paletteOutput;
 }
 
-const _excluded$j = ["fontFamily", "fontSize", "fontWeightLight", "fontWeightRegular", "fontWeightMedium", "fontWeightBold", "htmlFontSize", "allVariants", "pxToRem"];
-function round(value) {
+const _excluded$p = ["fontFamily", "fontSize", "fontWeightLight", "fontWeightRegular", "fontWeightMedium", "fontWeightBold", "htmlFontSize", "allVariants", "pxToRem"];
+function round$1(value) {
   return Math.round(value * 1e5) / 1e5;
 }
 const caseAllCaps = {
@@ -8500,7 +10830,7 @@ function createTypography(palette, typography) {
       allVariants,
       pxToRem: pxToRem2
     } = _ref,
-    other = _objectWithoutPropertiesLoose(_ref, _excluded$j);
+    other = _objectWithoutPropertiesLoose(_ref, _excluded$p);
   if (process.env.NODE_ENV !== 'production') {
     if (typeof fontSize !== 'number') {
       console.error('MUI: `fontSize` is required to be a number.');
@@ -8518,7 +10848,7 @@ function createTypography(palette, typography) {
     // Unitless following https://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/
     lineHeight
   }, fontFamily === defaultFontFamily ? {
-    letterSpacing: `${round(letterSpacing / size)}em`
+    letterSpacing: `${round$1(letterSpacing / size)}em`
   } : {}, casing, allVariants);
   const variants = {
     h1: buildVariant(fontWeightLight, 96, 1.167, -1.5),
@@ -8567,7 +10897,7 @@ function createShadow(...px) {
 // Values from https://github.com/material-components/material-components-web/blob/be8747f94574669cb5e7add1a7c54fa41a89cec7/packages/mdc-elevation/_variables.scss
 const shadows = ['none', createShadow(0, 2, 1, -1, 0, 1, 1, 0, 0, 1, 3, 0), createShadow(0, 3, 1, -2, 0, 2, 2, 0, 0, 1, 5, 0), createShadow(0, 3, 3, -2, 0, 3, 4, 0, 0, 1, 8, 0), createShadow(0, 2, 4, -1, 0, 4, 5, 0, 0, 1, 10, 0), createShadow(0, 3, 5, -1, 0, 5, 8, 0, 0, 1, 14, 0), createShadow(0, 3, 5, -1, 0, 6, 10, 0, 0, 1, 18, 0), createShadow(0, 4, 5, -2, 0, 7, 10, 1, 0, 2, 16, 1), createShadow(0, 5, 5, -3, 0, 8, 10, 1, 0, 3, 14, 2), createShadow(0, 5, 6, -3, 0, 9, 12, 1, 0, 3, 16, 2), createShadow(0, 6, 6, -3, 0, 10, 14, 1, 0, 4, 18, 3), createShadow(0, 6, 7, -4, 0, 11, 15, 1, 0, 4, 20, 3), createShadow(0, 7, 8, -4, 0, 12, 17, 2, 0, 5, 22, 4), createShadow(0, 7, 8, -4, 0, 13, 19, 2, 0, 5, 24, 4), createShadow(0, 7, 9, -4, 0, 14, 21, 2, 0, 5, 26, 4), createShadow(0, 8, 9, -5, 0, 15, 22, 2, 0, 6, 28, 5), createShadow(0, 8, 10, -5, 0, 16, 24, 2, 0, 6, 30, 5), createShadow(0, 8, 11, -5, 0, 17, 26, 2, 0, 6, 32, 5), createShadow(0, 9, 11, -5, 0, 18, 28, 2, 0, 7, 34, 6), createShadow(0, 9, 12, -6, 0, 19, 29, 2, 0, 7, 36, 6), createShadow(0, 10, 13, -6, 0, 20, 31, 3, 0, 8, 38, 7), createShadow(0, 10, 13, -6, 0, 21, 33, 3, 0, 8, 40, 7), createShadow(0, 10, 14, -6, 0, 22, 35, 3, 0, 8, 42, 7), createShadow(0, 11, 14, -7, 0, 23, 36, 3, 0, 9, 44, 8), createShadow(0, 11, 15, -7, 0, 24, 38, 3, 0, 9, 46, 8)];
 
-const _excluded$i = ["duration", "easing", "delay"];
+const _excluded$o = ["duration", "easing", "delay"];
 // Follow https://material.google.com/motion/duration-easing.html#duration-easing-natural-easing-curves
 // to learn the context in which each easing should be used.
 const easing = {
@@ -8618,7 +10948,7 @@ function createTransitions(inputTransitions) {
         easing: easingOption = mergedEasing.easeInOut,
         delay = 0
       } = options,
-      other = _objectWithoutPropertiesLoose(options, _excluded$i);
+      other = _objectWithoutPropertiesLoose(options, _excluded$o);
     if (process.env.NODE_ENV !== 'production') {
       const isString = value => typeof value === 'string';
       // IE11 support, replace with Number.isNaN
@@ -8668,7 +10998,7 @@ const zIndex = {
 };
 var zIndex$1 = zIndex;
 
-const _excluded$h = ["breakpoints", "mixins", "spacing", "palette", "transitions", "typography", "shape"];
+const _excluded$n = ["breakpoints", "mixins", "spacing", "palette", "transitions", "typography", "shape"];
 function createTheme(options = {}, ...args) {
   const {
       mixins: mixinsInput = {},
@@ -8676,7 +11006,7 @@ function createTheme(options = {}, ...args) {
       transitions: transitionsInput = {},
       typography: typographyInput = {}
     } = options,
-    other = _objectWithoutPropertiesLoose(options, _excluded$h);
+    other = _objectWithoutPropertiesLoose(options, _excluded$n);
   if (options.vars) {
     throw new Error(process.env.NODE_ENV !== "production" ? `MUI: \`vars\` is a private field used for CSS variables support.
 Please use another name.` : formatMuiErrorMessage(18));
@@ -8726,7 +11056,7 @@ Please use another name.` : formatMuiErrorMessage(18));
   }
   muiTheme.unstable_sxConfig = _extends({}, defaultSxConfig$1, other == null ? void 0 : other.unstable_sxConfig);
   muiTheme.unstable_sx = function sx(props) {
-    return styleFunctionSx$1({
+    return styleFunctionSx({
       sx: props,
       theme: this
     });
@@ -9746,7 +12076,7 @@ TransitionGroup.defaultProps = defaultProps;
 var TransitionGroup$1 = TransitionGroup;
 
 function useTheme() {
-  const theme = useTheme$1(defaultTheme$2);
+  const theme = useTheme$2(defaultTheme$2);
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     React__namespace.useDebugValue(theme);
@@ -9769,8 +12099,8 @@ function getTransitionProps(props, options) {
   };
 }
 
-const _excluded$g = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
-const styles = {
+const _excluded$m = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+const styles$1 = {
   entering: {
     opacity: 1
   },
@@ -9806,7 +12136,7 @@ const Fade = /*#__PURE__*/React__namespace.forwardRef(function Fade(props, ref) 
       // eslint-disable-next-line react/prop-types
       TransitionComponent = Transition$1
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$g);
+    other = _objectWithoutPropertiesLoose(props, _excluded$m);
   const nodeRef = React__namespace.useRef(null);
   const handleRef = useForkRef(nodeRef, children.ref, ref);
   const normalizedTransitionCallback = callback => maybeIsAppearing => {
@@ -9879,7 +12209,7 @@ const Fade = /*#__PURE__*/React__namespace.forwardRef(function Fade(props, ref) 
         style: _extends({
           opacity: 0,
           visibility: state === 'exited' && !inProp ? 'hidden' : undefined
-        }, styles[state], style, children.props.style),
+        }, styles$1[state], style, children.props.style),
         ref: handleRef
       }, childProps));
     }
@@ -9967,8 +12297,8 @@ function getBackdropUtilityClass(slot) {
 }
 generateUtilityClasses('MuiBackdrop', ['root', 'invisible']);
 
-const _excluded$f = ["children", "className", "component", "components", "componentsProps", "invisible", "open", "slotProps", "slots", "TransitionComponent", "transitionDuration"];
-const useUtilityClasses$d = ownerState => {
+const _excluded$l = ["children", "className", "component", "components", "componentsProps", "invisible", "open", "slotProps", "slots", "TransitionComponent", "transitionDuration"];
+const useUtilityClasses$g = ownerState => {
   const {
     classes,
     invisible
@@ -10022,12 +12352,12 @@ const Backdrop = /*#__PURE__*/React__namespace.forwardRef(function Backdrop(inPr
       TransitionComponent = Fade$1,
       transitionDuration
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$f);
+    other = _objectWithoutPropertiesLoose(props, _excluded$l);
   const ownerState = _extends({}, props, {
     component,
     invisible
   });
-  const classes = useUtilityClasses$d(ownerState);
+  const classes = useUtilityClasses$g(ownerState);
   const rootSlotProps = (_slotProps$root = slotProps.root) != null ? _slotProps$root : componentsProps.root;
   return /*#__PURE__*/require$$2.jsx(TransitionComponent, _extends({
     in: open,
@@ -10148,8 +12478,8 @@ function getModalUtilityClass(slot) {
 }
 generateUtilityClasses('MuiModal', ['root', 'hidden', 'backdrop']);
 
-const _excluded$e = ["BackdropComponent", "BackdropProps", "classes", "className", "closeAfterTransition", "children", "container", "component", "components", "componentsProps", "disableAutoFocus", "disableEnforceFocus", "disableEscapeKeyDown", "disablePortal", "disableRestoreFocus", "disableScrollLock", "hideBackdrop", "keepMounted", "onBackdropClick", "onClose", "onTransitionEnter", "onTransitionExited", "open", "slotProps", "slots", "theme"];
-const useUtilityClasses$c = ownerState => {
+const _excluded$k = ["BackdropComponent", "BackdropProps", "classes", "className", "closeAfterTransition", "children", "container", "component", "components", "componentsProps", "disableAutoFocus", "disableEnforceFocus", "disableEscapeKeyDown", "disablePortal", "disableRestoreFocus", "disableScrollLock", "hideBackdrop", "keepMounted", "onBackdropClick", "onClose", "onTransitionEnter", "onTransitionExited", "open", "slotProps", "slots", "theme"];
+const useUtilityClasses$f = ownerState => {
   const {
     open,
     exited,
@@ -10236,7 +12566,7 @@ const Modal = /*#__PURE__*/React__namespace.forwardRef(function Modal(inProps, r
       slots
       // eslint-disable-next-line react/prop-types
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$e);
+    other = _objectWithoutPropertiesLoose(props, _excluded$k);
   const propsWithDefaults = _extends({}, props, {
     closeAfterTransition,
     disableAutoFocus,
@@ -10262,7 +12592,7 @@ const Modal = /*#__PURE__*/React__namespace.forwardRef(function Modal(inProps, r
   const ownerState = _extends({}, propsWithDefaults, {
     exited
   });
-  const classes = useUtilityClasses$c(ownerState);
+  const classes = useUtilityClasses$f(ownerState);
   const childProps = {};
   if (children.props.tabIndex === undefined) {
     childProps.tabIndex = '-1';
@@ -10519,8 +12849,8 @@ function getSvgIconUtilityClass(slot) {
 }
 generateUtilityClasses('MuiSvgIcon', ['root', 'colorPrimary', 'colorSecondary', 'colorAction', 'colorError', 'colorDisabled', 'fontSizeInherit', 'fontSizeSmall', 'fontSizeMedium', 'fontSizeLarge']);
 
-const _excluded$d = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"];
-const useUtilityClasses$b = ownerState => {
+const _excluded$j = ["children", "className", "color", "component", "fontSize", "htmlColor", "inheritViewBox", "titleAccess", "viewBox"];
+const useUtilityClasses$e = ownerState => {
   const {
     color,
     fontSize,
@@ -10587,7 +12917,7 @@ const SvgIcon = /*#__PURE__*/React__namespace.forwardRef(function SvgIcon(inProp
       titleAccess,
       viewBox = '0 0 24 24'
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$d);
+    other = _objectWithoutPropertiesLoose(props, _excluded$j);
   const hasSvgAsChild = /*#__PURE__*/React__namespace.isValidElement(children) && children.type === 'svg';
   const ownerState = _extends({}, props, {
     color,
@@ -10602,7 +12932,7 @@ const SvgIcon = /*#__PURE__*/React__namespace.forwardRef(function SvgIcon(inProp
   if (!inheritViewBox) {
     more.viewBox = viewBox;
   }
-  const classes = useUtilityClasses$b(ownerState);
+  const classes = useUtilityClasses$e(ownerState);
   return /*#__PURE__*/require$$2.jsxs(SvgIconRoot, _extends({
     as: component,
     className: clsx(classes.root, className),
@@ -10726,7 +13056,7 @@ var utils = /*#__PURE__*/Object.freeze({
   capitalize: capitalize,
   createChainedFunction: createChainedFunction,
   createSvgIcon: createSvgIcon$1,
-  debounce: debounce$1,
+  debounce: debounce$2,
   deprecatedPropType: deprecatedPropType,
   isMuiElement: isMuiElement,
   ownerDocument: ownerDocument,
@@ -10743,7 +13073,7 @@ var utils = /*#__PURE__*/Object.freeze({
   useIsFocusVisible: useIsFocusVisible
 });
 
-const _excluded$c = ["addEndListener", "appear", "children", "container", "direction", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+const _excluded$i = ["addEndListener", "appear", "children", "container", "direction", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
 function getTranslateValue(direction, node, resolvedContainer) {
   const rect = node.getBoundingClientRect();
   const containerRect = resolvedContainer && resolvedContainer.getBoundingClientRect();
@@ -10832,7 +13162,7 @@ const Slide = /*#__PURE__*/React__namespace.forwardRef(function Slide(props, ref
       // eslint-disable-next-line react/prop-types
       TransitionComponent = Transition$1
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$c);
+    other = _objectWithoutPropertiesLoose(props, _excluded$i);
   const childrenRef = React__namespace.useRef(null);
   const handleRef = useForkRef(children.ref, childrenRef, ref);
   const normalizedTransitionCallback = callback => isAppearing => {
@@ -10909,7 +13239,7 @@ const Slide = /*#__PURE__*/React__namespace.forwardRef(function Slide(props, ref
     if (inProp || direction === 'down' || direction === 'right') {
       return undefined;
     }
-    const handleResize = debounce$1(() => {
+    const handleResize = debounce$2(() => {
       if (childrenRef.current) {
         setTranslateValue(direction, childrenRef.current, containerProp);
       }
@@ -11071,8 +13401,8 @@ function getPaperUtilityClass(slot) {
 }
 generateUtilityClasses('MuiPaper', ['root', 'rounded', 'outlined', 'elevation', 'elevation0', 'elevation1', 'elevation2', 'elevation3', 'elevation4', 'elevation5', 'elevation6', 'elevation7', 'elevation8', 'elevation9', 'elevation10', 'elevation11', 'elevation12', 'elevation13', 'elevation14', 'elevation15', 'elevation16', 'elevation17', 'elevation18', 'elevation19', 'elevation20', 'elevation21', 'elevation22', 'elevation23', 'elevation24']);
 
-const _excluded$b = ["className", "component", "elevation", "square", "variant"];
-const useUtilityClasses$a = ownerState => {
+const _excluded$h = ["className", "component", "elevation", "square", "variant"];
+const useUtilityClasses$d = ownerState => {
   const {
     square,
     elevation,
@@ -11126,14 +13456,14 @@ const Paper = /*#__PURE__*/React__namespace.forwardRef(function Paper(inProps, r
       square = false,
       variant = 'elevation'
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$b);
+    other = _objectWithoutPropertiesLoose(props, _excluded$h);
   const ownerState = _extends({}, props, {
     component,
     elevation,
     square,
     variant
   });
-  const classes = useUtilityClasses$a(ownerState);
+  const classes = useUtilityClasses$d(ownerState);
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const theme = useTheme();
@@ -11207,7 +13537,7 @@ function getDrawerUtilityClass(slot) {
 }
 generateUtilityClasses('MuiDrawer', ['root', 'docked', 'paper', 'paperAnchorLeft', 'paperAnchorRight', 'paperAnchorTop', 'paperAnchorBottom', 'paperAnchorDockedLeft', 'paperAnchorDockedRight', 'paperAnchorDockedTop', 'paperAnchorDockedBottom', 'modal']);
 
-const _excluded$a = ["BackdropProps"],
+const _excluded$g = ["BackdropProps"],
   _excluded2 = ["anchor", "BackdropProps", "children", "className", "elevation", "hideBackdrop", "ModalProps", "onClose", "open", "PaperProps", "SlideProps", "TransitionComponent", "transitionDuration", "variant"];
 const overridesResolver$1 = (props, styles) => {
   const {
@@ -11215,7 +13545,7 @@ const overridesResolver$1 = (props, styles) => {
   } = props;
   return [styles.root, (ownerState.variant === 'permanent' || ownerState.variant === 'persistent') && styles.docked, styles.modal];
 };
-const useUtilityClasses$9 = ownerState => {
+const useUtilityClasses$c = ownerState => {
   const {
     classes,
     anchor,
@@ -11347,7 +13677,7 @@ const Drawer = /*#__PURE__*/React__namespace.forwardRef(function Drawer(inProps,
       transitionDuration = defaultTransitionDuration,
       variant = 'temporary'
     } = props,
-    ModalProps = _objectWithoutPropertiesLoose(props.ModalProps, _excluded$a),
+    ModalProps = _objectWithoutPropertiesLoose(props.ModalProps, _excluded$g),
     other = _objectWithoutPropertiesLoose(props, _excluded2);
 
   // Let's assume that the Drawer will always be rendered on user space.
@@ -11365,7 +13695,7 @@ const Drawer = /*#__PURE__*/React__namespace.forwardRef(function Drawer(inProps,
     open,
     variant
   }, other);
-  const classes = useUtilityClasses$9(ownerState);
+  const classes = useUtilityClasses$c(ownerState);
   const drawer = /*#__PURE__*/require$$2.jsx(DrawerPaper, _extends({
     elevation: variant === 'temporary' ? elevation : 0,
     square: true
@@ -11504,13 +13834,36 @@ process.env.NODE_ENV !== "production" ? Drawer.propTypes /* remove-proptypes */ 
 } : void 0;
 var Drawer$1 = Drawer;
 
+const _excluded$f = ["theme"];
+function ThemeProvider(_ref) {
+  let {
+      theme: themeInput
+    } = _ref,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded$f);
+  const scopedTheme = themeInput[THEME_ID];
+  return /*#__PURE__*/require$$2.jsx(ThemeProvider$1, _extends({}, props, {
+    themeId: scopedTheme ? THEME_ID : undefined,
+    theme: scopedTheme || themeInput
+  }));
+}
+process.env.NODE_ENV !== "production" ? ThemeProvider.propTypes = {
+  /**
+   * Your component tree.
+   */
+  children: PropTypes.node,
+  /**
+   * A theme object. You can provide a function to extend the outer theme.
+   */
+  theme: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired
+} : void 0;
+
 function getCollapseUtilityClass(slot) {
   return generateUtilityClass('MuiCollapse', slot);
 }
 generateUtilityClasses('MuiCollapse', ['root', 'horizontal', 'vertical', 'entered', 'hidden', 'wrapper', 'wrapperInner']);
 
-const _excluded$9 = ["addEndListener", "children", "className", "collapsedSize", "component", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "orientation", "style", "timeout", "TransitionComponent"];
-const useUtilityClasses$8 = ownerState => {
+const _excluded$e = ["addEndListener", "children", "className", "collapsedSize", "component", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "orientation", "style", "timeout", "TransitionComponent"];
+const useUtilityClasses$b = ownerState => {
   const {
     orientation,
     classes
@@ -11609,12 +13962,12 @@ const Collapse = /*#__PURE__*/React__namespace.forwardRef(function Collapse(inPr
       // eslint-disable-next-line react/prop-types
       TransitionComponent = Transition$1
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$9);
+    other = _objectWithoutPropertiesLoose(props, _excluded$e);
   const ownerState = _extends({}, props, {
     orientation,
     collapsedSize: collapsedSizeProp
   });
-  const classes = useUtilityClasses$8(ownerState);
+  const classes = useUtilityClasses$b(ownerState);
   const theme = useTheme();
   const timer = React__namespace.useRef();
   const wrapperRef = React__namespace.useRef(null);
@@ -11952,7 +14305,7 @@ process.env.NODE_ENV !== "production" ? Ripple.propTypes = {
 
 const touchRippleClasses = generateUtilityClasses('MuiTouchRipple', ['root', 'ripple', 'rippleVisible', 'ripplePulsate', 'child', 'childLeaving', 'childPulsate']);
 
-const _excluded$8 = ["center", "classes", "className"];
+const _excluded$d = ["center", "classes", "className"];
 let _ = t => t,
   _t,
   _t2,
@@ -12081,7 +14434,7 @@ const TouchRipple = /*#__PURE__*/React__namespace.forwardRef(function TouchRippl
       classes = {},
       className
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$8);
+    other = _objectWithoutPropertiesLoose(props, _excluded$d);
   const [ripples, setRipples] = React__namespace.useState([]);
   const nextKey = React__namespace.useRef(0);
   const rippleCallback = React__namespace.useRef(null);
@@ -12283,8 +14636,8 @@ function getButtonBaseUtilityClass(slot) {
 }
 const buttonBaseClasses = generateUtilityClasses('MuiButtonBase', ['root', 'disabled', 'focusVisible']);
 
-const _excluded$7 = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "touchRippleRef", "type"];
-const useUtilityClasses$7 = ownerState => {
+const _excluded$c = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "touchRippleRef", "type"];
+const useUtilityClasses$a = ownerState => {
   const {
     disabled,
     focusVisible,
@@ -12384,7 +14737,7 @@ const ButtonBase = /*#__PURE__*/React__namespace.forwardRef(function ButtonBase(
       touchRippleRef,
       type
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$7);
+    other = _objectWithoutPropertiesLoose(props, _excluded$c);
   const buttonRef = React__namespace.useRef(null);
   const rippleRef = React__namespace.useRef(null);
   const handleRippleRef = useForkRef(rippleRef, touchRippleRef);
@@ -12551,7 +14904,7 @@ const ButtonBase = /*#__PURE__*/React__namespace.forwardRef(function ButtonBase(
     tabIndex,
     focusVisible
   });
-  const classes = useUtilityClasses$7(ownerState);
+  const classes = useUtilityClasses$a(ownerState);
   return /*#__PURE__*/require$$2.jsxs(ButtonBaseRoot, _extends({
     as: ComponentProp,
     className: clsx(classes.root, className),
@@ -12742,13 +15095,208 @@ process.env.NODE_ENV !== "production" ? ButtonBase.propTypes /* remove-proptypes
 } : void 0;
 var ButtonBase$1 = ButtonBase;
 
+function getIconButtonUtilityClass(slot) {
+  return generateUtilityClass('MuiIconButton', slot);
+}
+const iconButtonClasses = generateUtilityClasses('MuiIconButton', ['root', 'disabled', 'colorInherit', 'colorPrimary', 'colorSecondary', 'colorError', 'colorInfo', 'colorSuccess', 'colorWarning', 'edgeStart', 'edgeEnd', 'sizeSmall', 'sizeMedium', 'sizeLarge']);
+
+const _excluded$b = ["edge", "children", "className", "color", "disabled", "disableFocusRipple", "size"];
+const useUtilityClasses$9 = ownerState => {
+  const {
+    classes,
+    disabled,
+    color,
+    edge,
+    size
+  } = ownerState;
+  const slots = {
+    root: ['root', disabled && 'disabled', color !== 'default' && `color${capitalize(color)}`, edge && `edge${capitalize(edge)}`, `size${capitalize(size)}`]
+  };
+  return composeClasses(slots, getIconButtonUtilityClass, classes);
+};
+const IconButtonRoot = styled(ButtonBase$1, {
+  name: 'MuiIconButton',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.color !== 'default' && styles[`color${capitalize(ownerState.color)}`], ownerState.edge && styles[`edge${capitalize(ownerState.edge)}`], styles[`size${capitalize(ownerState.size)}`]];
+  }
+})(({
+  theme,
+  ownerState
+}) => _extends({
+  textAlign: 'center',
+  flex: '0 0 auto',
+  fontSize: theme.typography.pxToRem(24),
+  padding: 8,
+  borderRadius: '50%',
+  overflow: 'visible',
+  // Explicitly set the default value to solve a bug on IE11.
+  color: (theme.vars || theme).palette.action.active,
+  transition: theme.transitions.create('background-color', {
+    duration: theme.transitions.duration.shortest
+  })
+}, !ownerState.disableRipple && {
+  '&:hover': {
+    backgroundColor: theme.vars ? `rgba(${theme.vars.palette.action.activeChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(theme.palette.action.active, theme.palette.action.hoverOpacity),
+    // Reset on touch devices, it doesn't add specificity
+    '@media (hover: none)': {
+      backgroundColor: 'transparent'
+    }
+  }
+}, ownerState.edge === 'start' && {
+  marginLeft: ownerState.size === 'small' ? -3 : -12
+}, ownerState.edge === 'end' && {
+  marginRight: ownerState.size === 'small' ? -3 : -12
+}), ({
+  theme,
+  ownerState
+}) => {
+  var _palette;
+  const palette = (_palette = (theme.vars || theme).palette) == null ? void 0 : _palette[ownerState.color];
+  return _extends({}, ownerState.color === 'inherit' && {
+    color: 'inherit'
+  }, ownerState.color !== 'inherit' && ownerState.color !== 'default' && _extends({
+    color: palette == null ? void 0 : palette.main
+  }, !ownerState.disableRipple && {
+    '&:hover': _extends({}, palette && {
+      backgroundColor: theme.vars ? `rgba(${palette.mainChannel} / ${theme.vars.palette.action.hoverOpacity})` : alpha(palette.main, theme.palette.action.hoverOpacity)
+    }, {
+      // Reset on touch devices, it doesn't add specificity
+      '@media (hover: none)': {
+        backgroundColor: 'transparent'
+      }
+    })
+  }), ownerState.size === 'small' && {
+    padding: 5,
+    fontSize: theme.typography.pxToRem(18)
+  }, ownerState.size === 'large' && {
+    padding: 12,
+    fontSize: theme.typography.pxToRem(28)
+  }, {
+    [`&.${iconButtonClasses.disabled}`]: {
+      backgroundColor: 'transparent',
+      color: (theme.vars || theme).palette.action.disabled
+    }
+  });
+});
+
+/**
+ * Refer to the [Icons](/material-ui/icons/) section of the documentation
+ * regarding the available icon options.
+ */
+const IconButton = /*#__PURE__*/React__namespace.forwardRef(function IconButton(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiIconButton'
+  });
+  const {
+      edge = false,
+      children,
+      className,
+      color = 'default',
+      disabled = false,
+      disableFocusRipple = false,
+      size = 'medium'
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$b);
+  const ownerState = _extends({}, props, {
+    edge,
+    color,
+    disabled,
+    disableFocusRipple,
+    size
+  });
+  const classes = useUtilityClasses$9(ownerState);
+  return /*#__PURE__*/require$$2.jsx(IconButtonRoot, _extends({
+    className: clsx(classes.root, className),
+    centerRipple: true,
+    focusRipple: !disableFocusRipple,
+    disabled: disabled,
+    ref: ref,
+    ownerState: ownerState
+  }, other, {
+    children: children
+  }));
+});
+process.env.NODE_ENV !== "production" ? IconButton.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * The icon to display.
+   */
+  children: chainPropTypes(PropTypes.node, props => {
+    const found = React__namespace.Children.toArray(props.children).some(child => /*#__PURE__*/React__namespace.isValidElement(child) && child.props.onClick);
+    if (found) {
+      return new Error(['MUI: You are providing an onClick event listener to a child of a button element.', 'Prefer applying it to the IconButton directly.', 'This guarantees that the whole <button> will be responsive to click events.'].join('\n'));
+    }
+    return null;
+  }),
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The color of the component.
+   * It supports both default and custom theme colors, which can be added as shown in the
+   * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
+   * @default 'default'
+   */
+  color: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['inherit', 'default', 'primary', 'secondary', 'error', 'info', 'success', 'warning']), PropTypes.string]),
+  /**
+   * If `true`, the component is disabled.
+   * @default false
+   */
+  disabled: PropTypes.bool,
+  /**
+   * If `true`, the  keyboard focus ripple is disabled.
+   * @default false
+   */
+  disableFocusRipple: PropTypes.bool,
+  /**
+   * If `true`, the ripple effect is disabled.
+   *
+   * ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure
+   * to highlight the element by applying separate styles with the `.Mui-focusVisible` class.
+   * @default false
+   */
+  disableRipple: PropTypes.bool,
+  /**
+   * If given, uses a negative margin to counteract the padding on one
+   * side (this is often helpful for aligning the left or right
+   * side of the icon with content above or below, without ruining the border
+   * size and shape).
+   * @default false
+   */
+  edge: PropTypes.oneOf(['end', 'start', false]),
+  /**
+   * The size of the component.
+   * `small` is equivalent to the dense button styling.
+   * @default 'medium'
+   */
+  size: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['small', 'medium', 'large']), PropTypes.string]),
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
+} : void 0;
+var IconButton$1 = IconButton;
+
 function getTypographyUtilityClass(slot) {
   return generateUtilityClass('MuiTypography', slot);
 }
 generateUtilityClasses('MuiTypography', ['root', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'subtitle1', 'subtitle2', 'body1', 'body2', 'inherit', 'button', 'caption', 'overline', 'alignLeft', 'alignRight', 'alignCenter', 'alignJustify', 'noWrap', 'gutterBottom', 'paragraph']);
 
-const _excluded$6 = ["align", "className", "component", "gutterBottom", "noWrap", "paragraph", "variant", "variantMapping"];
-const useUtilityClasses$6 = ownerState => {
+const _excluded$a = ["align", "className", "component", "gutterBottom", "noWrap", "paragraph", "variant", "variantMapping"];
+const useUtilityClasses$8 = ownerState => {
   const {
     align,
     gutterBottom,
@@ -12834,7 +15382,7 @@ const Typography = /*#__PURE__*/React__namespace.forwardRef(function Typography(
       variant = 'body1',
       variantMapping = defaultVariantMapping
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$6);
+    other = _objectWithoutPropertiesLoose(props, _excluded$a);
   const ownerState = _extends({}, props, {
     align,
     color,
@@ -12847,7 +15395,7 @@ const Typography = /*#__PURE__*/React__namespace.forwardRef(function Typography(
     variantMapping
   });
   const Component = component || (paragraph ? 'p' : variantMapping[variant] || defaultVariantMapping[variant]) || 'span';
-  const classes = useUtilityClasses$6(ownerState);
+  const classes = useUtilityClasses$8(ownerState);
   return /*#__PURE__*/require$$2.jsx(TypographyRoot, _extends({
     as: Component,
     ref: ref,
@@ -12932,13 +15480,210 @@ process.env.NODE_ENV !== "production" ? Typography.propTypes /* remove-proptypes
 } : void 0;
 var Typography$1 = Typography;
 
+const _excluded$9 = ["anchorEl", "component", "components", "componentsProps", "container", "disablePortal", "keepMounted", "modifiers", "open", "placement", "popperOptions", "popperRef", "transition", "slots", "slotProps"];
+const PopperRoot = styled(Popper$2, {
+  name: 'MuiPopper',
+  slot: 'Root',
+  overridesResolver: (props, styles) => styles.root
+})({});
+
+/**
+ *
+ * Demos:
+ *
+ * - [Autocomplete](https://mui.com/material-ui/react-autocomplete/)
+ * - [Menu](https://mui.com/material-ui/react-menu/)
+ * - [Popper](https://mui.com/material-ui/react-popper/)
+ *
+ * API:
+ *
+ * - [Popper API](https://mui.com/material-ui/api/popper/)
+ */
+const Popper = /*#__PURE__*/React__namespace.forwardRef(function Popper(inProps, ref) {
+  var _slots$root;
+  const theme = useTheme$3();
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiPopper'
+  });
+  const {
+      anchorEl,
+      component,
+      components,
+      componentsProps,
+      container,
+      disablePortal,
+      keepMounted,
+      modifiers,
+      open,
+      placement,
+      popperOptions,
+      popperRef,
+      transition,
+      slots,
+      slotProps
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$9);
+  const RootComponent = (_slots$root = slots == null ? void 0 : slots.root) != null ? _slots$root : components == null ? void 0 : components.Root;
+  const otherProps = _extends({
+    anchorEl,
+    container,
+    disablePortal,
+    keepMounted,
+    modifiers,
+    open,
+    placement,
+    popperOptions,
+    popperRef,
+    transition
+  }, other);
+  return /*#__PURE__*/require$$2.jsx(PopperRoot, _extends({
+    as: component,
+    direction: theme == null ? void 0 : theme.direction,
+    slots: {
+      root: RootComponent
+    },
+    slotProps: slotProps != null ? slotProps : componentsProps
+  }, otherProps, {
+    ref: ref
+  }));
+});
+process.env.NODE_ENV !== "production" ? Popper.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit TypeScript types and run "yarn proptypes"  |
+  // ----------------------------------------------------------------------
+  /**
+   * An HTML element, [virtualElement](https://popper.js.org/docs/v2/virtual-elements/),
+   * or a function that returns either.
+   * It's used to set the position of the popper.
+   * The return value will passed as the reference object of the Popper instance.
+   */
+  anchorEl: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([HTMLElementType, PropTypes.object, PropTypes.func]),
+  /**
+   * Popper render function or node.
+   */
+  children: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.node, PropTypes.func]),
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
+  /**
+   * The components used for each slot inside the Popper.
+   * Either a string to use a HTML element or a component.
+   * @default {}
+   */
+  components: PropTypes.shape({
+    Root: PropTypes.elementType
+  }),
+  /**
+   * The props used for each slot inside the Popper.
+   * @default {}
+   */
+  componentsProps: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  }),
+  /**
+   * An HTML element or function that returns one.
+   * The `container` will have the portal children appended to it.
+   *
+   * You can also provide a callback, which is called in a React layout effect.
+   * This lets you set the container from a ref, and also makes server-side rendering possible.
+   *
+   * By default, it uses the body of the top-level document object,
+   * so it's simply `document.body` most of the time.
+   */
+  container: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([HTMLElementType, PropTypes.func]),
+  /**
+   * The `children` will be under the DOM hierarchy of the parent component.
+   * @default false
+   */
+  disablePortal: PropTypes.bool,
+  /**
+   * Always keep the children in the DOM.
+   * This prop can be useful in SEO situation or
+   * when you want to maximize the responsiveness of the Popper.
+   * @default false
+   */
+  keepMounted: PropTypes.bool,
+  /**
+   * Popper.js is based on a "plugin-like" architecture,
+   * most of its features are fully encapsulated "modifiers".
+   *
+   * A modifier is a function that is called each time Popper.js needs to
+   * compute the position of the popper.
+   * For this reason, modifiers should be very performant to avoid bottlenecks.
+   * To learn how to create a modifier, [read the modifiers documentation](https://popper.js.org/docs/v2/modifiers/).
+   */
+  modifiers: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.object,
+    effect: PropTypes.func,
+    enabled: PropTypes.bool,
+    fn: PropTypes.func,
+    name: PropTypes.any,
+    options: PropTypes.object,
+    phase: PropTypes.oneOf(['afterMain', 'afterRead', 'afterWrite', 'beforeMain', 'beforeRead', 'beforeWrite', 'main', 'read', 'write']),
+    requires: PropTypes.arrayOf(PropTypes.string),
+    requiresIfExists: PropTypes.arrayOf(PropTypes.string)
+  })),
+  /**
+   * If `true`, the component is shown.
+   */
+  open: PropTypes.bool.isRequired,
+  /**
+   * Popper placement.
+   * @default 'bottom'
+   */
+  placement: PropTypes.oneOf(['auto-end', 'auto-start', 'auto', 'bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
+  /**
+   * Options provided to the [`Popper.js`](https://popper.js.org/docs/v2/constructors/#options) instance.
+   * @default {}
+   */
+  popperOptions: PropTypes.shape({
+    modifiers: PropTypes.array,
+    onFirstUpdate: PropTypes.func,
+    placement: PropTypes.oneOf(['auto-end', 'auto-start', 'auto', 'bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
+    strategy: PropTypes.oneOf(['absolute', 'fixed'])
+  }),
+  /**
+   * A ref that points to the used popper instance.
+   */
+  popperRef: refType$1,
+  /**
+   * The props used for each slot inside the Popper.
+   * @default {}
+   */
+  slotProps: PropTypes.shape({
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  }),
+  /**
+   * The components used for each slot inside the Popper.
+   * Either a string to use a HTML element or a component.
+   * @default {}
+   */
+  slots: PropTypes.shape({
+    root: PropTypes.elementType
+  }),
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
+  /**
+   * Help supporting a react-transition-group/Transition component.
+   * @default false
+   */
+  transition: PropTypes.bool
+} : void 0;
+var Popper$1 = Popper;
+
 function getListSubheaderUtilityClass(slot) {
   return generateUtilityClass('MuiListSubheader', slot);
 }
 generateUtilityClasses('MuiListSubheader', ['root', 'colorPrimary', 'colorInherit', 'gutters', 'inset', 'sticky']);
 
-const _excluded$5 = ["className", "color", "component", "disableGutters", "disableSticky", "inset"];
-const useUtilityClasses$5 = ownerState => {
+const _excluded$8 = ["className", "color", "component", "disableGutters", "disableSticky", "inset"];
+const useUtilityClasses$7 = ownerState => {
   const {
     classes,
     color,
@@ -12999,7 +15744,7 @@ const ListSubheader = /*#__PURE__*/React__namespace.forwardRef(function ListSubh
       disableSticky = false,
       inset = false
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$5);
+    other = _objectWithoutPropertiesLoose(props, _excluded$8);
   const ownerState = _extends({}, props, {
     color,
     component,
@@ -13007,7 +15752,7 @@ const ListSubheader = /*#__PURE__*/React__namespace.forwardRef(function ListSubh
     disableSticky,
     inset
   });
-  const classes = useUtilityClasses$5(ownerState);
+  const classes = useUtilityClasses$7(ownerState);
   return /*#__PURE__*/require$$2.jsx(ListSubheaderRoot, _extends({
     as: component,
     className: clsx(classes.root, className),
@@ -13075,8 +15820,8 @@ function getChipUtilityClass(slot) {
 const chipClasses = generateUtilityClasses('MuiChip', ['root', 'sizeSmall', 'sizeMedium', 'colorError', 'colorInfo', 'colorPrimary', 'colorSecondary', 'colorSuccess', 'colorWarning', 'disabled', 'clickable', 'clickableColorPrimary', 'clickableColorSecondary', 'deletable', 'deletableColorPrimary', 'deletableColorSecondary', 'outlined', 'filled', 'outlinedPrimary', 'outlinedSecondary', 'filledPrimary', 'filledSecondary', 'avatar', 'avatarSmall', 'avatarMedium', 'avatarColorPrimary', 'avatarColorSecondary', 'icon', 'iconSmall', 'iconMedium', 'iconColorPrimary', 'iconColorSecondary', 'label', 'labelSmall', 'labelMedium', 'deleteIcon', 'deleteIconSmall', 'deleteIconMedium', 'deleteIconColorPrimary', 'deleteIconColorSecondary', 'deleteIconOutlinedColorPrimary', 'deleteIconOutlinedColorSecondary', 'deleteIconFilledColorPrimary', 'deleteIconFilledColorSecondary', 'focusVisible']);
 var chipClasses$1 = chipClasses;
 
-const _excluded$4 = ["avatar", "className", "clickable", "color", "component", "deleteIcon", "disabled", "icon", "label", "onClick", "onDelete", "onKeyDown", "onKeyUp", "size", "variant", "tabIndex", "skipFocusWhenDisabled"];
-const useUtilityClasses$4 = ownerState => {
+const _excluded$7 = ["avatar", "className", "clickable", "color", "component", "deleteIcon", "disabled", "icon", "label", "onClick", "onDelete", "onKeyDown", "onKeyUp", "size", "variant", "tabIndex", "skipFocusWhenDisabled"];
+const useUtilityClasses$6 = ownerState => {
   const {
     classes,
     disabled,
@@ -13361,7 +16106,7 @@ const Chip = /*#__PURE__*/React__namespace.forwardRef(function Chip(inProps, ref
       tabIndex,
       skipFocusWhenDisabled = false // TODO v6: Rename to `focusableWhenDisabled`.
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$4);
+    other = _objectWithoutPropertiesLoose(props, _excluded$7);
   const chipRef = React__namespace.useRef(null);
   const handleRef = useForkRef(chipRef, ref);
   const handleDeleteIconClick = event => {
@@ -13407,7 +16152,7 @@ const Chip = /*#__PURE__*/React__namespace.forwardRef(function Chip(inProps, ref
     clickable,
     variant
   });
-  const classes = useUtilityClasses$4(ownerState);
+  const classes = useUtilityClasses$6(ownerState);
   const moreProps = component === ButtonBase$1 ? _extends({
     component: ComponentProp || 'div',
     focusVisibleClassName: classes.focusVisible
@@ -13563,6 +16308,245 @@ process.env.NODE_ENV !== "production" ? Chip.propTypes /* remove-proptypes */ = 
 } : void 0;
 var Chip$1 = Chip;
 
+var Person = createSvgIcon$1( /*#__PURE__*/require$$2.jsx("path", {
+  d: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+}), 'Person');
+
+function getAvatarUtilityClass(slot) {
+  return generateUtilityClass('MuiAvatar', slot);
+}
+generateUtilityClasses('MuiAvatar', ['root', 'colorDefault', 'circular', 'rounded', 'square', 'img', 'fallback']);
+
+const _excluded$6 = ["alt", "children", "className", "component", "imgProps", "sizes", "src", "srcSet", "variant"];
+const useUtilityClasses$5 = ownerState => {
+  const {
+    classes,
+    variant,
+    colorDefault
+  } = ownerState;
+  const slots = {
+    root: ['root', variant, colorDefault && 'colorDefault'],
+    img: ['img'],
+    fallback: ['fallback']
+  };
+  return composeClasses(slots, getAvatarUtilityClass, classes);
+};
+const AvatarRoot = styled('div', {
+  name: 'MuiAvatar',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, styles[ownerState.variant], ownerState.colorDefault && styles.colorDefault];
+  }
+})(({
+  theme,
+  ownerState
+}) => _extends({
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+  width: 40,
+  height: 40,
+  fontFamily: theme.typography.fontFamily,
+  fontSize: theme.typography.pxToRem(20),
+  lineHeight: 1,
+  borderRadius: '50%',
+  overflow: 'hidden',
+  userSelect: 'none'
+}, ownerState.variant === 'rounded' && {
+  borderRadius: (theme.vars || theme).shape.borderRadius
+}, ownerState.variant === 'square' && {
+  borderRadius: 0
+}, ownerState.colorDefault && _extends({
+  color: (theme.vars || theme).palette.background.default
+}, theme.vars ? {
+  backgroundColor: theme.vars.palette.Avatar.defaultBg
+} : {
+  backgroundColor: theme.palette.mode === 'light' ? theme.palette.grey[400] : theme.palette.grey[600]
+})));
+const AvatarImg = styled('img', {
+  name: 'MuiAvatar',
+  slot: 'Img',
+  overridesResolver: (props, styles) => styles.img
+})({
+  width: '100%',
+  height: '100%',
+  textAlign: 'center',
+  // Handle non-square image. The property isn't supported by IE11.
+  objectFit: 'cover',
+  // Hide alt text.
+  color: 'transparent',
+  // Hide the image broken icon, only works on Chrome.
+  textIndent: 10000
+});
+const AvatarFallback = styled(Person, {
+  name: 'MuiAvatar',
+  slot: 'Fallback',
+  overridesResolver: (props, styles) => styles.fallback
+})({
+  width: '75%',
+  height: '75%'
+});
+function useLoaded({
+  crossOrigin,
+  referrerPolicy,
+  src,
+  srcSet
+}) {
+  const [loaded, setLoaded] = React__namespace.useState(false);
+  React__namespace.useEffect(() => {
+    if (!src && !srcSet) {
+      return undefined;
+    }
+    setLoaded(false);
+    let active = true;
+    const image = new Image();
+    image.onload = () => {
+      if (!active) {
+        return;
+      }
+      setLoaded('loaded');
+    };
+    image.onerror = () => {
+      if (!active) {
+        return;
+      }
+      setLoaded('error');
+    };
+    image.crossOrigin = crossOrigin;
+    image.referrerPolicy = referrerPolicy;
+    image.src = src;
+    if (srcSet) {
+      image.srcset = srcSet;
+    }
+    return () => {
+      active = false;
+    };
+  }, [crossOrigin, referrerPolicy, src, srcSet]);
+  return loaded;
+}
+const Avatar = /*#__PURE__*/React__namespace.forwardRef(function Avatar(inProps, ref) {
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiAvatar'
+  });
+  const {
+      alt,
+      children: childrenProp,
+      className,
+      component = 'div',
+      imgProps,
+      sizes,
+      src,
+      srcSet,
+      variant = 'circular'
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$6);
+  let children = null;
+
+  // Use a hook instead of onError on the img element to support server-side rendering.
+  const loaded = useLoaded(_extends({}, imgProps, {
+    src,
+    srcSet
+  }));
+  const hasImg = src || srcSet;
+  const hasImgNotFailing = hasImg && loaded !== 'error';
+  const ownerState = _extends({}, props, {
+    colorDefault: !hasImgNotFailing,
+    component,
+    variant
+  });
+  const classes = useUtilityClasses$5(ownerState);
+  if (hasImgNotFailing) {
+    children = /*#__PURE__*/require$$2.jsx(AvatarImg, _extends({
+      alt: alt,
+      srcSet: srcSet,
+      src: src,
+      sizes: sizes,
+      ownerState: ownerState,
+      className: classes.img
+    }, imgProps));
+  } else if (childrenProp != null) {
+    children = childrenProp;
+  } else if (hasImg && alt) {
+    children = alt[0];
+  } else {
+    children = /*#__PURE__*/require$$2.jsx(AvatarFallback, {
+      ownerState: ownerState,
+      className: classes.fallback
+    });
+  }
+  return /*#__PURE__*/require$$2.jsx(AvatarRoot, _extends({
+    as: component,
+    ownerState: ownerState,
+    className: clsx(classes.root, className),
+    ref: ref
+  }, other, {
+    children: children
+  }));
+});
+process.env.NODE_ENV !== "production" ? Avatar.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * Used in combination with `src` or `srcSet` to
+   * provide an alt attribute for the rendered `img` element.
+   */
+  alt: PropTypes.string,
+  /**
+   * Used to render icon or text elements inside the Avatar if `src` is not set.
+   * This can be an element, or just a string.
+   */
+  children: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: PropTypes.elementType,
+  /**
+   * [Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes) applied to the `img` element if the component is used to display an image.
+   * It can be used to listen for the loading error event.
+   */
+  imgProps: PropTypes.object,
+  /**
+   * The `sizes` attribute for the `img` element.
+   */
+  sizes: PropTypes.string,
+  /**
+   * The `src` attribute for the `img` element.
+   */
+  src: PropTypes.string,
+  /**
+   * The `srcSet` attribute for the `img` element.
+   * Use this attribute for responsive image display.
+   */
+  srcSet: PropTypes.string,
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
+  /**
+   * The shape of the avatar.
+   * @default 'circular'
+   */
+  variant: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['circular', 'rounded', 'square']), PropTypes.string])
+} : void 0;
+var Avatar$1 = Avatar;
+
 const boxClasses = generateUtilityClasses('MuiBox', ['root']);
 var boxClasses$1 = boxClasses;
 
@@ -13594,6 +16578,254 @@ process.env.NODE_ENV !== "production" ? Box.propTypes /* remove-proptypes */ = {
 } : void 0;
 var Box$1 = Box;
 
+const _excluded$5 = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+function getScale(value) {
+  return `scale(${value}, ${value ** 2})`;
+}
+const styles = {
+  entering: {
+    opacity: 1,
+    transform: getScale(1)
+  },
+  entered: {
+    opacity: 1,
+    transform: 'none'
+  }
+};
+
+/*
+ TODO v6: remove
+ Conditionally apply a workaround for the CSS transition bug in Safari 15.4 / WebKit browsers.
+ */
+const isWebKit154 = typeof navigator !== 'undefined' && /^((?!chrome|android).)*(safari|mobile)/i.test(navigator.userAgent) && /(os |version\/)15(.|_)4/i.test(navigator.userAgent);
+
+/**
+ * The Grow transition is used by the [Tooltip](/material-ui/react-tooltip/) and
+ * [Popover](/material-ui/react-popover/) components.
+ * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+ */
+const Grow = /*#__PURE__*/React__namespace.forwardRef(function Grow(props, ref) {
+  const {
+      addEndListener,
+      appear = true,
+      children,
+      easing,
+      in: inProp,
+      onEnter,
+      onEntered,
+      onEntering,
+      onExit,
+      onExited,
+      onExiting,
+      style,
+      timeout = 'auto',
+      // eslint-disable-next-line react/prop-types
+      TransitionComponent = Transition$1
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded$5);
+  const timer = React__namespace.useRef();
+  const autoTimeout = React__namespace.useRef();
+  const theme = useTheme();
+  const nodeRef = React__namespace.useRef(null);
+  const handleRef = useForkRef(nodeRef, children.ref, ref);
+  const normalizedTransitionCallback = callback => maybeIsAppearing => {
+    if (callback) {
+      const node = nodeRef.current;
+
+      // onEnterXxx and onExitXxx callbacks have a different arguments.length value.
+      if (maybeIsAppearing === undefined) {
+        callback(node);
+      } else {
+        callback(node, maybeIsAppearing);
+      }
+    }
+  };
+  const handleEntering = normalizedTransitionCallback(onEntering);
+  const handleEnter = normalizedTransitionCallback((node, isAppearing) => {
+    reflow(node); // So the animation always start from the start.
+
+    const {
+      duration: transitionDuration,
+      delay,
+      easing: transitionTimingFunction
+    } = getTransitionProps({
+      style,
+      timeout,
+      easing
+    }, {
+      mode: 'enter'
+    });
+    let duration;
+    if (timeout === 'auto') {
+      duration = theme.transitions.getAutoHeightDuration(node.clientHeight);
+      autoTimeout.current = duration;
+    } else {
+      duration = transitionDuration;
+    }
+    node.style.transition = [theme.transitions.create('opacity', {
+      duration,
+      delay
+    }), theme.transitions.create('transform', {
+      duration: isWebKit154 ? duration : duration * 0.666,
+      delay,
+      easing: transitionTimingFunction
+    })].join(',');
+    if (onEnter) {
+      onEnter(node, isAppearing);
+    }
+  });
+  const handleEntered = normalizedTransitionCallback(onEntered);
+  const handleExiting = normalizedTransitionCallback(onExiting);
+  const handleExit = normalizedTransitionCallback(node => {
+    const {
+      duration: transitionDuration,
+      delay,
+      easing: transitionTimingFunction
+    } = getTransitionProps({
+      style,
+      timeout,
+      easing
+    }, {
+      mode: 'exit'
+    });
+    let duration;
+    if (timeout === 'auto') {
+      duration = theme.transitions.getAutoHeightDuration(node.clientHeight);
+      autoTimeout.current = duration;
+    } else {
+      duration = transitionDuration;
+    }
+    node.style.transition = [theme.transitions.create('opacity', {
+      duration,
+      delay
+    }), theme.transitions.create('transform', {
+      duration: isWebKit154 ? duration : duration * 0.666,
+      delay: isWebKit154 ? delay : delay || duration * 0.333,
+      easing: transitionTimingFunction
+    })].join(',');
+    node.style.opacity = 0;
+    node.style.transform = getScale(0.75);
+    if (onExit) {
+      onExit(node);
+    }
+  });
+  const handleExited = normalizedTransitionCallback(onExited);
+  const handleAddEndListener = next => {
+    if (timeout === 'auto') {
+      timer.current = setTimeout(next, autoTimeout.current || 0);
+    }
+    if (addEndListener) {
+      // Old call signature before `react-transition-group` implemented `nodeRef`
+      addEndListener(nodeRef.current, next);
+    }
+  };
+  React__namespace.useEffect(() => {
+    return () => {
+      clearTimeout(timer.current);
+    };
+  }, []);
+  return /*#__PURE__*/require$$2.jsx(TransitionComponent, _extends({
+    appear: appear,
+    in: inProp,
+    nodeRef: nodeRef,
+    onEnter: handleEnter,
+    onEntered: handleEntered,
+    onEntering: handleEntering,
+    onExit: handleExit,
+    onExited: handleExited,
+    onExiting: handleExiting,
+    addEndListener: handleAddEndListener,
+    timeout: timeout === 'auto' ? null : timeout
+  }, other, {
+    children: (state, childProps) => {
+      return /*#__PURE__*/React__namespace.cloneElement(children, _extends({
+        style: _extends({
+          opacity: 0,
+          transform: getScale(0.75),
+          visibility: state === 'exited' && !inProp ? 'hidden' : undefined
+        }, styles[state], style, children.props.style),
+        ref: handleRef
+      }, childProps));
+    }
+  }));
+});
+process.env.NODE_ENV !== "production" ? Grow.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * Add a custom transition end trigger. Called with the transitioning DOM
+   * node and a done callback. Allows for more fine grained transition end
+   * logic. Note: Timeouts are still used as a fallback if provided.
+   */
+  addEndListener: PropTypes.func,
+  /**
+   * Perform the enter transition when it first mounts if `in` is also `true`.
+   * Set this to `false` to disable this behavior.
+   * @default true
+   */
+  appear: PropTypes.bool,
+  /**
+   * A single child content element.
+   */
+  children: elementAcceptingRef$1.isRequired,
+  /**
+   * The transition timing function.
+   * You may specify a single easing or a object containing enter and exit values.
+   */
+  easing: PropTypes.oneOfType([PropTypes.shape({
+    enter: PropTypes.string,
+    exit: PropTypes.string
+  }), PropTypes.string]),
+  /**
+   * If `true`, the component will transition in.
+   */
+  in: PropTypes.bool,
+  /**
+   * @ignore
+   */
+  onEnter: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onEntered: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onEntering: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onExit: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onExited: PropTypes.func,
+  /**
+   * @ignore
+   */
+  onExiting: PropTypes.func,
+  /**
+   * @ignore
+   */
+  style: PropTypes.object,
+  /**
+   * The duration for the transition, in milliseconds.
+   * You may specify a single timeout for all transitions, or individually with an object.
+   *
+   * Set to 'auto' to automatically calculate transition time based on height.
+   * @default 'auto'
+   */
+  timeout: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number, PropTypes.shape({
+    appear: PropTypes.number,
+    enter: PropTypes.number,
+    exit: PropTypes.number
+  })])
+} : void 0;
+Grow.muiSupportAuto = true;
+var Grow$1 = Grow;
+
 /**
  * @ignore - internal component.
  */
@@ -13608,8 +16840,8 @@ function getListUtilityClass(slot) {
 }
 generateUtilityClasses('MuiList', ['root', 'padding', 'dense', 'subheader']);
 
-const _excluded$3 = ["children", "className", "component", "dense", "disablePadding", "subheader"];
-const useUtilityClasses$3 = ownerState => {
+const _excluded$4 = ["children", "className", "component", "dense", "disablePadding", "subheader"];
+const useUtilityClasses$4 = ownerState => {
   const {
     classes,
     disablePadding,
@@ -13656,7 +16888,7 @@ const List = /*#__PURE__*/React__namespace.forwardRef(function List(inProps, ref
       disablePadding = false,
       subheader
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$3);
+    other = _objectWithoutPropertiesLoose(props, _excluded$4);
   const context = React__namespace.useMemo(() => ({
     dense
   }), [dense]);
@@ -13665,7 +16897,7 @@ const List = /*#__PURE__*/React__namespace.forwardRef(function List(inProps, ref
     dense,
     disablePadding
   });
-  const classes = useUtilityClasses$3(ownerState);
+  const classes = useUtilityClasses$4(ownerState);
   return /*#__PURE__*/require$$2.jsx(ListContext$1.Provider, {
     value: context,
     children: /*#__PURE__*/require$$2.jsxs(ListRoot, _extends({
@@ -13729,14 +16961,14 @@ function getListItemButtonUtilityClass(slot) {
 const listItemButtonClasses = generateUtilityClasses('MuiListItemButton', ['root', 'focusVisible', 'dense', 'alignItemsFlexStart', 'disabled', 'divider', 'gutters', 'selected']);
 var listItemButtonClasses$1 = listItemButtonClasses;
 
-const _excluded$2 = ["alignItems", "autoFocus", "component", "children", "dense", "disableGutters", "divider", "focusVisibleClassName", "selected", "className"];
+const _excluded$3 = ["alignItems", "autoFocus", "component", "children", "dense", "disableGutters", "divider", "focusVisibleClassName", "selected", "className"];
 const overridesResolver = (props, styles) => {
   const {
     ownerState
   } = props;
   return [styles.root, ownerState.dense && styles.dense, ownerState.alignItems === 'flex-start' && styles.alignItemsFlexStart, ownerState.divider && styles.divider, !ownerState.disableGutters && styles.gutters];
 };
-const useUtilityClasses$2 = ownerState => {
+const useUtilityClasses$3 = ownerState => {
   const {
     alignItems,
     classes,
@@ -13831,7 +17063,7 @@ const ListItemButton = /*#__PURE__*/React__namespace.forwardRef(function ListIte
       selected = false,
       className
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$2);
+    other = _objectWithoutPropertiesLoose(props, _excluded$3);
   const context = React__namespace.useContext(ListContext$1);
   const childContext = React__namespace.useMemo(() => ({
     dense: dense || context.dense || false,
@@ -13855,7 +17087,7 @@ const ListItemButton = /*#__PURE__*/React__namespace.forwardRef(function ListIte
     divider,
     selected
   });
-  const classes = useUtilityClasses$2(ownerState);
+  const classes = useUtilityClasses$3(ownerState);
   const handleRef = useForkRef(listItemRef, ref);
   return /*#__PURE__*/require$$2.jsx(ListContext$1.Provider, {
     value: childContext,
@@ -13959,8 +17191,8 @@ function getListItemIconUtilityClass(slot) {
 }
 generateUtilityClasses('MuiListItemIcon', ['root', 'alignItemsFlexStart']);
 
-const _excluded$1 = ["className"];
-const useUtilityClasses$1 = ownerState => {
+const _excluded$2 = ["className"];
+const useUtilityClasses$2 = ownerState => {
   const {
     alignItems,
     classes
@@ -14002,12 +17234,12 @@ const ListItemIcon = /*#__PURE__*/React__namespace.forwardRef(function ListItemI
   const {
       className
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded$1);
+    other = _objectWithoutPropertiesLoose(props, _excluded$2);
   const context = React__namespace.useContext(ListContext$1);
   const ownerState = _extends({}, props, {
     alignItems: context.alignItems
   });
-  const classes = useUtilityClasses$1(ownerState);
+  const classes = useUtilityClasses$2(ownerState);
   return /*#__PURE__*/require$$2.jsx(ListItemIconRoot, _extends({
     className: clsx(classes.root, className),
     ownerState: ownerState,
@@ -14045,8 +17277,8 @@ function getListItemTextUtilityClass(slot) {
 const listItemTextClasses = generateUtilityClasses('MuiListItemText', ['root', 'multiline', 'dense', 'inset', 'primary', 'secondary']);
 var listItemTextClasses$1 = listItemTextClasses;
 
-const _excluded = ["children", "className", "disableTypography", "inset", "primary", "primaryTypographyProps", "secondary", "secondaryTypographyProps"];
-const useUtilityClasses = ownerState => {
+const _excluded$1 = ["children", "className", "disableTypography", "inset", "primary", "primaryTypographyProps", "secondary", "secondaryTypographyProps"];
+const useUtilityClasses$1 = ownerState => {
   const {
     classes,
     inset,
@@ -14102,7 +17334,7 @@ const ListItemText = /*#__PURE__*/React__namespace.forwardRef(function ListItemT
       secondary: secondaryProp,
       secondaryTypographyProps
     } = props,
-    other = _objectWithoutPropertiesLoose(props, _excluded);
+    other = _objectWithoutPropertiesLoose(props, _excluded$1);
   const {
     dense
   } = React__namespace.useContext(ListContext$1);
@@ -14115,7 +17347,7 @@ const ListItemText = /*#__PURE__*/React__namespace.forwardRef(function ListItemT
     secondary: !!secondary,
     dense
   });
-  const classes = useUtilityClasses(ownerState);
+  const classes = useUtilityClasses$1(ownerState);
   if (primary != null && primary.type !== Typography$1 && !disableTypography) {
     primary = /*#__PURE__*/require$$2.jsx(Typography$1, _extends({
       variant: dense ? 'body2' : 'body1',
@@ -14198,7 +17430,767 @@ process.env.NODE_ENV !== "production" ? ListItemText.propTypes /* remove-proptyp
    */
   sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object])
 } : void 0;
-var ListItemText$1 = ListItemText;
+var Link = ListItemText;
+
+function getTooltipUtilityClass(slot) {
+  return generateUtilityClass('MuiTooltip', slot);
+}
+const tooltipClasses = generateUtilityClasses('MuiTooltip', ['popper', 'popperInteractive', 'popperArrow', 'popperClose', 'tooltip', 'tooltipArrow', 'touch', 'tooltipPlacementLeft', 'tooltipPlacementRight', 'tooltipPlacementTop', 'tooltipPlacementBottom', 'arrow']);
+var tooltipClasses$1 = tooltipClasses;
+
+const _excluded = ["arrow", "children", "classes", "components", "componentsProps", "describeChild", "disableFocusListener", "disableHoverListener", "disableInteractive", "disableTouchListener", "enterDelay", "enterNextDelay", "enterTouchDelay", "followCursor", "id", "leaveDelay", "leaveTouchDelay", "onClose", "onOpen", "open", "placement", "PopperComponent", "PopperProps", "slotProps", "slots", "title", "TransitionComponent", "TransitionProps"];
+function round(value) {
+  return Math.round(value * 1e5) / 1e5;
+}
+const useUtilityClasses = ownerState => {
+  const {
+    classes,
+    disableInteractive,
+    arrow,
+    touch,
+    placement
+  } = ownerState;
+  const slots = {
+    popper: ['popper', !disableInteractive && 'popperInteractive', arrow && 'popperArrow'],
+    tooltip: ['tooltip', arrow && 'tooltipArrow', touch && 'touch', `tooltipPlacement${capitalize(placement.split('-')[0])}`],
+    arrow: ['arrow']
+  };
+  return composeClasses(slots, getTooltipUtilityClass, classes);
+};
+const TooltipPopper = styled(Popper$1, {
+  name: 'MuiTooltip',
+  slot: 'Popper',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.popper, !ownerState.disableInteractive && styles.popperInteractive, ownerState.arrow && styles.popperArrow, !ownerState.open && styles.popperClose];
+  }
+})(({
+  theme,
+  ownerState,
+  open
+}) => _extends({
+  zIndex: (theme.vars || theme).zIndex.tooltip,
+  pointerEvents: 'none'
+}, !ownerState.disableInteractive && {
+  pointerEvents: 'auto'
+}, !open && {
+  pointerEvents: 'none'
+}, ownerState.arrow && {
+  [`&[data-popper-placement*="bottom"] .${tooltipClasses$1.arrow}`]: {
+    top: 0,
+    marginTop: '-0.71em',
+    '&::before': {
+      transformOrigin: '0 100%'
+    }
+  },
+  [`&[data-popper-placement*="top"] .${tooltipClasses$1.arrow}`]: {
+    bottom: 0,
+    marginBottom: '-0.71em',
+    '&::before': {
+      transformOrigin: '100% 0'
+    }
+  },
+  [`&[data-popper-placement*="right"] .${tooltipClasses$1.arrow}`]: _extends({}, !ownerState.isRtl ? {
+    left: 0,
+    marginLeft: '-0.71em'
+  } : {
+    right: 0,
+    marginRight: '-0.71em'
+  }, {
+    height: '1em',
+    width: '0.71em',
+    '&::before': {
+      transformOrigin: '100% 100%'
+    }
+  }),
+  [`&[data-popper-placement*="left"] .${tooltipClasses$1.arrow}`]: _extends({}, !ownerState.isRtl ? {
+    right: 0,
+    marginRight: '-0.71em'
+  } : {
+    left: 0,
+    marginLeft: '-0.71em'
+  }, {
+    height: '1em',
+    width: '0.71em',
+    '&::before': {
+      transformOrigin: '0 0'
+    }
+  })
+}));
+const TooltipTooltip = styled('div', {
+  name: 'MuiTooltip',
+  slot: 'Tooltip',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.tooltip, ownerState.touch && styles.touch, ownerState.arrow && styles.tooltipArrow, styles[`tooltipPlacement${capitalize(ownerState.placement.split('-')[0])}`]];
+  }
+})(({
+  theme,
+  ownerState
+}) => _extends({
+  backgroundColor: theme.vars ? theme.vars.palette.Tooltip.bg : alpha(theme.palette.grey[700], 0.92),
+  borderRadius: (theme.vars || theme).shape.borderRadius,
+  color: (theme.vars || theme).palette.common.white,
+  fontFamily: theme.typography.fontFamily,
+  padding: '4px 8px',
+  fontSize: theme.typography.pxToRem(11),
+  maxWidth: 300,
+  margin: 2,
+  wordWrap: 'break-word',
+  fontWeight: theme.typography.fontWeightMedium
+}, ownerState.arrow && {
+  position: 'relative',
+  margin: 0
+}, ownerState.touch && {
+  padding: '8px 16px',
+  fontSize: theme.typography.pxToRem(14),
+  lineHeight: `${round(16 / 14)}em`,
+  fontWeight: theme.typography.fontWeightRegular
+}, {
+  [`.${tooltipClasses$1.popper}[data-popper-placement*="left"] &`]: _extends({
+    transformOrigin: 'right center'
+  }, !ownerState.isRtl ? _extends({
+    marginRight: '14px'
+  }, ownerState.touch && {
+    marginRight: '24px'
+  }) : _extends({
+    marginLeft: '14px'
+  }, ownerState.touch && {
+    marginLeft: '24px'
+  })),
+  [`.${tooltipClasses$1.popper}[data-popper-placement*="right"] &`]: _extends({
+    transformOrigin: 'left center'
+  }, !ownerState.isRtl ? _extends({
+    marginLeft: '14px'
+  }, ownerState.touch && {
+    marginLeft: '24px'
+  }) : _extends({
+    marginRight: '14px'
+  }, ownerState.touch && {
+    marginRight: '24px'
+  })),
+  [`.${tooltipClasses$1.popper}[data-popper-placement*="top"] &`]: _extends({
+    transformOrigin: 'center bottom',
+    marginBottom: '14px'
+  }, ownerState.touch && {
+    marginBottom: '24px'
+  }),
+  [`.${tooltipClasses$1.popper}[data-popper-placement*="bottom"] &`]: _extends({
+    transformOrigin: 'center top',
+    marginTop: '14px'
+  }, ownerState.touch && {
+    marginTop: '24px'
+  })
+}));
+const TooltipArrow = styled('span', {
+  name: 'MuiTooltip',
+  slot: 'Arrow',
+  overridesResolver: (props, styles) => styles.arrow
+})(({
+  theme
+}) => ({
+  overflow: 'hidden',
+  position: 'absolute',
+  width: '1em',
+  height: '0.71em' /* = width / sqrt(2) = (length of the hypotenuse) */,
+  boxSizing: 'border-box',
+  color: theme.vars ? theme.vars.palette.Tooltip.bg : alpha(theme.palette.grey[700], 0.9),
+  '&::before': {
+    content: '""',
+    margin: 'auto',
+    display: 'block',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'currentColor',
+    transform: 'rotate(45deg)'
+  }
+}));
+let hystersisOpen = false;
+let hystersisTimer = null;
+let cursorPosition = {
+  x: 0,
+  y: 0
+};
+function composeEventHandler(handler, eventHandler) {
+  return event => {
+    if (eventHandler) {
+      eventHandler(event);
+    }
+    handler(event);
+  };
+}
+
+// TODO v6: Remove PopperComponent, PopperProps, TransitionComponent and TransitionProps.
+const Tooltip = /*#__PURE__*/React__namespace.forwardRef(function Tooltip(inProps, ref) {
+  var _ref, _slots$popper, _ref2, _ref3, _slots$transition, _ref4, _slots$tooltip, _ref5, _slots$arrow, _slotProps$popper, _ref6, _slotProps$popper2, _slotProps$transition, _slotProps$tooltip, _ref7, _slotProps$tooltip2, _slotProps$arrow, _ref8, _slotProps$arrow2;
+  const props = useThemeProps({
+    props: inProps,
+    name: 'MuiTooltip'
+  });
+  const {
+      arrow = false,
+      children: childrenProp,
+      components = {},
+      componentsProps = {},
+      describeChild = false,
+      disableFocusListener = false,
+      disableHoverListener = false,
+      disableInteractive: disableInteractiveProp = false,
+      disableTouchListener = false,
+      enterDelay = 100,
+      enterNextDelay = 0,
+      enterTouchDelay = 700,
+      followCursor = false,
+      id: idProp,
+      leaveDelay = 0,
+      leaveTouchDelay = 1500,
+      onClose,
+      onOpen,
+      open: openProp,
+      placement = 'bottom',
+      PopperComponent: PopperComponentProp,
+      PopperProps = {},
+      slotProps = {},
+      slots = {},
+      title,
+      TransitionComponent: TransitionComponentProp = Grow$1,
+      TransitionProps
+    } = props,
+    other = _objectWithoutPropertiesLoose(props, _excluded);
+
+  // to prevent runtime errors, developers will need to provide a child as a React element anyway.
+  const children = /*#__PURE__*/React__namespace.isValidElement(childrenProp) ? childrenProp : /*#__PURE__*/require$$2.jsx("span", {
+    children: childrenProp
+  });
+  const theme = useTheme();
+  const isRtl = theme.direction === 'rtl';
+  const [childNode, setChildNode] = React__namespace.useState();
+  const [arrowRef, setArrowRef] = React__namespace.useState(null);
+  const ignoreNonTouchEvents = React__namespace.useRef(false);
+  const disableInteractive = disableInteractiveProp || followCursor;
+  const closeTimer = React__namespace.useRef();
+  const enterTimer = React__namespace.useRef();
+  const leaveTimer = React__namespace.useRef();
+  const touchTimer = React__namespace.useRef();
+  const [openState, setOpenState] = useControlled({
+    controlled: openProp,
+    default: false,
+    name: 'Tooltip',
+    state: 'open'
+  });
+  let open = openState;
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const {
+      current: isControlled
+    } = React__namespace.useRef(openProp !== undefined);
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    React__namespace.useEffect(() => {
+      if (childNode && childNode.disabled && !isControlled && title !== '' && childNode.tagName.toLowerCase() === 'button') {
+        console.error(['MUI: You are providing a disabled `button` child to the Tooltip component.', 'A disabled element does not fire events.', "Tooltip needs to listen to the child element's events to display the title.", '', 'Add a simple wrapper element, such as a `span`.'].join('\n'));
+      }
+    }, [title, childNode, isControlled]);
+  }
+  const id = useId(idProp);
+  const prevUserSelect = React__namespace.useRef();
+  const stopTouchInteraction = React__namespace.useCallback(() => {
+    if (prevUserSelect.current !== undefined) {
+      document.body.style.WebkitUserSelect = prevUserSelect.current;
+      prevUserSelect.current = undefined;
+    }
+    clearTimeout(touchTimer.current);
+  }, []);
+  React__namespace.useEffect(() => {
+    return () => {
+      clearTimeout(closeTimer.current);
+      clearTimeout(enterTimer.current);
+      clearTimeout(leaveTimer.current);
+      stopTouchInteraction();
+    };
+  }, [stopTouchInteraction]);
+  const handleOpen = event => {
+    clearTimeout(hystersisTimer);
+    hystersisOpen = true;
+
+    // The mouseover event will trigger for every nested element in the tooltip.
+    // We can skip rerendering when the tooltip is already open.
+    // We are using the mouseover event instead of the mouseenter event to fix a hide/show issue.
+    setOpenState(true);
+    if (onOpen && !open) {
+      onOpen(event);
+    }
+  };
+  const handleClose = useEventCallback(
+  /**
+   * @param {React.SyntheticEvent | Event} event
+   */
+  event => {
+    clearTimeout(hystersisTimer);
+    hystersisTimer = setTimeout(() => {
+      hystersisOpen = false;
+    }, 800 + leaveDelay);
+    setOpenState(false);
+    if (onClose && open) {
+      onClose(event);
+    }
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => {
+      ignoreNonTouchEvents.current = false;
+    }, theme.transitions.duration.shortest);
+  });
+  const handleEnter = event => {
+    if (ignoreNonTouchEvents.current && event.type !== 'touchstart') {
+      return;
+    }
+
+    // Remove the title ahead of time.
+    // We don't want to wait for the next render commit.
+    // We would risk displaying two tooltips at the same time (native + this one).
+    if (childNode) {
+      childNode.removeAttribute('title');
+    }
+    clearTimeout(enterTimer.current);
+    clearTimeout(leaveTimer.current);
+    if (enterDelay || hystersisOpen && enterNextDelay) {
+      enterTimer.current = setTimeout(() => {
+        handleOpen(event);
+      }, hystersisOpen ? enterNextDelay : enterDelay);
+    } else {
+      handleOpen(event);
+    }
+  };
+  const handleLeave = event => {
+    clearTimeout(enterTimer.current);
+    clearTimeout(leaveTimer.current);
+    leaveTimer.current = setTimeout(() => {
+      handleClose(event);
+    }, leaveDelay);
+  };
+  const {
+    isFocusVisibleRef,
+    onBlur: handleBlurVisible,
+    onFocus: handleFocusVisible,
+    ref: focusVisibleRef
+  } = useIsFocusVisible();
+  // We don't necessarily care about the focusVisible state (which is safe to access via ref anyway).
+  // We just need to re-render the Tooltip if the focus-visible state changes.
+  const [, setChildIsFocusVisible] = React__namespace.useState(false);
+  const handleBlur = event => {
+    handleBlurVisible(event);
+    if (isFocusVisibleRef.current === false) {
+      setChildIsFocusVisible(false);
+      handleLeave(event);
+    }
+  };
+  const handleFocus = event => {
+    // Workaround for https://github.com/facebook/react/issues/7769
+    // The autoFocus of React might trigger the event before the componentDidMount.
+    // We need to account for this eventuality.
+    if (!childNode) {
+      setChildNode(event.currentTarget);
+    }
+    handleFocusVisible(event);
+    if (isFocusVisibleRef.current === true) {
+      setChildIsFocusVisible(true);
+      handleEnter(event);
+    }
+  };
+  const detectTouchStart = event => {
+    ignoreNonTouchEvents.current = true;
+    const childrenProps = children.props;
+    if (childrenProps.onTouchStart) {
+      childrenProps.onTouchStart(event);
+    }
+  };
+  const handleMouseOver = handleEnter;
+  const handleMouseLeave = handleLeave;
+  const handleTouchStart = event => {
+    detectTouchStart(event);
+    clearTimeout(leaveTimer.current);
+    clearTimeout(closeTimer.current);
+    stopTouchInteraction();
+    prevUserSelect.current = document.body.style.WebkitUserSelect;
+    // Prevent iOS text selection on long-tap.
+    document.body.style.WebkitUserSelect = 'none';
+    touchTimer.current = setTimeout(() => {
+      document.body.style.WebkitUserSelect = prevUserSelect.current;
+      handleEnter(event);
+    }, enterTouchDelay);
+  };
+  const handleTouchEnd = event => {
+    if (children.props.onTouchEnd) {
+      children.props.onTouchEnd(event);
+    }
+    stopTouchInteraction();
+    clearTimeout(leaveTimer.current);
+    leaveTimer.current = setTimeout(() => {
+      handleClose(event);
+    }, leaveTouchDelay);
+  };
+  React__namespace.useEffect(() => {
+    if (!open) {
+      return undefined;
+    }
+
+    /**
+     * @param {KeyboardEvent} nativeEvent
+     */
+    function handleKeyDown(nativeEvent) {
+      // IE11, Edge (prior to using Bink?) use 'Esc'
+      if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
+        handleClose(nativeEvent);
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleClose, open]);
+  const handleRef = useForkRef(children.ref, focusVisibleRef, setChildNode, ref);
+
+  // There is no point in displaying an empty tooltip.
+  if (!title && title !== 0) {
+    open = false;
+  }
+  const popperRef = React__namespace.useRef();
+  const handleMouseMove = event => {
+    const childrenProps = children.props;
+    if (childrenProps.onMouseMove) {
+      childrenProps.onMouseMove(event);
+    }
+    cursorPosition = {
+      x: event.clientX,
+      y: event.clientY
+    };
+    if (popperRef.current) {
+      popperRef.current.update();
+    }
+  };
+  const nameOrDescProps = {};
+  const titleIsString = typeof title === 'string';
+  if (describeChild) {
+    nameOrDescProps.title = !open && titleIsString && !disableHoverListener ? title : null;
+    nameOrDescProps['aria-describedby'] = open ? id : null;
+  } else {
+    nameOrDescProps['aria-label'] = titleIsString ? title : null;
+    nameOrDescProps['aria-labelledby'] = open && !titleIsString ? id : null;
+  }
+  const childrenProps = _extends({}, nameOrDescProps, other, children.props, {
+    className: clsx(other.className, children.props.className),
+    onTouchStart: detectTouchStart,
+    ref: handleRef
+  }, followCursor ? {
+    onMouseMove: handleMouseMove
+  } : {});
+  if (process.env.NODE_ENV !== 'production') {
+    childrenProps['data-mui-internal-clone-element'] = true;
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    React__namespace.useEffect(() => {
+      if (childNode && !childNode.getAttribute('data-mui-internal-clone-element')) {
+        console.error(['MUI: The `children` component of the Tooltip is not forwarding its props correctly.', 'Please make sure that props are spread on the same element that the ref is applied to.'].join('\n'));
+      }
+    }, [childNode]);
+  }
+  const interactiveWrapperListeners = {};
+  if (!disableTouchListener) {
+    childrenProps.onTouchStart = handleTouchStart;
+    childrenProps.onTouchEnd = handleTouchEnd;
+  }
+  if (!disableHoverListener) {
+    childrenProps.onMouseOver = composeEventHandler(handleMouseOver, childrenProps.onMouseOver);
+    childrenProps.onMouseLeave = composeEventHandler(handleMouseLeave, childrenProps.onMouseLeave);
+    if (!disableInteractive) {
+      interactiveWrapperListeners.onMouseOver = handleMouseOver;
+      interactiveWrapperListeners.onMouseLeave = handleMouseLeave;
+    }
+  }
+  if (!disableFocusListener) {
+    childrenProps.onFocus = composeEventHandler(handleFocus, childrenProps.onFocus);
+    childrenProps.onBlur = composeEventHandler(handleBlur, childrenProps.onBlur);
+    if (!disableInteractive) {
+      interactiveWrapperListeners.onFocus = handleFocus;
+      interactiveWrapperListeners.onBlur = handleBlur;
+    }
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    if (children.props.title) {
+      console.error(['MUI: You have provided a `title` prop to the child of <Tooltip />.', `Remove this title prop \`${children.props.title}\` or the Tooltip component.`].join('\n'));
+    }
+  }
+  const popperOptions = React__namespace.useMemo(() => {
+    var _PopperProps$popperOp;
+    let tooltipModifiers = [{
+      name: 'arrow',
+      enabled: Boolean(arrowRef),
+      options: {
+        element: arrowRef,
+        padding: 4
+      }
+    }];
+    if ((_PopperProps$popperOp = PopperProps.popperOptions) != null && _PopperProps$popperOp.modifiers) {
+      tooltipModifiers = tooltipModifiers.concat(PopperProps.popperOptions.modifiers);
+    }
+    return _extends({}, PopperProps.popperOptions, {
+      modifiers: tooltipModifiers
+    });
+  }, [arrowRef, PopperProps]);
+  const ownerState = _extends({}, props, {
+    isRtl,
+    arrow,
+    disableInteractive,
+    placement,
+    PopperComponentProp,
+    touch: ignoreNonTouchEvents.current
+  });
+  const classes = useUtilityClasses(ownerState);
+  const PopperComponent = (_ref = (_slots$popper = slots.popper) != null ? _slots$popper : components.Popper) != null ? _ref : TooltipPopper;
+  const TransitionComponent = (_ref2 = (_ref3 = (_slots$transition = slots.transition) != null ? _slots$transition : components.Transition) != null ? _ref3 : TransitionComponentProp) != null ? _ref2 : Grow$1;
+  const TooltipComponent = (_ref4 = (_slots$tooltip = slots.tooltip) != null ? _slots$tooltip : components.Tooltip) != null ? _ref4 : TooltipTooltip;
+  const ArrowComponent = (_ref5 = (_slots$arrow = slots.arrow) != null ? _slots$arrow : components.Arrow) != null ? _ref5 : TooltipArrow;
+  const popperProps = appendOwnerState(PopperComponent, _extends({}, PopperProps, (_slotProps$popper = slotProps.popper) != null ? _slotProps$popper : componentsProps.popper, {
+    className: clsx(classes.popper, PopperProps == null ? void 0 : PopperProps.className, (_ref6 = (_slotProps$popper2 = slotProps.popper) != null ? _slotProps$popper2 : componentsProps.popper) == null ? void 0 : _ref6.className)
+  }), ownerState);
+  const transitionProps = appendOwnerState(TransitionComponent, _extends({}, TransitionProps, (_slotProps$transition = slotProps.transition) != null ? _slotProps$transition : componentsProps.transition), ownerState);
+  const tooltipProps = appendOwnerState(TooltipComponent, _extends({}, (_slotProps$tooltip = slotProps.tooltip) != null ? _slotProps$tooltip : componentsProps.tooltip, {
+    className: clsx(classes.tooltip, (_ref7 = (_slotProps$tooltip2 = slotProps.tooltip) != null ? _slotProps$tooltip2 : componentsProps.tooltip) == null ? void 0 : _ref7.className)
+  }), ownerState);
+  const tooltipArrowProps = appendOwnerState(ArrowComponent, _extends({}, (_slotProps$arrow = slotProps.arrow) != null ? _slotProps$arrow : componentsProps.arrow, {
+    className: clsx(classes.arrow, (_ref8 = (_slotProps$arrow2 = slotProps.arrow) != null ? _slotProps$arrow2 : componentsProps.arrow) == null ? void 0 : _ref8.className)
+  }), ownerState);
+  return /*#__PURE__*/require$$2.jsxs(React__namespace.Fragment, {
+    children: [/*#__PURE__*/React__namespace.cloneElement(children, childrenProps), /*#__PURE__*/require$$2.jsx(PopperComponent, _extends({
+      as: PopperComponentProp != null ? PopperComponentProp : Popper$1,
+      placement: placement,
+      anchorEl: followCursor ? {
+        getBoundingClientRect: () => ({
+          top: cursorPosition.y,
+          left: cursorPosition.x,
+          right: cursorPosition.x,
+          bottom: cursorPosition.y,
+          width: 0,
+          height: 0
+        })
+      } : childNode,
+      popperRef: popperRef,
+      open: childNode ? open : false,
+      id: id,
+      transition: true
+    }, interactiveWrapperListeners, popperProps, {
+      popperOptions: popperOptions,
+      children: ({
+        TransitionProps: TransitionPropsInner
+      }) => /*#__PURE__*/require$$2.jsx(TransitionComponent, _extends({
+        timeout: theme.transitions.duration.shorter
+      }, TransitionPropsInner, transitionProps, {
+        children: /*#__PURE__*/require$$2.jsxs(TooltipComponent, _extends({}, tooltipProps, {
+          children: [title, arrow ? /*#__PURE__*/require$$2.jsx(ArrowComponent, _extends({}, tooltipArrowProps, {
+            ref: setArrowRef
+          })) : null]
+        }))
+      }))
+    }))]
+  });
+});
+process.env.NODE_ENV !== "production" ? Tooltip.propTypes /* remove-proptypes */ = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+  /**
+   * If `true`, adds an arrow to the tooltip.
+   * @default false
+   */
+  arrow: PropTypes.bool,
+  /**
+   * Tooltip reference element.
+   */
+  children: elementAcceptingRef$1.isRequired,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The components used for each slot inside.
+   *
+   * This prop is an alias for the `slots` prop.
+   * It's recommended to use the `slots` prop instead.
+   *
+   * @default {}
+   */
+  components: PropTypes.shape({
+    Arrow: PropTypes.elementType,
+    Popper: PropTypes.elementType,
+    Tooltip: PropTypes.elementType,
+    Transition: PropTypes.elementType
+  }),
+  /**
+   * The extra props for the slot components.
+   * You can override the existing props or add new ones.
+   *
+   * This prop is an alias for the `slotProps` prop.
+   * It's recommended to use the `slotProps` prop instead, as `componentsProps` will be deprecated in the future.
+   *
+   * @default {}
+   */
+  componentsProps: PropTypes.shape({
+    arrow: PropTypes.object,
+    popper: PropTypes.object,
+    tooltip: PropTypes.object,
+    transition: PropTypes.object
+  }),
+  /**
+   * Set to `true` if the `title` acts as an accessible description.
+   * By default the `title` acts as an accessible label for the child.
+   * @default false
+   */
+  describeChild: PropTypes.bool,
+  /**
+   * Do not respond to focus-visible events.
+   * @default false
+   */
+  disableFocusListener: PropTypes.bool,
+  /**
+   * Do not respond to hover events.
+   * @default false
+   */
+  disableHoverListener: PropTypes.bool,
+  /**
+   * Makes a tooltip not interactive, i.e. it will close when the user
+   * hovers over the tooltip before the `leaveDelay` is expired.
+   * @default false
+   */
+  disableInteractive: PropTypes.bool,
+  /**
+   * Do not respond to long press touch events.
+   * @default false
+   */
+  disableTouchListener: PropTypes.bool,
+  /**
+   * The number of milliseconds to wait before showing the tooltip.
+   * This prop won't impact the enter touch delay (`enterTouchDelay`).
+   * @default 100
+   */
+  enterDelay: PropTypes.number,
+  /**
+   * The number of milliseconds to wait before showing the tooltip when one was already recently opened.
+   * @default 0
+   */
+  enterNextDelay: PropTypes.number,
+  /**
+   * The number of milliseconds a user must touch the element before showing the tooltip.
+   * @default 700
+   */
+  enterTouchDelay: PropTypes.number,
+  /**
+   * If `true`, the tooltip follow the cursor over the wrapped element.
+   * @default false
+   */
+  followCursor: PropTypes.bool,
+  /**
+   * This prop is used to help implement the accessibility logic.
+   * If you don't provide this prop. It falls back to a randomly generated id.
+   */
+  id: PropTypes.string,
+  /**
+   * The number of milliseconds to wait before hiding the tooltip.
+   * This prop won't impact the leave touch delay (`leaveTouchDelay`).
+   * @default 0
+   */
+  leaveDelay: PropTypes.number,
+  /**
+   * The number of milliseconds after the user stops touching an element before hiding the tooltip.
+   * @default 1500
+   */
+  leaveTouchDelay: PropTypes.number,
+  /**
+   * Callback fired when the component requests to be closed.
+   *
+   * @param {React.SyntheticEvent} event The event source of the callback.
+   */
+  onClose: PropTypes.func,
+  /**
+   * Callback fired when the component requests to be open.
+   *
+   * @param {React.SyntheticEvent} event The event source of the callback.
+   */
+  onOpen: PropTypes.func,
+  /**
+   * If `true`, the component is shown.
+   */
+  open: PropTypes.bool,
+  /**
+   * Tooltip placement.
+   * @default 'bottom'
+   */
+  placement: PropTypes.oneOf(['bottom-end', 'bottom-start', 'bottom', 'left-end', 'left-start', 'left', 'right-end', 'right-start', 'right', 'top-end', 'top-start', 'top']),
+  /**
+   * The component used for the popper.
+   * @default Popper
+   */
+  PopperComponent: PropTypes.elementType,
+  /**
+   * Props applied to the [`Popper`](/material-ui/api/popper/) element.
+   * @default {}
+   */
+  PopperProps: PropTypes.object,
+  /**
+   * The extra props for the slot components.
+   * You can override the existing props or add new ones.
+   *
+   * This prop is an alias for the `componentsProps` prop, which will be deprecated in the future.
+   *
+   * @default {}
+   */
+  slotProps: PropTypes.shape({
+    arrow: PropTypes.object,
+    popper: PropTypes.object,
+    tooltip: PropTypes.object,
+    transition: PropTypes.object
+  }),
+  /**
+   * The components used for each slot inside.
+   *
+   * This prop is an alias for the `components` prop, which will be deprecated in the future.
+   *
+   * @default {}
+   */
+  slots: PropTypes.shape({
+    arrow: PropTypes.elementType,
+    popper: PropTypes.elementType,
+    tooltip: PropTypes.elementType,
+    transition: PropTypes.elementType
+  }),
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
+  /**
+   * Tooltip title. Zero-length titles string, undefined, null and false are never displayed.
+   */
+  title: PropTypes.node,
+  /**
+   * The component used for the transition.
+   * [Follow this guide](/material-ui/transitions/#transitioncomponent-prop) to learn more about the requirements for this component.
+   * @default Grow
+   */
+  TransitionComponent: PropTypes.elementType,
+  /**
+   * Props applied to the transition element.
+   * By default, the element is based on this [`Transition`](http://reactcommunity.org/react-transition-group/transition/) component.
+   */
+  TransitionProps: PropTypes.object
+} : void 0;
+var Tooltip$1 = Tooltip;
 
 /** Detect free variable `global` from Node.js. */
 var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
@@ -15814,6 +19806,8 @@ function styleInject(css, ref) {
 var css_248z = "[data-simplebar]{position:relative;flex-direction:column;flex-wrap:wrap;justify-content:flex-start;align-content:flex-start;align-items:flex-start}.simplebar-wrapper{overflow:hidden;width:inherit;height:inherit;max-width:inherit;max-height:inherit}.simplebar-mask{direction:inherit;position:absolute;overflow:hidden;padding:0;margin:0;left:0;top:0;bottom:0;right:0;width:auto!important;height:auto!important;z-index:0}.simplebar-offset{direction:inherit!important;box-sizing:inherit!important;resize:none!important;position:absolute;top:0;left:0;bottom:0;right:0;padding:0;margin:0;-webkit-overflow-scrolling:touch}.simplebar-content-wrapper{direction:inherit;box-sizing:border-box!important;position:relative;display:block;height:100%;width:auto;max-width:100%;max-height:100%;overflow:auto;scrollbar-width:none;-ms-overflow-style:none}.simplebar-content-wrapper::-webkit-scrollbar,.simplebar-hide-scrollbar::-webkit-scrollbar{display:none;width:0;height:0}.simplebar-content:after,.simplebar-content:before{content:' ';display:table}.simplebar-placeholder{max-height:100%;max-width:100%;width:100%;pointer-events:none}.simplebar-height-auto-observer-wrapper{box-sizing:inherit!important;height:100%;width:100%;max-width:1px;position:relative;float:left;max-height:1px;overflow:hidden;z-index:-1;padding:0;margin:0;pointer-events:none;flex-grow:inherit;flex-shrink:0;flex-basis:0}.simplebar-height-auto-observer{box-sizing:inherit;display:block;opacity:0;position:absolute;top:0;left:0;height:1000%;width:1000%;min-height:1px;min-width:1px;overflow:hidden;pointer-events:none;z-index:-1}.simplebar-track{z-index:1;position:absolute;right:0;bottom:0;pointer-events:none;overflow:hidden}[data-simplebar].simplebar-dragging{pointer-events:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}[data-simplebar].simplebar-dragging .simplebar-content{pointer-events:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}[data-simplebar].simplebar-dragging .simplebar-track{pointer-events:all}.simplebar-scrollbar{position:absolute;left:0;right:0;min-height:10px}.simplebar-scrollbar:before{position:absolute;content:'';background:#000;border-radius:7px;left:2px;right:2px;opacity:0;transition:opacity .2s .5s linear}.simplebar-scrollbar.simplebar-visible:before{opacity:.5;transition-delay:0s;transition-duration:0s}.simplebar-track.simplebar-vertical{top:0;width:11px}.simplebar-scrollbar:before{top:2px;bottom:2px;left:2px;right:2px}.simplebar-track.simplebar-horizontal{left:0;height:11px}.simplebar-track.simplebar-horizontal .simplebar-scrollbar{right:auto;left:0;top:0;bottom:0;min-height:0;min-width:10px;width:auto}[data-simplebar-direction=rtl] .simplebar-track.simplebar-vertical{right:auto;left:0}.simplebar-dummy-scrollbar-size{direction:rtl;position:fixed;opacity:0;visibility:hidden;height:500px;width:500px;overflow-y:hidden;overflow-x:scroll;-ms-overflow-style:scrollbar!important}.simplebar-dummy-scrollbar-size>div{width:200%;height:200%;margin:10px 0}.simplebar-hide-scrollbar{position:fixed;left:0;visibility:hidden;overflow-y:scroll;scrollbar-width:none;-ms-overflow-style:none}\n";
 styleInject(css_248z);
 
+var AlbumOutlined = {};
+
 var interopRequireDefault = {exports: {}};
 
 (function (module) {
@@ -15853,120 +19847,166 @@ function requireCreateSvgIcon () {
 	return createSvgIcon;
 }
 
-const SidebarContext = /*#__PURE__*/React__namespace.createContext(0);
-const MenuContext = /*#__PURE__*/React__namespace.createContext(true);
+var _interopRequireDefault$3 = interopRequireDefaultExports;
+Object.defineProperty(AlbumOutlined, "__esModule", {
+  value: true
+});
+var default_1$3 = AlbumOutlined.default = void 0;
+var _createSvgIcon$3 = _interopRequireDefault$3(requireCreateSvgIcon());
+var _jsxRuntime$3 = require$$2;
+var _default$3 = (0, _createSvgIcon$3.default)( /*#__PURE__*/(0, _jsxRuntime$3.jsx)("path", {
+  d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 5.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+}), 'AlbumOutlined');
+default_1$3 = AlbumOutlined.default = _default$3;
+
+const Profile = /*#__PURE__*/React.forwardRef(({
+  userName = "",
+  designation = "",
+  userimg = "",
+  isCollapse = false
+}, ref) => {
+  const theme = useTheme();
+  return /*#__PURE__*/React.createElement(Box$1, null, isCollapse ? '' : /*#__PURE__*/React.createElement(Box$1, {
+    display: 'flex',
+    alignItems: "center",
+    gap: 2,
+    sx: {
+      m: 3,
+      p: 2,
+      borderRadius: '8px',
+      bgcolor: theme.palette.secondary.main + 20
+    }
+  }, /*#__PURE__*/React.createElement(Avatar$1, {
+    alt: "Remy Sharp",
+    src: userimg
+  }), /*#__PURE__*/React.createElement(Box$1, null, /*#__PURE__*/React.createElement(Typography$1, {
+    variant: "h6"
+  }, userName), /*#__PURE__*/React.createElement(Typography$1, {
+    variant: "caption",
+    color: "textSecondary"
+  }, designation)), /*#__PURE__*/React.createElement(Box$1, {
+    sx: {
+      ml: 'auto'
+    }
+  }, /*#__PURE__*/React.createElement(Tooltip$1, {
+    title: "Logout",
+    placement: "top"
+  }, /*#__PURE__*/React.createElement(IconButton$1, {
+    color: "primary",
+    to: "/",
+    "aria-label": "logout",
+    size: "small"
+  }, /*#__PURE__*/React.createElement(default_1$3, null))))));
+});
+
+const SidebarContext = /*#__PURE__*/React__namespace.createContext({
+  width: "270px",
+  collapsewidth: "80px",
+  textColor: "#8D939D",
+  isCollapse: false,
+  themeColor: "#5d87ff"
+});
 const Sidebar = /*#__PURE__*/React__namespace.forwardRef(({
   children,
-  width = '300px',
-  collapsewidth = "70px",
-  backgroundColor = '#fff',
-  textColor = "#8D939D",
-  collapsible = false,
-  sidebarlogo = "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/dark-logo.svg",
-  miniSidebarlogo = "https://i.imgur.com/UxCyPed.jpg"
+  width = "260px",
+  collapsewidth = "80px",
+  textColor = "#2b2b2b",
+  isCollapse = false,
+  themeColor = "#5d87ff",
+  themeSecondaryColor = "#49beff",
+  mode = "light",
+  direction = "ltr",
+  userName = "Mathew",
+  designation = "Designer",
+  showProfile = true,
+  userimg = "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"
 }, ref) => {
-  const [menu, setmenu] = React__namespace.useState(!collapsible);
-  let toggleWidth = !menu ? collapsewidth : width;
+  const [isSidebarHover, setIsSidebarHover] = React__namespace.useState(false);
+  const toggleWidth = isCollapse && !isSidebarHover ? collapsewidth : width;
   const theme = useTheme();
-  const onHoverEnter = () => {
-    if (!collapsible) {
-      toggleWidth = '300px';
+  const myTheme = createTheme({
+    palette: {
+      mode: mode,
+      primary: {
+        main: themeColor
+      },
+      secondary: {
+        main: themeSecondaryColor,
+        contrastText: '#fff'
+      }
     }
-  };
-  const onHoverLeave = () => {
-    if (!menu) {
-      toggleWidth = '60px';
-    }
-  };
-  return /*#__PURE__*/React__namespace.createElement(Box$1, {
+  });
+  if (mode === "dark") {
+    textColor = "rgba(255,255,255, 0.9)";
+  }
+  return /*#__PURE__*/React__namespace.createElement(ThemeProvider, {
+    theme: myTheme
+  }, /*#__PURE__*/React__namespace.createElement(Box$1, {
+    dir: direction,
     sx: {
       width: toggleWidth,
-      transformOrigin: '0 0 0',
       flexShrink: 0,
-      backgroundColor: "#fff"
-    },
-    px: 3
+      fontFamily: 'inherit',
+      color: textColor
+    }
   }, /*#__PURE__*/React__namespace.createElement(Drawer$1, {
     anchor: "left",
     open: true,
-    onMouseEnter: onHoverEnter,
-    onMouseLeave: onHoverLeave,
     variant: "permanent",
     PaperProps: {
       sx: {
-        transition: theme.transitions.create('width', {
+        transition: theme.transitions.create("width", {
           duration: theme.transitions.duration.shortest
         }),
         width: toggleWidth,
-        boxSizing: 'border-box'
+        boxSizing: "border-box"
       }
     }
   }, /*#__PURE__*/React__namespace.createElement(SimpleBar, {
     style: {
-      maxHeight: 'calc(100% - 90px)'
+      height: showProfile ? "calc(100vh - 140px)" : "calc(100vh - 50px)"
     }
-  }, /*#__PURE__*/React__namespace.createElement(Box$1, {
-    component: "div",
-    sx: {
-      px: 3
-    }
-  }, menu ? /*#__PURE__*/React__namespace.createElement(Box$1, {
-    component: "img",
-    sx: {
-      height: 70,
-      width: 174,
-      display: 'flex',
-      alignItems: 'center'
-    },
-    src: sidebarlogo
-  }) : /*#__PURE__*/React__namespace.createElement(Box$1, {
-    component: "img",
-    sx: {
-      height: 45,
-      width: 50,
-      display: 'flex',
-      alignItems: 'center'
-    },
-    src: miniSidebarlogo
-  })), /*#__PURE__*/React__namespace.createElement(Box$1, {
-    px: 3
-  }, /*#__PURE__*/React__namespace.createElement(MenuContext.Provider, {
-    value: !menu
   }, /*#__PURE__*/React__namespace.createElement(SidebarContext.Provider, {
-    value: textColor
-  }, children)))), /*#__PURE__*/React__namespace.createElement(Box$1, null, "Jai Shree Ram")));
+    value: {
+      textColor,
+      isCollapse,
+      width,
+      collapsewidth,
+      themeColor
+    }
+  }, children)), showProfile ? /*#__PURE__*/React__namespace.createElement(Profile, {
+    userName: userName,
+    designation: designation,
+    userimg: userimg,
+    isCollapse: isCollapse
+  }) : "")));
 });
 
 const Menu = /*#__PURE__*/React__namespace.forwardRef(({
   children,
-  backgroundColor = 'background.paper',
   subHeading = 'menu'
 }, ref) => {
-  const minisidebar = React__namespace.useContext(MenuContext);
-  return /*#__PURE__*/React__namespace.createElement(List$1, {
-    ref: ref,
+  const customizer = React__namespace.useContext(SidebarContext);
+  return /*#__PURE__*/React__namespace.createElement(Box$1, {
     sx: {
-      width: '100%',
-      maxWidth: '100%',
-      paddingTop: '24px',
-      paddingBottom: '0px',
-      bgcolor: backgroundColor
-    },
+      px: customizer.isCollapse ? 2 : 3,
+      pt: 2
+    }
+  }, /*#__PURE__*/React__namespace.createElement(List$1, {
+    ref: ref,
     component: "nav",
-    "aria-labelledby": "nested-list-subheader",
     subheader: /*#__PURE__*/React__namespace.createElement(ListSubheader$1, {
       component: "div",
       sx: {
         paddingY: '3px',
+        color: customizer.textColor,
         paddingX: "0px",
-        lineHeight: '26px',
+        lineHeight: '20px',
         fontWeight: 'bold',
-        fontSize: "12px",
-        color: "#5A6A85"
-      },
-      id: "nested-list-subheader"
-    }, !minisidebar ? subHeading : '...')
-  }, children);
+        fontSize: "12px"
+      }
+    }, !customizer.isCollapse ? subHeading : '...')
+  }, children));
 });
 
 var ExpandLess = {};
@@ -16017,178 +20057,142 @@ const Submenu = /*#__PURE__*/React__namespace.forwardRef(({
   children,
   title = "",
   icon,
-  subTextColor = "",
-  subBackgroundColor = "#eee"
+  borderRadius = "8px",
+  textFontSize = "14px",
+  disabled = false
 }, ref) => {
-  const minisidebar = React__namespace.useContext(MenuContext);
+  const customizer = React__namespace.useContext(SidebarContext);
   const [open, setOpen] = React__namespace.useState(false);
   const handleClick = () => {
     setOpen(!open);
   };
-  const textColorcontext = React__namespace.useContext(SidebarContext);
-  const maintextColor = !subTextColor ? textColorcontext : subTextColor;
   const ListItemStyled = styled(ListItemButton$1)(() => ({
-    whiteSpace: 'nowrap',
-    marginBottom: '0px',
-    padding: '10px 12px',
+    whiteSpace: "nowrap",
     marginBottom: "2px",
-    borderRadius: `7px`,
-    fontSize: '14px',
-    backgroundColor: open ? '#5d87ff' : "#fff",
-    color: "#5A6A85",
-    '.MuiSvgIcon-root': {
-      fontSize: "21px"
+    padding: "10px 12px",
+    borderRadius: borderRadius,
+    color: open ? '#fff' : customizer.textColor,
+    cursor: disabled ? "default" : "pointer",
+    opacity: disabled ? "0.6" : "1",
+    backgroundColor: !open ? "" : customizer.themeColor,
+    ".MuiListItemIcon-root": {
+      color: open ? '#fff' : customizer.textColor
     },
-    '.MuiListItemText-primary': {
-      fontSize: "14px"
-    },
-    '&:hover': {
-      backgroundColor: open ? '#5d87ff' : "#5d87ff1a",
-      color: '#5d87ff',
-      '.MuiListItemIcon-root': {
-        color: open ? '#fff' : "#5d87ff"
-      },
-      '.MuiSvgIcon-root': {
-        color: open ? '#fff' : "#5d87ff"
-      },
-      '.MuiListItemText-primary': {
-        color: open ? '#fff' : "#5d87ff"
+    "&:hover": {
+      backgroundColor: open ? customizer.themeColor : customizer.themeColor + 20,
+      color: open ? '#fff' : customizer.themeColor,
+      ".MuiListItemIcon-root": {
+        color: open ? '#fff' : customizer.themeColor
       }
     }
   }));
   const ListIConStyled = styled(ListItemIcon$1)(() => ({
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '10px',
-    marginBottom: '0px',
-    padding: '0px 0px',
-    minWidth: '30px',
-    cursor: 'pointer',
-    marginLeft: '-10px',
-    borderRadius: `10px`,
-    color: open ? maintextColor : '#fff',
-    '&:hover': {
-      backgroundColor: '#eee',
-      color: '#fff'
-    }
+    display: "flex",
+    gap: "10px",
+    marginBottom: "0px",
+    padding: "0px",
+    minWidth: "30px",
+    cursor: "pointer",
+    color: 'inherit'
   }));
-  return /*#__PURE__*/React__namespace.createElement(Box$1, null, !minisidebar ? /*#__PURE__*/React__namespace.createElement(Box$1, null, /*#__PURE__*/React__namespace.createElement(ListItemStyled, {
+  return /*#__PURE__*/React__namespace.createElement(Box$1, null, /*#__PURE__*/React__namespace.createElement(ListItemStyled, {
     onClick: handleClick,
     sx: {
-      display: 'flex',
+      display: "flex",
       gap: "15px"
     }
-  }, /*#__PURE__*/React__namespace.createElement(ListItemIcon$1, {
+  }, /*#__PURE__*/React__namespace.createElement(ListIConStyled, {
     style: {
       minWidth: "0px"
+    }
+  }, icon ? icon : /*#__PURE__*/React__namespace.createElement(default_1, null)), !customizer.isCollapse ? /*#__PURE__*/React__namespace.createElement(React__namespace.Fragment, null, /*#__PURE__*/React__namespace.createElement(Link, {
+    sx: {
+      my: 0
+    }
+  }, /*#__PURE__*/React__namespace.createElement(Typography$1, {
+    fontSize: textFontSize,
+    sx: {
+      lineHeight: "1"
     },
-    sx: open ? {
-      color: "#fff"
-    } : {
-      color: maintextColor
-    }
-  }, icon ? icon : /*#__PURE__*/React__namespace.createElement(default_1, null)), /*#__PURE__*/React__namespace.createElement(ListItemText$1, {
-    style: {
-      margin: '0px',
-      fontSize: "14px"
-    },
-    primary: title,
-    sx: open ? {
-      color: "#fff"
-    } : {
-      color: maintextColor
-    }
-  }), open ? /*#__PURE__*/React__namespace.createElement(default_1$2, {
-    sx: open ? {
-      color: '#fff'
-    } : {
-      color: maintextColor
-    }
-  }) : /*#__PURE__*/React__namespace.createElement(default_1$1, {
-    sx: open ? {
-      color: '#fff'
-    } : {
-      color: maintextColor
-    }
-  })), /*#__PURE__*/React__namespace.createElement(Collapse$1, {
+    variant: "caption"
+  }, title)), open ? /*#__PURE__*/React__namespace.createElement(default_1$2, null) : /*#__PURE__*/React__namespace.createElement(default_1$1, null)) : ""), /*#__PURE__*/React__namespace.createElement(Collapse$1, {
     in: open,
     timeout: "auto",
     unmountOnExit: true
   }, /*#__PURE__*/React__namespace.createElement(List$1, {
     component: "div",
     disablePadding: true
-  }, /*#__PURE__*/React__namespace.createElement(Box$1, null, children)))) : /*#__PURE__*/React__namespace.createElement(ListIConStyled, null, icon ? icon : /*#__PURE__*/React__namespace.createElement(default_1, {
-    sx: {
-      color: maintextColor
-    }
-  })));
+  }, children)));
 });
 
 const MenuItem = /*#__PURE__*/React__namespace.forwardRef(({
   children,
   icon,
   link = "#",
-  textcolor = "#5A6A85",
   badge = false,
-  badgeColor = 'primary',
-  badgeContent = "new",
+  badgeColor = "primary",
+  badgeContent = "6",
   textFontSize = "14px",
-  disabled = false
+  borderRadius = "8px",
+  disabled = false,
+  badgeType = "filled",
+  target = ""
 }, ref) => {
-  const textColorcontext = React__namespace.useContext(SidebarContext);
-  const minisidebar = React__namespace.useContext(MenuContext);
-  const maintextColor = !textcolor ? textColorcontext : textcolor;
+  const customizer = React__namespace.useContext(SidebarContext);
   const ListItemStyled = styled(ListItemButton$1)(() => ({
-    whiteSpace: 'nowrap',
-    marginBottom: '2px',
-    padding: '10px 12px',
-    borderRadius: `7px`,
-    backgroundColor: '#fff',
-    color: maintextColor,
+    whiteSpace: "nowrap",
+    marginBottom: "2px",
+    padding: "10px 12px",
+    borderRadius: borderRadius,
+    color: customizer.textColor,
     cursor: disabled ? "default" : "pointer",
     opacity: disabled ? "0.6" : "1",
-    '&:hover': {
-      backgroundColor: disabled ? "#fff" : '#5d87ff1a',
-      color: disabled ? maintextColor : '#5d87ff',
-      '.MuiListItemIcon-root': {
-        color: disabled ? maintextColor : "#5d87ff"
+    ".MuiListItemIcon-root": {
+      color: customizer.textColor
+    },
+    "&:hover": {
+      backgroundColor: disabled ? "#fff" : customizer.themeColor + 20,
+      color: customizer.themeColor,
+      ".MuiListItemIcon-root": {
+        color: customizer.themeColor
+      }
+    },
+    '&.Mui-selected': {
+      color: 'white',
+      backgroundColor: customizer.themeColor,
+      '&:hover': {
+        backgroundColor: customizer.themeColor,
+        color: 'white'
+      },
+      ".MuiListItemIcon-root": {
+        color: "#fff"
       }
     }
   }));
-  const ListIConStyled = styled(ListItemIcon$1)(() => ({
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: '10px',
-    marginBottom: '0px',
-    padding: '0px 0px',
-    minWidth: '00px',
-    cursor: 'pointer',
-    marginLeft: '-10px',
-    borderRadius: `10px`,
-    color: open ? maintextColor : '#fff',
-    '&:hover': {
-      backgroundColor: '#eee',
-      color: '#fff'
-    }
+  styled(ListItemIcon$1)(() => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "10px",
+    marginBottom: "0px",
+    padding: "0px 0px",
+    cursor: "pointer",
+    marginLeft: "-10px",
+    color: open ? "inherit" : "#fff"
   }));
-  return /*#__PURE__*/React__namespace.createElement(Box$1, null, !minisidebar ? /*#__PURE__*/React__namespace.createElement(ListItemStyled, {
+  return /*#__PURE__*/React__namespace.createElement(Box$1, null, /*#__PURE__*/React__namespace.createElement(ListItemStyled, {
     href: link,
     sx: {
-      display: 'flex',
+      display: "flex",
       gap: "15px"
-    }
+    },
+    target: target,
+    selected: link == '/' ? true : false
   }, /*#__PURE__*/React__namespace.createElement(ListItemIcon$1, {
     sx: {
-      minWidth: '0px',
-      color: maintextColor
+      minWidth: "0px"
     }
-  }, icon ? icon : /*#__PURE__*/React__namespace.createElement(default_1, {
-    sx: {
-      color: maintextColor
-    }
-  })), /*#__PURE__*/React__namespace.createElement(ListItemText$1, {
+  }, icon ? icon : /*#__PURE__*/React__namespace.createElement(default_1, null)), !customizer.isCollapse ? /*#__PURE__*/React__namespace.createElement(React__namespace.Fragment, null, /*#__PURE__*/React__namespace.createElement(Link, {
     sx: {
       my: 0
     }
@@ -16201,16 +20205,40 @@ const MenuItem = /*#__PURE__*/React__namespace.forwardRef(({
   }, children)), badge ? /*#__PURE__*/React__namespace.createElement(Chip$1, {
     label: badgeContent,
     color: badgeColor,
+    variant: badgeType,
     size: "small"
-  }) : '') : /*#__PURE__*/React__namespace.createElement(ListIConStyled, null, icon ? icon : /*#__PURE__*/React__namespace.createElement(default_1, {
-    sx: {
-      color: maintextColor
-    }
-  })));
+  }) : "") : ""));
 });
 
+const Logo = /*#__PURE__*/React__namespace.forwardRef(({
+  children,
+  img = "https://adminmart.com/wp-content/uploads/2024/03/logo-admin-mart-news.png"
+}, ref) => {
+  const customizer = React__namespace.useContext(SidebarContext);
+  const LogoStyled = styled(Link)(() => ({
+    whiteSpace: "nowrap",
+    overflow: customizer.isCollapse ? 'hidden' : 'visible',
+    WebkitLineClamp: '1',
+    fontSize: '2rem',
+    padding: '15px 22px',
+    textOverflow: 'ellipsis'
+  }));
+  return /*#__PURE__*/React__namespace.createElement(LogoStyled, {
+    href: "/"
+  }, img == "" ? /*#__PURE__*/React__namespace.createElement(Typography$1, {
+    variant: "body"
+  }, children) : /*#__PURE__*/React__namespace.createElement(Box$1, {
+    component: "img",
+    sx: {
+      display: "flex",
+      alignItems: "center"
+    },
+    src: img
+  }));
+});
+
+exports.Logo = Logo;
 exports.Menu = Menu;
-exports.MenuContext = MenuContext;
 exports.MenuItem = MenuItem;
 exports.Sidebar = Sidebar;
 exports.SidebarContext = SidebarContext;

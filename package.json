@@ -1,6 +1,6 @@
 {
   "name": "react-mui-sidebar",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "react mui sidebar",
   "main": "dist/index.js",
   "scripts": {
@@ -43,7 +43,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "simplebar-react": "^3.2.4",
-    "storybook": "^7.6.6"
+    "storybook": "^7.6.17"
   },
   "peerDependencies": {
     "react": "^18.2.0",

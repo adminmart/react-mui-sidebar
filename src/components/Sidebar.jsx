@@ -1,29 +1,19 @@
 import * as React from "react";
 import Drawer from "@mui/material/Drawer";
-import { Box, Typography } from "@mui/material";
+import { Box} from "@mui/material";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
-import MenuIcon from "@mui/icons-material/Menu";
-import Usereimg from "../assets/images/user-1.jpg";
 import { useTheme } from "@mui/material";
-import { IconPower } from "@tabler/icons-react";
-import Tooltip from "@mui/material/Tooltip";
-import Button from "@mui/material/Button";
-import img1 from '../assets/images/user-1.jpg';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Profile } from "./UserProfile";
 
 export const SidebarContext = React.createContext({
-  width: "300px",
+  width: "270px",
   collapsewidth: "80px",
   textColor: "#8D939D",
   isCollapse: false,
   themeColor: "#5d87ff"
-
 });
-
-
-
 export const Sidebar = React.forwardRef(
   (
     {
@@ -38,8 +28,8 @@ export const Sidebar = React.forwardRef(
       direction = "ltr",
       userName = "Mathew",
       designation = "Designer",
-      userimg = img1
-
+      showProfile=true,
+      userimg = "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"
     },
     ref
   ) => {
@@ -91,12 +81,12 @@ export const Sidebar = React.forwardRef(
               },
             }}
           >
-            <SimpleBar style={{ height: "calc(100% - 50px)" }}>
+            <SimpleBar style={{ height: showProfile?"calc(100vh - 140px)":"calc(100vh - 50px)" }}>
               <SidebarContext.Provider value={{ textColor, isCollapse, width, collapsewidth, themeColor }}>
                 {children}
               </SidebarContext.Provider>
             </SimpleBar>
-            <Profile userName={userName} designation={designation} userimg={userimg} isCollapse={isCollapse} />
+           {showProfile?<Profile userName={userName} designation={designation} userimg={userimg} isCollapse={isCollapse} />:""} 
           </Drawer>
         </Box>
       </ThemeProvider>

@@ -15,7 +15,13 @@ import { SidebarContext } from "./Sidebar";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 export const Submenu = React.forwardRef(
-  ({ children, title = "", icon, borderRadius = "8px", textFontSize = "14px", disabled = false, }, ref) => {
+  ({ children, 
+     title = "",
+     icon, 
+     borderRadius = "8px",
+     textFontSize = "14px",
+     disabled = false,
+       }, ref) => {
     const customizer = React.useContext(SidebarContext);
     const [open, setOpen] = React.useState(false);
     const handleClick = () => {

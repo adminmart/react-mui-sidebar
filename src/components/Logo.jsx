@@ -5,7 +5,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { SidebarContext } from "./Sidebar";
 
-export const Logo = React.forwardRef(({ children, img = "https://www.wrappixel.com/wp-content/uploads/2023/07/logo-wrappixel.svg" }, ref) => {
+export const Logo = React.forwardRef(({ 
+     children, 
+     img = "https://adminmart.com/wp-content/uploads/2024/03/logo-admin-mart-news.png"
+ }, ref) => {
   const customizer = React.useContext(SidebarContext);
   const LogoStyled = styled(Link)(() => ({
     
@@ -13,7 +16,7 @@ export const Logo = React.forwardRef(({ children, img = "https://www.wrappixel.c
     overflow: customizer.isCollapse ? 'hidden' : 'visible',
     WebkitLineClamp: '1',
     fontSize:'2rem',
-    padding:'15px 15px',
+    padding:'15px 22px',
     textOverflow: 'ellipsis',
   }));
 
