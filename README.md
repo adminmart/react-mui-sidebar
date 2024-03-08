@@ -119,17 +119,17 @@ export default App
 
 | Props             | Type          | Default                | Description  |
 | :--------         | :--------     | :------------------    |  -           |
-| `width`           |   `string`    |   `260px`              |   set the width of sidebar         |
-| `textColor`           |   `string`    |   `#2b2b2b`              |   set this color to all MenuItem and SubMenu of sidebar         |
-| `isCollapse`           |   `boolean`    |   `false`              |   set the Sidebar to mini sidebar      |
-| `themeColor`           |   `string`    |   `#5d87ff`              |   set the theme primary color      |
-| `themeSecondaryColor`  |   `string`    |   `#49beff`              |   set the theme secondary color     |
-| `mode`           |   `string`    |   `light`              |   set the mode of the Sidebar light or Dark    |
-| `direction`           |   `string`    |   `ltr`              |   set the direction of Sidebar ltr or rtl    |
-| `userName`           |   `string`    |   `Mathew`              |   set the user name of User Profile       |
-| `designation`           |   `string`    |   `Designer`              |   set the user designation of User Profile       |
-| `showProfile`           |   `boolean`    |   `true`              |   show the user profile true or false      |
-| `userimg`           |   `string`    |   `https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg`              |   set the image of user in User Profile      |
+| `width`    |   `string`    |   `260px` |   set the width of sidebar         |
+| `textColor` |   `string`   |   `#2b2b2b`  |   set this color to all MenuItem and SubMenu of sidebar         |
+| `isCollapse`    |   `boolean`  |   `false`  |   set the Sidebar to mini sidebar      |
+| `themeColor`   |   `string`    |   `#5d87ff`  |   set the theme primary color      |
+| `themeSecondaryColor`  |   `string`    |   `#49beff` |   set the theme secondary color     |
+| `mode`   |   `string`    |   `light`  |   set the mode of the Sidebar light or Dark    |
+| `direction`     |   `string`    |   `ltr`  |   set the direction of Sidebar ltr or rtl    |
+| `userName`   |   `string`    |   `Mathew`  |   set the user name of User Profile       |
+| `designation`   |   `string`    |   `Designer`  |   set the user designation of User Profile       |
+| `showProfile`   |   `boolean`    |   `true`  |   show the user profile true or false      |
+| `userimg` |   `string`    |   `user image url` |   set the image of user in User Profile      |
 
 
 
