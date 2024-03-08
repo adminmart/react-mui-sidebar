@@ -9,6 +9,10 @@ React MUI Sidebar helps to create side Navigation.
 - [@adminmart](https://github.com/adminmart)
 
 
+## Screenshots
+
+![App Screenshot](https://adminmart.com/wp-content/uploads/2024/03/mui-sidebar-demo-image.jpg)
+
 ## Installation
 
 To install react mui sidebar npm package
@@ -29,77 +33,33 @@ For any Issues, create new issue on https://github.com/adminmart/react-mui-sideb
 import React from 'react'
 
 import {Sidebar,Menu,MenuItem,Submenu,Logo} from 'react-mui-sidebar'
-import CottageOutlined from "@mui/icons-material/CottageOutlined";
-import InsertChartOutlined from "@mui/icons-material/InsertChartOutlined";
-import ShoppingBagOutlined from "@mui/icons-material/ShoppingBagOutlined";
-import HeadsetMicOutlined from "@mui/icons-material/HeadsetMicTwoTone";
-import CalendarTodayOutlined from "@mui/icons-material/CalendarTodayTwoTone";
-import CardGiftcardOutlined from "@mui/icons-material/CardGiftcardOutlined";
-import AddReactionOutlined from "@mui/icons-material/AddReactionOutlined";
-import WidgetsOutlined from "@mui/icons-material/WidgetsOutlined";
-import InboxOutlined from "@mui/icons-material/InboxOutlined";
-import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
-import PeopleOutlined from "@mui/icons-material/PeopleOutlined";
-import CircleOutlined from "@mui/icons-material/CircleOutlined";
+
 
 const App = () => {
   return (
-        <Sidebar
-        width="270px"
-        collapsewidth="80px"
-        isCollapse={false}
-        mode="light"
-        direction="ltr"
-        themeColor="#5d87ff"
-        themeSecondaryColor="#49beff"
-      >
-        <Logo>Wrappixels</Logo>
-        <Menu subHeading="HOME">
-          <MenuItem
-            link="/"
-            badge="true"
-            badgeColor="secondary"
-            badgeContent="New"
-            icon={<CottageOutlined />}
-          >Modern</MenuItem>
-          <MenuItem link="#" icon={<InsertChartOutlined />}>Analytical</MenuItem>
-          <MenuItem link="#" icon={<ShoppingBagOutlined />}>eCommerce</MenuItem>
-        </Menu>
-        <Menu subHeading="APPS">
-          <MenuItem link="#" icon={<HeadsetMicOutlined />}>Chat</MenuItem>
-          <MenuItem link="#" icon={<CalendarTodayOutlined />}>Calendar</MenuItem>
-        </Menu>
-        <Menu subHeading="OTHER">
-          <Submenu icon={<WidgetsOutlined />} title="Menu Level">
-            <MenuItem icon={<CircleOutlined />}>Dean</MenuItem>
-            <Submenu icon={<PeopleOutlined />} title="Level 2">
-              <MenuItem icon={<CircleOutlined />}>Marrie</MenuItem>
-              <MenuItem icon={<CircleOutlined />}>John</MenuItem>
-            </Submenu>
-          </Submenu>
-          <MenuItem icon={<RemoveCircleOutlineOutlinedIcon />} disabled>Salma</MenuItem>
-          <MenuItem
-            link="#"
-            badge="true"
-            badgeColor="primary"
-            badgeContent="6"
-            icon={<CardGiftcardOutlined />}
-          >Chip</MenuItem>
-          <MenuItem
-            link="#"
-            badge="true"
-            badgeColor="primary"
-            badgeContent="outlined"
-            badgeType="outlined"
-            icon={<InboxOutlined />}
-          >Outline</MenuItem>
-          <MenuItem
-            link="https://google.com"
-            icon={<AddReactionOutlined />}
-            target="_blank"
-          >External Link</MenuItem>
-        </Menu>
-      </Sidebar>
+        <Sidebar width={'270px'}>
+           <Logo>Wrappixels</Logo>
+          <Menu subHeading="NEEDS">
+               <MenuItem link="/sdsa">Modern</MenuItem>
+               <MenuItem>eCommerce</MenuItem>
+           </Menu>
+           <Menu subHeading="HOME">
+               <MenuItem  link="/sdsa" badge="true">Modern</MenuItem>
+               <MenuItem >eCommerce</MenuItem>
+           </Menu>
+           <Menu subHeading="APPS">
+           <MenuItem >Contact</MenuItem>
+             <Submenu subBackgroundColor="#434E5F" sub title="Blog">
+                 <MenuItem >Post</MenuItem>
+                 <MenuItem >Details</MenuItem>
+                    <Submenu subBackgroundColor="#434E5F" sub title="Blog Inner">
+                       <MenuItem >new</MenuItem>
+                       <MenuItem >Hello</MenuItem>
+                    </Submenu>
+             </Submenu>
+             <MenuItem >Chats</MenuItem>
+           </Menu>
+        </Sidebar>
   )
 }
 
