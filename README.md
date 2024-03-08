@@ -13,6 +13,11 @@ React MUI Sidebar helps to create side Navigation.
 
 ![App Screenshot](https://adminmart.com/wp-content/uploads/2024/03/mui-sidebar-demo-image.jpg)
 
+
+## Demo
+
+[Demo](https://react-mui-sidebar.vercel.app)
+
 ## Installation
 
 To install react mui sidebar npm package
