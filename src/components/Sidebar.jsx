@@ -14,6 +14,7 @@ export const SidebarContext = React.createContext({
   isCollapse: false,
   themeColor: "#5d87ff"
 });
+
 export const Sidebar = React.forwardRef(
   (
     {
