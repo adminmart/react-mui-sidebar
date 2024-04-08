@@ -7,12 +7,10 @@ import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography"
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { SidebarContext } from "./Sidebar";
-
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import CircleOutlined from "@mui/icons-material/CircleOutlined";
 
 export const Submenu = React.forwardRef(
   ({ children,
@@ -68,7 +66,7 @@ export const Submenu = React.forwardRef(
           sx={{ display: "flex", gap: "15px" }}
         >
           <ListIConStyled style={{ minWidth: "0px" }}>
-            {icon ? icon : <FiberManualRecordIcon />}
+            {icon ? icon : <CircleOutlined />}
           </ListIConStyled>
           {!customizer.isCollapse ?
             <>

@@ -1,5 +1,4 @@
 import * as React from "react";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { styled, useTheme } from "@mui/material/styles";
 import ListItemText from "@mui/material/ListItemText";
@@ -8,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ListItemButton from "@mui/material/ListItemButton";
 import { SidebarContext } from "./Sidebar";
+import CircleOutlined from "@mui/icons-material/CircleOutlined";
 
 export const MenuItem = React.forwardRef(
   (
@@ -16,7 +16,7 @@ export const MenuItem = React.forwardRef(
       icon,
       link = "#",
       badge = false,
-      badgeColor = "primary",
+      badgeColor = "secondary",
       badgeContent = "6",
       textFontSize = "14px",
       borderRadius = "8px",
@@ -84,7 +84,7 @@ export const MenuItem = React.forwardRef(
             {icon ? (
               icon
             ) : (
-              <FiberManualRecordIcon />
+              <CircleOutlined />
             )}
           </ListItemIcon>
           {!customizer.isCollapse ? (
