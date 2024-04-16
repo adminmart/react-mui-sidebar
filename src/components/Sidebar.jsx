@@ -1,5 +1,4 @@
 import * as React from "react";
-import Drawer from "@mui/material/Drawer";
 import { Box } from "@mui/material";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
@@ -69,20 +68,13 @@ export const Sidebar = React.forwardRef(
           }}
 
         >
-          <Drawer
-            anchor={direction == "ltr" ? 'left' : 'right'}
-            open
+          <Box
 
-            variant="permanent"
-            PaperProps={{
-              sx: {
-                transition: theme.transitions.create("width", {
-                  duration: theme.transitions.duration.shortest,
-                }),
-                width: toggleWidth,
-                boxSizing: "border-box",
-
-              },
+            sx={{
+              width: toggleWidth,
+              transition: theme.transitions.create("width", {
+                duration: theme.transitions.duration.shortest,
+              })
             }}
           >
             <SimpleBar style={{ height: showProfile ? "calc(100vh - 140px)" : "calc(100vh - 50px)" }}>
@@ -91,7 +83,7 @@ export const Sidebar = React.forwardRef(
               </SidebarContext.Provider>
             </SimpleBar>
             {showProfile ? <Profile userName={userName} designation={designation} userimg={userimg} isCollapse={isCollapse} /> : ""}
-          </Drawer>
+          </Box>
         </Box>
       </ThemeProvider>
     );
