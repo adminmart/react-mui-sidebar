@@ -1,7 +1,5 @@
 import * as React from "react";
 import { Box } from "@mui/material";
-import SimpleBar from "simplebar-react";
-import "simplebar-react/dist/simplebar.min.css";
 import { useTheme } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Profile } from "./UserProfile";
@@ -72,16 +70,13 @@ export const Sidebar = React.forwardRef(
 
             sx={{
               width: toggleWidth,
-              transition: theme.transitions.create("width", {
-                duration: theme.transitions.duration.shortest,
-              })
             }}
           >
-            <SimpleBar style={{ height: showProfile ? "calc(100vh - 140px)" : "calc(100vh - 50px)" }}>
+            
               <SidebarContext.Provider value={{ textColor, isCollapse, width, collapsewidth, themeColor }}>
                 {children}
               </SidebarContext.Provider>
-            </SimpleBar>
+             
             {showProfile ? <Profile userName={userName} designation={designation} userimg={userimg} isCollapse={isCollapse} /> : ""}
           </Box>
         </Box>
