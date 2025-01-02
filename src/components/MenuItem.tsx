@@ -9,7 +9,21 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { SidebarContext } from "./Sidebar";
 import CircleOutlined from "@mui/icons-material/CircleOutlined";
 
-export const MenuItem = React.forwardRef(
+type MenuItemProps = {
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+  link?: string;
+  badge?: boolean;
+  badgeColor?: "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning";
+  badgeContent?: string;
+  textFontSize?: string;
+  borderRadius?: string;
+  disabled?: boolean;
+  badgeType?: "filled" | "outlined";
+  target?: string;
+};
+
+export const MenuItem = React.forwardRef<HTMLAnchorElement, MenuItemProps>(
   (
     {
       children,
@@ -22,13 +36,13 @@ export const MenuItem = React.forwardRef(
       borderRadius = "8px",
       disabled = false,
       badgeType = "filled",
-      target = ""
+      target = "",
     },
     ref
   ) => {
-
     const customizer = React.useContext(SidebarContext);
-    const theme = useTheme()
+    const theme = useTheme();
+
     const ListItemStyled = styled(ListItemButton)(() => ({
       whiteSpace: "nowrap",
       marginBottom: "2px",
@@ -70,23 +84,24 @@ export const MenuItem = React.forwardRef(
       padding: "0px 0px",
       cursor: "pointer",
       marginLeft: "-10px",
-      color: open ? "inherit" : "#fff",
+      color: "inherit",
     }));
 
     return (
       <Box>
-        <ListItemStyled href={link} sx={{ display: "flex", gap: "15px" }} target={target} selected={link == '/' ? true : false}>
-          <ListItemIcon
+        <ListItemStyled
+          href={link}
+          sx={{ display: "flex", gap: "15px" }}
+          target={target}
+          selected={link === '/' ? true : false}
+        >
+          <ListIConStyled
             sx={{
               minWidth: "0px",
             }}
           >
-            {icon ? (
-              icon
-            ) : (
-              <CircleOutlined />
-            )}
-          </ListItemIcon>
+            {icon ? icon : <CircleOutlined />}
+          </ListIConStyled>
           {!customizer.isCollapse ? (
             <>
               <ListItemText sx={{ my: 0 }}>
@@ -99,15 +114,16 @@ export const MenuItem = React.forwardRef(
                 </Typography>
               </ListItemText>
 
-              {badge ? (
-                <Chip label={badgeContent} color={badgeColor} variant={badgeType} size="small" />
-              ) : (
-                ""
+              {badge && (
+                <Chip
+                  label={badgeContent}
+                  color={badgeColor}
+                  variant={badgeType}
+                  size="small"
+                />
               )}
             </>
-          ) : (
-            ""
-          )}
+          ) : null}
         </ListItemStyled>
       </Box>
     );

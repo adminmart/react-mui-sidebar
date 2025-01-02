@@ -4,7 +4,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
-import Typography from "@mui/material/Typography"
+import Typography from "@mui/material/Typography";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { styled } from "@mui/material/styles";
@@ -12,17 +12,30 @@ import Box from "@mui/material/Box";
 import { SidebarContext } from "./Sidebar";
 import CircleOutlined from "@mui/icons-material/CircleOutlined";
 
-export const Submenu = React.forwardRef(
-  ({ children,
-    title = "",
-    icon,
-    borderRadius = "8px",
-    textFontSize = "14px",
-    disabled = false,
-  }, ref) => {
+type SubmenuProps = {
+  children: React.ReactNode;
+  title?: string;
+  icon?: React.ReactNode;
+  borderRadius?: string;
+  textFontSize?: string;
+  disabled?: boolean;
+};
 
+export const Submenu = React.forwardRef<HTMLDivElement, SubmenuProps>(
+  (
+    {
+      children,
+      title = "",
+      icon,
+      borderRadius = "8px",
+      textFontSize = "14px",
+      disabled = false,
+    },
+    ref
+  ) => {
     const customizer = React.useContext(SidebarContext);
     const [open, setOpen] = React.useState(false);
+
     const handleClick = () => {
       setOpen(!open);
     };
@@ -32,18 +45,18 @@ export const Submenu = React.forwardRef(
       marginBottom: "2px",
       padding: "10px 12px",
       borderRadius: borderRadius,
-      color: open ? '#fff' : customizer.textColor,
+      color: open ? "#fff" : customizer.textColor,
       cursor: disabled ? "default" : "pointer",
       opacity: disabled ? "0.6" : "1",
       backgroundColor: !open ? "" : customizer.themeColor,
       ".MuiListItemIcon-root": {
-        color: open ? '#fff' : customizer.textColor,
+        color: open ? "#fff" : customizer.textColor,
       },
       "&:hover": {
         backgroundColor: open ? customizer.themeColor : customizer.themeColor + 20,
-        color: open ? '#fff' : customizer.themeColor,
+        color: open ? "#fff" : customizer.themeColor,
         ".MuiListItemIcon-root": {
-          color: open ? '#fff' : customizer.themeColor,
+          color: open ? "#fff" : customizer.themeColor,
         },
       },
     }));
@@ -55,33 +68,25 @@ export const Submenu = React.forwardRef(
       padding: "0px",
       minWidth: "30px",
       cursor: "pointer",
-      color: 'inherit'
+      color: "inherit",
     }));
 
     return (
-      <Box>
-
-        <ListItemStyled
-          onClick={handleClick}
-          sx={{ display: "flex", gap: "15px" }}
-        >
+      <Box ref={ref}>
+        <ListItemStyled onClick={handleClick} sx={{ display: "flex", gap: "15px" }}>
           <ListIConStyled style={{ minWidth: "0px" }}>
             {icon ? icon : <CircleOutlined />}
           </ListIConStyled>
-          {!customizer.isCollapse ?
+          {!customizer.isCollapse && (
             <>
-              <ListItemText sx={{ my: 0 }} >
-                <Typography
-                  fontSize={textFontSize}
-                  sx={{ lineHeight: "1" }}
-                  variant="caption"
-                >
+              <ListItemText sx={{ my: 0 }}>
+                <Typography fontSize={textFontSize} sx={{ lineHeight: "1" }} variant="caption">
                   {title}
                 </Typography>
               </ListItemText>
               {open ? <ExpandLess /> : <ExpandMore />}
             </>
-            : ""}
+          )}
         </ListItemStyled>
 
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -89,7 +94,6 @@ export const Submenu = React.forwardRef(
             {children}
           </List>
         </Collapse>
-
       </Box>
     );
   }

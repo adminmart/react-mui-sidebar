@@ -1,20 +1,25 @@
 import React from 'react';
 import { Box, Avatar, Typography, IconButton, Tooltip, useTheme } from '@mui/material';
 import AlbumOutlinedIcon from '@mui/icons-material/AlbumOutlined';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
-export const Profile = React.forwardRef(({
+interface ProfileProps {
+    userName?: string;
+    designation?: string;
+    userimg?: string;
+    isCollapse?: boolean;
+}
+
+export const Profile = React.forwardRef<HTMLDivElement, ProfileProps>(({
     userName = "",
     designation = "",
     userimg = "",
     isCollapse = false
-},
-    ref
-) => {
+}, ref) => {
     const theme = useTheme();
     return (
         <Box>
             {isCollapse ? '' :
-
                 <Box
                     display={'flex'}
                     alignItems="center"
@@ -31,21 +36,19 @@ export const Profile = React.forwardRef(({
                     </Box>
                     <Box sx={{ ml: 'auto' }}>
                         <Tooltip title="Logout" placement="top">
-                            <IconButton
-                                color="primary"
-
-                                to="/"
-                                aria-label="logout"
-                                size="small"
-                            >
-                                <AlbumOutlinedIcon />
-                            </IconButton>
+                            <Link to="/">  {/* Wrap the IconButton with Link */}
+                                <IconButton
+                                    color="primary"
+                                    aria-label="logout"
+                                    size="small"
+                                >
+                                    <AlbumOutlinedIcon />
+                                </IconButton>
+                            </Link>
                         </Tooltip>
                     </Box>
                 </Box>
-
             }
         </Box>
     );
-}
-);
+});

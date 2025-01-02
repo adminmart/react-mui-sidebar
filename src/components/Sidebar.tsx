@@ -4,15 +4,31 @@ import { useTheme } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Profile } from "./UserProfile";
 
+type SidebarProps = {
+  children: React.ReactNode;
+  width?: string;
+  collapsewidth?: string;
+  textColor?: string;
+  isCollapse?: boolean;
+  themeColor?: string;
+  themeSecondaryColor?: string;
+  mode?: "light" | "dark";
+  direction?: "ltr" | "rtl";
+  userName?: string;
+  designation?: string;
+  showProfile?: boolean;
+  userimg?: string;
+};
+
 export const SidebarContext = React.createContext({
   width: "270px",
   collapsewidth: "80px",
   textColor: "#8D939D",
   isCollapse: false,
-  themeColor: "#5d87ff"
+  themeColor: "#5d87ff",
 });
 
-export const Sidebar = React.forwardRef(
+export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
   (
     {
       children,
@@ -27,7 +43,7 @@ export const Sidebar = React.forwardRef(
       userName = "Mathew",
       designation = "Designer",
       showProfile = true,
-      userimg = "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg"
+      userimg = "https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-1.jpg",
     },
     ref
   ) => {
@@ -43,41 +59,40 @@ export const Sidebar = React.forwardRef(
         },
         secondary: {
           main: themeSecondaryColor,
-          contrastText: '#fff'
-        }
+          contrastText: '#fff',
+        },
       },
     });
 
-
-
-
     if (mode === "dark") {
-      textColor = "rgba(255,255,255, 0.9)"
+      textColor = "rgba(255,255,255, 0.9)";
     }
+
     return (
       <ThemeProvider theme={myTheme}>
-        <Box dir={direction}
+        <Box
+          dir={direction}
           sx={{
             width: toggleWidth,
             flexShrink: 0,
             fontFamily: 'inherit',
             color: textColor,
-
           }}
-
         >
-          <Box
-
-            sx={{
-              width: toggleWidth,
-            }}
-          >
-            
-              <SidebarContext.Provider value={{ textColor, isCollapse, width, collapsewidth, themeColor }}>
-                {children}
-              </SidebarContext.Provider>
-             
-            {showProfile ? <Profile userName={userName} designation={designation} userimg={userimg} isCollapse={isCollapse} /> : ""}
+          <Box sx={{ width: toggleWidth }}>
+            <SidebarContext.Provider
+              value={{ textColor, isCollapse, width, collapsewidth, themeColor }}
+            >
+              {children}
+            </SidebarContext.Provider>
+            {showProfile ? (
+              <Profile
+                userName={userName}
+                designation={designation}
+                userimg={userimg}
+                isCollapse={isCollapse}
+              />
+            ) : null}
           </Box>
         </Box>
       </ThemeProvider>
