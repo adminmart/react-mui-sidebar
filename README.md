@@ -42,7 +42,7 @@ const App = () => {
         AdminMart
       </Logo>
       <Menu subHeading="HOME">
-        <MenuItem link="/" badge="true">
+        <MenuItem link="/" badge={true}>
           Modern
         </MenuItem>
         <MenuItem>eCommerce</MenuItem>
