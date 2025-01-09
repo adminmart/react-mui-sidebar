@@ -1,6 +1,6 @@
-## React MUI Sidebar
+## React MUI Sidebar 
 
-React MUI Sidebar helps to create side Navigation.
+React MUI Sidebar helps to create side Navigation. ( with Typescript )
 
 # Live Demo
 
