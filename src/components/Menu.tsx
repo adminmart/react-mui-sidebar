@@ -9,7 +9,7 @@ type MenuProps = {
   subHeading?: string;
 };
 
-export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
+const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
   ({ children, subHeading = 'menu' }, ref) => {
     const customizer = React.useContext(SidebarContext);
 
@@ -40,3 +40,5 @@ export const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
     );
   }
 );
+
+export {Menu};

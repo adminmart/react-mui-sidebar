@@ -28,7 +28,7 @@ export const SidebarContext = React.createContext({
   themeColor: "#5d87ff",
 });
 
-export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
+const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
   (
     {
       children,
@@ -99,3 +99,5 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
     );
   }
 );
+
+export {Sidebar};

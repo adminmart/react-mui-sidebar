@@ -21,7 +21,7 @@ type SubmenuProps = {
   disabled?: boolean;
 };
 
-export const Submenu = React.forwardRef<HTMLDivElement, SubmenuProps>(
+const Submenu = React.forwardRef<HTMLDivElement, SubmenuProps>(
   (
     {
       children,
@@ -98,3 +98,5 @@ export const Submenu = React.forwardRef<HTMLDivElement, SubmenuProps>(
     );
   }
 );
+
+export {Submenu};

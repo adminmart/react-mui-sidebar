@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+      "jsx": "react-jsx",          // Use the new JSX transform for React 17+
+      "moduleResolution": "node",  // Resolve modules like Node.js, useful for ES modules
+      "esModuleInterop": true,     // Enable interoperability between CommonJS and ES Modules
+      "skipLibCheck": true,        // Skip type checking of declaration files (helpful for faster builds)
+      "strict": true,              // Enable strict type-checking options (recommended for better safety)
+      "declaration": true,         // Generate declaration files (.d.ts)
+      "declarationDir": "dist/types", // Directory to output declaration files
+      "outDir": "dist",            // Directory to output compiled JavaScript files
+      "target": "esnext",          // Specify ECMAScript target version
+      "module": "esnext",          // Use the latest module system (ESM)
+      "lib": ["dom", "esnext"],    // Include necessary library files for the environment
+      "allowJs": false             // Restrict the compilation to TypeScript files only
+    },
+    "include": [
+      "src/**/*",      // Include all files under the src directory
+      "index.ts"      // Include the entry point explicitly (if it’s not inside the src directory)
+    ],
+    "exclude": [
+      "node_modules",  // Exclude node_modules directory from the compilation
+      "dist"           // Exclude the dist directory to avoid compiling output files
+    ]
+  }
+  

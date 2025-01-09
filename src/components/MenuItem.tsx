@@ -23,7 +23,7 @@ type MenuItemProps = {
   target?: string;
 };
 
-export const MenuItem = React.forwardRef<HTMLAnchorElement, MenuItemProps>(
+const MenuItem = React.forwardRef<HTMLAnchorElement, MenuItemProps>(
   (
     {
       children,
@@ -129,3 +129,5 @@ export const MenuItem = React.forwardRef<HTMLAnchorElement, MenuItemProps>(
     );
   }
 );
+
+export {MenuItem};

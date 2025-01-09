@@ -10,7 +10,7 @@ type LogoProps = {
   img?: string;
 };
 
-export const Logo = React.forwardRef<HTMLAnchorElement, LogoProps>(
+const Logo = React.forwardRef<HTMLAnchorElement, LogoProps>(
   ({ children, img = "https://adminmart.com/wp-content/uploads/2024/03/logo-admin-mart-news.png" }, ref) => {
     const customizer = React.useContext(SidebarContext);
 
@@ -43,3 +43,5 @@ export const Logo = React.forwardRef<HTMLAnchorElement, LogoProps>(
     );
   }
 );
+
+export {Logo};

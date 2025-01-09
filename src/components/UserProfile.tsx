@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Avatar, Typography, IconButton, Tooltip, useTheme } from '@mui/material';
 import AlbumOutlinedIcon from '@mui/icons-material/AlbumOutlined';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+// import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 interface ProfileProps {
     userName?: string;
@@ -10,7 +10,7 @@ interface ProfileProps {
     isCollapse?: boolean;
 }
 
-export const Profile = React.forwardRef<HTMLDivElement, ProfileProps>(({
+const Profile = React.forwardRef<HTMLDivElement, ProfileProps>(({
     userName = "",
     designation = "",
     userimg = "",
@@ -36,7 +36,7 @@ export const Profile = React.forwardRef<HTMLDivElement, ProfileProps>(({
                     </Box>
                     <Box sx={{ ml: 'auto' }}>
                         <Tooltip title="Logout" placement="top">
-                            <Link to="/">  {/* Wrap the IconButton with Link */}
+                            {/* <Link to="/">  Wrap the IconButton with Link */}
                                 <IconButton
                                     color="primary"
                                     aria-label="logout"
@@ -44,7 +44,7 @@ export const Profile = React.forwardRef<HTMLDivElement, ProfileProps>(({
                                 >
                                     <AlbumOutlinedIcon />
                                 </IconButton>
-                            </Link>
+                            {/* </Link> */}
                         </Tooltip>
                     </Box>
                 </Box>
@@ -52,3 +52,5 @@ export const Profile = React.forwardRef<HTMLDivElement, ProfileProps>(({
         </Box>
     );
 });
+
+export {Profile};

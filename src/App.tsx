@@ -7,28 +7,7 @@ import { Menu } from "./components/Menu";
 import { MenuItem } from "./components/MenuItem";
 import { Submenu } from './components/Submenu';
 
-// TypeScript interfaces for props (if applicable)
-interface MenuItemProps {
-  link?: string;
-  badge?: boolean;  // Change this to boolean type
-  target?: string;
-  children: React.ReactNode;
-}
 
-interface MenuProps {
-  subHeading: string;
-  children: React.ReactNode;
-}
-
-interface SidebarProps {
-  width: string;
-  children: React.ReactNode;
-}
-
-interface SubmenuProps {
-  title: string;
-  children: React.ReactNode;
-}
 
 function App() {
   return (
