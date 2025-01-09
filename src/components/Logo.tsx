@@ -14,7 +14,7 @@ const Logo = React.forwardRef<HTMLAnchorElement, LogoProps>(
   ({ children, img = "https://adminmart.com/wp-content/uploads/2024/03/logo-admin-mart-news.png" }, ref) => {
     const customizer = React.useContext(SidebarContext);
 
-    const LogoStyled = styled(Link)(() => ({
+    const LogoStyled:any = styled(Link)(() => ({
       whiteSpace: "nowrap",
       overflow: customizer.isCollapse ? 'hidden' : 'visible',
       WebkitLineClamp: '1',

@@ -43,7 +43,7 @@ const MenuItem = React.forwardRef<HTMLAnchorElement, MenuItemProps>(
     const customizer = React.useContext(SidebarContext);
     const theme = useTheme();
 
-    const ListItemStyled = styled(ListItemButton)(() => ({
+    const ListItemStyled:any = styled(ListItemButton)(() => ({
       whiteSpace: "nowrap",
       marginBottom: "2px",
       padding: "10px 12px",
