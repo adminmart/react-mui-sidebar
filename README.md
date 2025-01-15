@@ -24,6 +24,9 @@ To install react mui sidebar npm package
   npm i react-mui-sidebar
 ```
 
+## Note
+if you are using NextJs then add 'use client' at top.
+
 ## Issues
 
 For any Issues, create new issue on https://github.com/adminmart/react-mui-sidebar/issues
@@ -155,7 +158,7 @@ export default App;
 
 | Props      | Type       | Default    | Description                 |
 | :----------| :--------- | :--------- | --------------------------- |
-| `onLogout` | `function` | `void`     | set the logo of the sidebar |
+| `onLogout` | `function` | `void`     | set the Logout function on click |
 
 
 ## Contributing
