@@ -81,9 +81,9 @@ const MenuItem = React.forwardRef<HTMLAnchorElement, MenuItemProps>(
       alignItems: "center",
       gap: "10px",
       marginBottom: "0px",
-      padding: "0px 0px",
+      padding: "0px",
       cursor: "pointer",
-      marginLeft: "-10px",
+      
       color: "inherit",
     }));
 

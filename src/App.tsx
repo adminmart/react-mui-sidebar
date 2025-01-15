@@ -6,8 +6,8 @@ import { Logo } from "./components/Logo";
 import { Menu } from "./components/Menu";
 import { MenuItem } from "./components/MenuItem";
 import { Submenu } from './components/Submenu';
-
-
+import AccessAlarms from "@mui/icons-material/AccessAlarms";
+import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 
 function App() {
   return (
@@ -16,10 +16,10 @@ function App() {
         AdminMart
       </Logo>
       <Menu subHeading="HOME">
-        <MenuItem link="/" badge={true}>  {/* Set badge to boolean true */}
+        <MenuItem icon={<CottageOutlinedIcon/>} link="/" badge={true}>  {/* Set badge to boolean true */}
           Modern
         </MenuItem>
-        <MenuItem>eCommerce</MenuItem>
+        <MenuItem icon={<AccessAlarms/>}>eCommerce</MenuItem>
         <MenuItem>Analytical</MenuItem>
       </Menu>
       <Menu subHeading="APPS">

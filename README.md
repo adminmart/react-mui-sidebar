@@ -34,7 +34,8 @@ For any Issues, create new issue on https://github.com/adminmart/react-mui-sideb
 import React from "react";
 
 import { Sidebar, Menu, MenuItem, Submenu, Logo } from "react-mui-sidebar";
-
+import AccessAlarms from "@mui/icons-material/AccessAlarms";
+import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 const App = () => {
   return (
     <Sidebar width={"270px"}>
@@ -42,10 +43,10 @@ const App = () => {
         AdminMart
       </Logo>
       <Menu subHeading="HOME">
-        <MenuItem link="/" badge={true}>
+        <MenuItem icon={<CottageOutlinedIcon/>} link="/" badge={true}>  {/* Set badge to boolean true */}
           Modern
         </MenuItem>
-        <MenuItem>eCommerce</MenuItem>
+        <MenuItem icon={<AccessAlarms/>}>eCommerce</MenuItem>
         <MenuItem>Analytical</MenuItem>
       </Menu>
       <Menu subHeading="APPS">
@@ -148,6 +149,17 @@ export default App;
 | Props | Type     | Default    | Description                 |
 | :---- | :------- | :--------- | --------------------------- |
 | `img` | `string` | `Logo url` | set the logo of the sidebar |
+
+#### User Profile LogOut Api Reference
+
+```http
+  <Logo></Logo>
+```
+
+| Props      | Type       | Default    | Description                 |
+| :----------| :--------- | :--------- | --------------------------- |
+| `onLogout` | `function` | `void`     | set the logo of the sidebar |
+
 
 ## Contributing
 

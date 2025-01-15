@@ -8,13 +8,15 @@ interface ProfileProps {
     designation?: string;
     userimg?: string;
     isCollapse?: boolean;
+    onLogout?: () => void;
 }
 
 const Profile = React.forwardRef<HTMLDivElement, ProfileProps>(({
     userName = "",
     designation = "",
     userimg = "",
-    isCollapse = false
+    isCollapse = false,
+    onLogout
 }, ref) => {
     const theme = useTheme();
     return (
@@ -34,7 +36,7 @@ const Profile = React.forwardRef<HTMLDivElement, ProfileProps>(({
                             {designation}
                         </Typography>
                     </Box>
-                    <Box sx={{ ml: 'auto' }}>
+                    <Box sx={{ ml: 'auto' }} onClick={onLogout}>
                         <Tooltip title="Logout" placement="top">
                             {/* <Link to="/">  Wrap the IconButton with Link */}
                                 <IconButton
