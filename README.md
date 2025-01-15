@@ -152,9 +152,6 @@ export default App;
 
 #### User Profile LogOut Api Reference
 
-```http
-  <Logo></Logo>
-```
 
 | Props      | Type       | Default    | Description                 |
 | :----------| :--------- | :--------- | --------------------------- |
