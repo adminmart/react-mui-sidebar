@@ -1,6 +1,6 @@
-## React MUI Sidebar 
+## React MUI Sidebar
 
-React MUI Sidebar helps to create side Navigation. ( with Typescript )
+React MUI Sidebar helps to create side Navigation.
 
 # Live Demo
 
@@ -24,9 +24,6 @@ To install react mui sidebar npm package
   npm i react-mui-sidebar
 ```
 
-## Note
-if you are using NextJs then add 'use client' at top.
-
 ## Issues
 
 For any Issues, create new issue on https://github.com/adminmart/react-mui-sidebar/issues
@@ -37,8 +34,7 @@ For any Issues, create new issue on https://github.com/adminmart/react-mui-sideb
 import React from "react";
 
 import { Sidebar, Menu, MenuItem, Submenu, Logo } from "react-mui-sidebar";
-import AccessAlarms from "@mui/icons-material/AccessAlarms";
-import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
+
 const App = () => {
   return (
     <Sidebar width={"270px"}>
@@ -46,10 +42,10 @@ const App = () => {
         AdminMart
       </Logo>
       <Menu subHeading="HOME">
-        <MenuItem icon={<CottageOutlinedIcon/>} link="/" badge={true}>  {/* Set badge to boolean true */}
+        <MenuItem link="/" badge="true">
           Modern
         </MenuItem>
-        <MenuItem icon={<AccessAlarms/>}>eCommerce</MenuItem>
+        <MenuItem>eCommerce</MenuItem>
         <MenuItem>Analytical</MenuItem>
       </Menu>
       <Menu subHeading="APPS">
@@ -152,14 +148,6 @@ export default App;
 | Props | Type     | Default    | Description                 |
 | :---- | :------- | :--------- | --------------------------- |
 | `img` | `string` | `Logo url` | set the logo of the sidebar |
-
-#### User Profile LogOut Api Reference
-
-
-| Props      | Type       | Default    | Description                 |
-| :----------| :--------- | :--------- | --------------------------- |
-| `onLogout` | `function` | `void`     | set the Logout function on click |
-
 
 ## Contributing
 
