@@ -12780,39 +12780,40 @@ const Wm = ({
   borderRadius: c = "8px",
   disabled: l = !1,
   badgeType: u = "filled",
-  target: p = ""
+  target: p = "",
+  isSelected: m = !1
 }) => {
-  const m = C.useContext(Fr), g = Lr(), x = le(ni)(() => ({
+  const g = C.useContext(Fr), x = Lr(), b = le(ni)(() => ({
     whiteSpace: "nowrap",
     marginBottom: "2px",
     padding: "10px 12px",
-    textAlign: g.direction === "ltr" ? "left" : "right",
+    textAlign: x.direction === "ltr" ? "left" : "right",
     borderRadius: c,
-    color: m.textColor,
+    color: g.textColor,
     cursor: l ? "default" : "pointer",
     opacity: l ? "0.6" : "1",
     ".MuiListItemIcon-root": {
-      color: m.textColor
+      color: g.textColor
     },
     "&:hover": {
-      backgroundColor: l ? "#fff" : m.themeColor + 20,
-      color: m.themeColor,
+      backgroundColor: l ? "#fff" : g.themeColor + 20,
+      color: g.themeColor,
       ".MuiListItemIcon-root": {
-        color: m.themeColor
+        color: g.themeColor
       }
     },
     "&.Mui-selected": {
       color: "white",
-      backgroundColor: m.themeColor,
+      backgroundColor: g.themeColor,
       "&:hover": {
-        backgroundColor: m.themeColor,
+        backgroundColor: g.themeColor,
         color: "white"
       },
       ".MuiListItemIcon-root": {
         color: "#fff"
       }
     }
-  })), b = le(oi)(() => ({
+  })), f = le(oi)(() => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -12823,15 +12824,15 @@ const Wm = ({
     color: "inherit"
   }));
   return /* @__PURE__ */ N.jsx(dt, { children: /* @__PURE__ */ N.jsxs(
-    x,
+    b,
     {
       href: r,
       sx: { display: "flex", gap: "15px" },
       target: p,
-      selected: r === "/",
+      selected: !!m,
       children: [
         /* @__PURE__ */ N.jsx(
-          b,
+          f,
           {
             sx: {
               minWidth: "0px"
@@ -12839,7 +12840,7 @@ const Wm = ({
             children: t || /* @__PURE__ */ N.jsx(Ds, {})
           }
         ),
-        m.isCollapse ? null : /* @__PURE__ */ N.jsxs(N.Fragment, { children: [
+        g.isCollapse ? null : /* @__PURE__ */ N.jsxs(N.Fragment, { children: [
           /* @__PURE__ */ N.jsx(Un, { sx: { my: 0 }, children: /* @__PURE__ */ N.jsx(
             bt,
             {

@@ -21,6 +21,7 @@ type MenuItemProps = {
   disabled?: boolean;
   badgeType?: "filled" | "outlined";
   target?: string;
+  isSelected?: boolean
 };
 
 const MenuItem = (
@@ -37,6 +38,7 @@ const MenuItem = (
       disabled = false,
       badgeType = "filled",
       target = "",
+      isSelected = false
     }:MenuItemProps
   ) => {
     const customizer = React.useContext(SidebarContext);
@@ -92,7 +94,7 @@ const MenuItem = (
           href={link}
           sx={{ display: "flex", gap: "15px" }}
           target={target}
-          selected={link === '/' ? true : false}
+          selected={isSelected ? true : false}
         >
           <ListIConStyled
             sx={{

@@ -11,6 +11,7 @@ type MenuItemProps = {
     disabled?: boolean;
     badgeType?: "filled" | "outlined";
     target?: string;
+    isSelected?: boolean;
 };
-declare const MenuItem: ({ children, icon, link, badge, badgeColor, badgeContent, textFontSize, borderRadius, disabled, badgeType, target, }: MenuItemProps) => import("react/jsx-runtime").JSX.Element;
+declare const MenuItem: ({ children, icon, link, badge, badgeColor, badgeContent, textFontSize, borderRadius, disabled, badgeType, target, isSelected }: MenuItemProps) => import("react/jsx-runtime").JSX.Element;
 export { MenuItem };

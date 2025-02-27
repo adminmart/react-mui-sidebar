@@ -139,6 +139,7 @@ export default App;
 | `disabled`     | `boolean`   | `false`                               | enable/disable the menu item                  |
 | `badgeType`    | `string`    | `filled`                              | set badgeType of menu item filled or outlined |
 | `target`       | `string`    | ``                                    | set target of menu item \_blank               |
+| `isSelected`   | `boolean`   | `false`                               | set selected menu item                        |
 
 #### Logo Api Reference
 
