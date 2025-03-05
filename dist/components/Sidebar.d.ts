@@ -22,5 +22,5 @@ export declare const SidebarContext: React.Context<{
     isCollapse: boolean;
     themeColor: string;
 }>;
-declare const Sidebar: ({ children, width, collapsewidth, textColor, isCollapse, themeColor, themeSecondaryColor, mode, direction, userName, designation, showProfile, userimg, onLogout }: SidebarProps) => import("react/jsx-runtime").JSX.Element;
+declare const Sidebar: ({ children, width, collapsewidth, textColor, isCollapse, themeColor, themeSecondaryColor, mode, direction, userName, designation, showProfile, userimg, onLogout, }: SidebarProps) => import("react/jsx-runtime").JSX.Element;
 export { Sidebar };

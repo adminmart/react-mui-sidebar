@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import ListItemButton from "@mui/material/ListItemButton";
 import { SidebarContext } from "./Sidebar";
 import CircleOutlined from "@mui/icons-material/CircleOutlined";
-//import Links from "./Links";
+import Links from "./Links";
 
 type MenuItemProps = {
   children: React.ReactNode;
@@ -97,43 +97,43 @@ const MenuItem = ({
 
   return (
     <Box>
-      <ListItemStyled
-        sx={{ display: "flex", gap: "15px" }}
-        target={target}
-        to={link}
-        component={component}
-        selected={isSelected ? true : false}
-      >
-        <ListIConStyled
-          sx={{
-            minWidth: "0px",
-          }}
+      <Links component={component} href={link} to={link}>
+        <ListItemStyled
+          sx={{ display: "flex", gap: "15px" }}
+          target={target}
+          selected={isSelected ? true : false}
         >
-          {icon ? icon : <CircleOutlined />}
-        </ListIConStyled>
-        {!customizer.isCollapse ? (
-          <>
-            <ListItemText sx={{ my: 0 }}>
-              <Typography
-                fontSize={textFontSize}
-                sx={{ lineHeight: "1" }}
-                variant="caption"
-              >
-                {children}
-              </Typography>
-            </ListItemText>
+          <ListIConStyled
+            sx={{
+              minWidth: "0px",
+            }}
+          >
+            {icon ? icon : <CircleOutlined />}
+          </ListIConStyled>
+          {!customizer.isCollapse ? (
+            <>
+              <ListItemText sx={{ my: 0 }}>
+                <Typography
+                  fontSize={textFontSize}
+                  sx={{ lineHeight: "1" }}
+                  variant="caption"
+                >
+                  {children}
+                </Typography>
+              </ListItemText>
 
-            {badge && (
-              <Chip
-                label={badgeContent}
-                color={badgeColor}
-                variant={badgeType}
-                size="small"
-              />
-            )}
-          </>
-        ) : null}
-      </ListItemStyled>
+              {badge && (
+                <Chip
+                  label={badgeContent}
+                  color={badgeColor}
+                  variant={badgeType}
+                  size="small"
+                />
+              )}
+            </>
+          ) : null}
+        </ListItemStyled>
+      </Links>
     </Box>
   );
 };

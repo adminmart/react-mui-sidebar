@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { SidebarContext } from "./Sidebar";
-import { Link } from "@mui/material";
+import Links from "./Links";
 
 type LogoProps = {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ const Logo = ({
 }: LogoProps) => {
   const customizer = React.useContext(SidebarContext);
 
-  const LogoStyled: any = styled(Link)(() => ({
+  const LogoStyled: any = styled("span")(() => ({
     whiteSpace: "nowrap",
     overflow: customizer.isCollapse ? "hidden" : "visible",
     WebkitLineClamp: "1",
@@ -31,20 +31,22 @@ const Logo = ({
   }));
 
   return (
-    <LogoStyled to={href} component={component}>
-      {img === "" ? (
-        <Typography variant="body1">{children}</Typography>
-      ) : (
-        <Box
-          component="img"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-          src={img}
-        />
-      )}
-    </LogoStyled>
+    <Links href={href} component={component} to={href}>
+      <LogoStyled>
+        {img === "" ? (
+          <Typography variant="body1">{children}</Typography>
+        ) : (
+          <Box
+            component="img"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+            src={img}
+          />
+        )}
+      </LogoStyled>
+    </Links>
   );
 };
 

@@ -11,7 +11,11 @@ const Links: React.FC<MenuItemProps> = ({
   children,
   ...props
 }) => {
-  return <Component {...props}>{children}</Component>;
+  return (
+    <Component {...props} style={{ textDecoration: "none" }}>
+      {children}
+    </Component>
+  );
 };
 
 export default Links;
