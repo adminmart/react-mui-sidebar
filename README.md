@@ -153,20 +153,21 @@ export default App;
   <MenuItem></MenuItem>
 ```
 
-| Props          | Type        | Default                               | Description                                         |
-| :------------- | :---------- | :------------------------------------ | --------------------------------------------------- |
-| `icon`         | `component` | `mui icon - <FiberManualRecordIcon/>` | set icon of menu item                               |
-| `link`         | `string`    | `#`                                   | pass link for component to redirect                 |
-| `component `   | `component` | `Link `                               | set react router link or nextjs Link to apply route |
-| `badge`        | `boolean`   | `false`                               | set the badge on menu items                         |
-| `badgeColor`   | `string`    | `primary`                             | set badge color                                     |
-| `badgeContent` | `string`    | `6`                                   | set content on badge                                |
-| `textFontSize` | `string`    | `14px`                                | set font size of menu item                          |
-| `borderRadius` | `string`    | `8px`                                 | set border radius of menu item                      |
-| `disabled`     | `boolean`   | `false`                               | enable/disable the menu item                        |
-| `badgeType`    | `string`    | `filled`                              | set badgeType of menu item filled or outlined       |
-| `target`       | `string`    | ``                                    | set target of menu item \_blank                     |
-| `isSelected`   | `boolean`   | `false`                               | set selected menu item                              |
+| Props            | Type        | Default                               | Description                                         |
+| :--------------- | :---------- | :------------------------------------ | --------------------------------------------------- |
+| `icon`           | `component` | `mui icon - <FiberManualRecordIcon/>` | set icon of menu item                               |
+| `link`           | `string`    | `#`                                   | pass link for component to redirect                 |
+| `component `     | `component` | `Link `                               | set react router link or nextjs Link to apply route |
+| `badge`          | `boolean`   | `false`                               | set the badge on menu items                         |
+| `badgeColor`     | `string`    | `primary`                             | set badge color                                     |
+| `badgeTextColor` | `string`    | `#ffffff`                             | set any badge text color                            |
+| `badgeContent`   | `string`    | `6`                                   | set content on badge                                |
+| `textFontSize`   | `string`    | `14px`                                | set font size of menu item                          |
+| `borderRadius`   | `string`    | `8px`                                 | set border radius of menu item                      |
+| `disabled`       | `boolean`   | `false`                               | enable/disable the menu item                        |
+| `badgeType`      | `string`    | `filled`                              | set badgeType of menu item filled or outlined       |
+| `target`         | `string`    | ``                                    | set target of menu item \_blank                     |
+| `isSelected`     | `boolean`   | `false`                               | set selected menu item                              |
 
 #### Logo Api Reference
 

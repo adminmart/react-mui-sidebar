@@ -25,6 +25,7 @@ type MenuItemProps = {
     | "success"
     | "warning";
   badgeContent?: string;
+  badgeTextColor?: string;
   textFontSize?: string;
   borderRadius?: string;
   disabled?: boolean;
@@ -41,6 +42,7 @@ const MenuItem = ({
   link = "/",
   badgeColor = "secondary",
   badgeContent = "6",
+  badgeTextColor = "#fff",
   textFontSize = "14px",
   borderRadius = "8px",
   disabled = false,
@@ -128,6 +130,7 @@ const MenuItem = ({
                   color={badgeColor}
                   variant={badgeType}
                   size="small"
+                  sx={{ color: badgeTextColor }}
                 />
               )}
             </>
