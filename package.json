@@ -1,6 +1,6 @@
 {
   "name": "react-mui-sidebar",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "type": "module",
   "description": "react mui sidebar",
   "main": "dist/index.umd.js",
