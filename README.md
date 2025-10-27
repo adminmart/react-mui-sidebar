@@ -21,9 +21,9 @@ React MUI Sidebar helps to create side Navigation.
 We’ve built a **complete Admin Dashboard Template** using this npm package!  
 It’s the perfect example of how you can use `react-mui-sidebar` in a real-world app.
 
-👉 **Check it out here:** [Dashboard Template](https://adminmart.com/product/modernize-free-nextjs-admin-template/)
-*(Built using `react-mui-sidebar`)*
+👉 **Check it out here:** 
 
+[![App Screenshot](https://camo.githubusercontent.com/d41985fb0401c35774203e019c8616f5556ceb62153ad349a4a56354f55569cd/68747470733a2f2f61646d696e6d6172742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323032332f30332f6d6f6465726e697a652d667265652d6e6578742d6a732d61646d696e2d74656d706c6174652e706e67)](https://adminmart.com/product/modernize-free-nextjs-admin-template/)
 
 
 ## Installation
