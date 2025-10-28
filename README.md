@@ -23,9 +23,9 @@ It’s the perfect example of how you can use `react-mui-sidebar` in a real-worl
 
 
 
-[![App Screenshot](https://camo.githubusercontent.com/d41985fb0401c35774203e019c8616f5556ceb62153ad349a4a56354f55569cd/68747470733a2f2f61646d696e6d6172742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323032332f30332f6d6f6465726e697a652d667265652d6e6578742d6a732d61646d696e2d74656d706c6174652e706e67)](https://adminmart.com/product/modernize-free-nextjs-admin-template/)
+[![App Screenshot](https://camo.githubusercontent.com/d41985fb0401c35774203e019c8616f5556ceb62153ad349a4a56354f55569cd/68747470733a2f2f61646d696e6d6172742e636f6d2f77702d636f6e74656e742f75706c6f6164732f323032332f30332f6d6f6465726e697a652d667265652d6e6578742d6a732d61646d696e2d74656d706c6174652e706e67)](https://adminmart.com/product/modernize-free-nextjs-admin-template/?ref=43)
 
-👉 **Check it out here:** [Dashboard Template](https://adminmart.com/product/modernize-free-nextjs-admin-template/)  
+👉 **Check it out here:** [Dashboard Template](https://adminmart.com/product/modernize-free-nextjs-admin-template/?ref=43)  
 
 
 ## Installation
@@ -193,8 +193,24 @@ export default App;
 | `href`       | `string`    | `set url`  | set any url you wanted to redirect                  |
 | `component ` | `component` | `Link `    | set react router link or nextjs Link to apply route |
 
+
+## 🔗 Related Sidebars
+ 
+Looking for a Tailwind CSS alternative to this Material UI-based sidebar?  
+Explore our companion package below:
+ 
+### [React Tailwind Sidebar](https://www.npmjs.com/package/react-tailwind-sidebar)
+ 
+A modern, responsive, and fully customizable sidebar component built with **React** and **Tailwind CSS** — perfect for creating clean and functional dashboards, admin panels, and web applications.
+ 
+---
+ 
+💡 Both `react-mui-sidebar` and `react-tailwind-sidebar` are crafted to simplify sidebar development — offering flexible layouts, effortless customization, and developer-friendly APIs.
+
+
 ## Contributing
 
 Contributions are always welcome!
 
 Please adhere to this project's `code of conduct`.
+
